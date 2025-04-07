@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-THRESHOLD_VALUE = 127  # Valor de umbral para binarización
+THRESHOLD_VALUE = 150  # Valor de umbral para binarización
 
 # ----- 1. Cargar y binarizar la imagen -----
 # Cargar imagen en escala de grises
@@ -24,16 +24,25 @@ plt.show()
 # Umbralización para binarizar la imagen
 # Se utiliza un valor de umbral fijo para convertir la imagen a binaria
 _, binary_image = cv2.threshold(image, THRESHOLD_VALUE, 255, cv2.THRESH_BINARY)
-negative_image = cv2.bitwise_not(binary_image)
-
 # binary_image = cv2.adaptiveThreshold(
 #     image, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2
 # )
+
+out_gaussian = cv2.GaussianBlur(binary_image, (5, 5), 0)
+
+# Invertir la imagen binarizada para obtener la imagen negativa
+negative_image = cv2.bitwise_not(out_gaussian)
 
 # Mostrar imagen binarizada
 plt.figure(figsize=(6, 6))
 plt.imshow(binary_image, cmap='gray')
 plt.title('Imagen Binarizada')
+plt.axis('off')
+plt.show()
+
+plt.figure(figsize=(6, 6))
+plt.imshow(out_gaussian, cmap='gray')
+plt.title('Imagen Suavizada')
 plt.axis('off')
 plt.show()
 
