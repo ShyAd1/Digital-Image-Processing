@@ -11,7 +11,7 @@ binary_image = None
 negative_image = None
 gaussian_binary_image = None
 gaussian_negative_image = None
-THRESHOLD_VALUE = 100  # Valor de umbral inicial
+THRESHOLD_VALUE = 200  # Valor de umbral inicial
 
 def load_image():
     global original_image
