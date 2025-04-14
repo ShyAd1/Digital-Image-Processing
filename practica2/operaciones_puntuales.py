@@ -591,7 +591,7 @@ btn_add = tk.Button(
     padx=10,
     pady=5,
 )
-btn_add.grid(row=0, column=6, padx=5)
+btn_add.grid(row=1, column=0, padx=5)
 
 # Crear un botón para restar imágenes
 btn_subtract = tk.Button(
@@ -604,7 +604,7 @@ btn_subtract = tk.Button(
     padx=10,
     pady=5,
 )
-btn_subtract.grid(row=0, column=7, padx=5)
+btn_subtract.grid(row=1, column=1, padx=5)
 
 # Crear un botón para multiplicar imágenes
 btn_multiply = tk.Button(
@@ -617,7 +617,7 @@ btn_multiply = tk.Button(
     padx=10,
     pady=5,
 )
-btn_multiply.grid(row=0, column=8, padx=5)
+btn_multiply.grid(row=1, column=2, padx=5)
 
 # Crear un botón para AND de imágenes
 btn_and = tk.Button(
@@ -630,7 +630,7 @@ btn_and = tk.Button(
     padx=10,
     pady=5,
 )
-btn_and.grid(row=0, column=9, padx=5)
+btn_and.grid(row=1, column=3, padx=5)
 
 # Crear un botón para OR de imágenes
 btn_or = tk.Button(
@@ -643,7 +643,7 @@ btn_or = tk.Button(
     padx=10,
     pady=5,
 )
-btn_or.grid(row=0, column=10, padx=5)
+btn_or.grid(row=1, column=4, padx=5)
 
 # Crear un botón para XOR de imágenes
 btn_xor = tk.Button(
@@ -656,7 +656,7 @@ btn_xor = tk.Button(
     padx=10,
     pady=5,
 )
-btn_xor.grid(row=0, column=11, padx=5)
+btn_xor.grid(row=1, column=5, padx=5)
 
 # Crear slider para ajustar el valor de umbral
 slider_label1 = tk.Label(
