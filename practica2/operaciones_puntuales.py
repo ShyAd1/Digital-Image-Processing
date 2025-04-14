@@ -22,7 +22,6 @@ THRESHOLD_VALUE = 127  # Valor de umbral inicial
 
 # Definición de funciones para las operaciones de procesamiento de imágenes
 
-
 # Función para actualizar el valor del umbral
 def update_threshold(value):
     global THRESHOLD_VALUE
