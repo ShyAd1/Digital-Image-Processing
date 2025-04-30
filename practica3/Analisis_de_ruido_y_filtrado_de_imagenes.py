@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tkinter as tk
 from scipy import stats
-from scipy.ndimage import generic_filter
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
 
@@ -20,17 +19,20 @@ label2 = None
 label3 = None
 max_size = 400  # Tamaño máximo para las imágenes
 RUIDO_SAL_PIMIENTA = 0.05
-MEDIA = 0 # Media para ruido gaussiano
-SIGMA = 25 # Desviacion estandar para ruido gaussiano
+MEDIA = 0  # Media para ruido gaussiano
+SIGMA = 25  # Desviacion estandar para ruido gaussiano
 
 # Definicion de funciones para las operaciones del procesamiento de imagenes
 
+
+# Funciones para actualizar los sliders
 # Funcion para actualizar el ruido gaussiano (media)
 def update_noise_gauss_media(value):
     global MEDIA
     MEDIA = value
     # Actualizar el texto del label del slider
     slider_media.config(text=f"Ajustar valor de media (ruido gaussiano): {MEDIA}")
+
 
 # Funcion para actualizar el ruido gaussiano (sigma)
 def update_noise_gauss_sigma(value):
@@ -39,18 +41,18 @@ def update_noise_gauss_sigma(value):
     # Actualizar el texto del label del slider
     slider_sigma.config(text=f"Ajustar valor de sigma (ruido gaussiano): {SIGMA}")
 
+
 # Funcion para actualizar el ruido de sal y pimienta
 def update_noise_s_p(value):
     global RUIDO_SAL_PIMIENTA
     RUIDO_SAL_PIMIENTA = value
     # Actualizar el texto del label del slider
-    slider_label1.config(text=f"Ajustar valor de ruido sal y pimienta: {RUIDO_SAL_PIMIENTA}")
-
-
+    slider_label1.config(
+        text=f"Ajustar valor de ruido sal y pimienta: {RUIDO_SAL_PIMIENTA}"
+    )
 
 
 # Funciones para aplicar filtrados a las imágenes
-
 # Funcion para aplicar filtro promedio
 def apply_filter_average():
     global gaussian_image
@@ -58,13 +60,16 @@ def apply_filter_average():
         messagebox.showerror("Error", "Por favor, carga la imagen primero.")
         return
 
-    salida = cv2.blur(gaussian_image, (5, 5))  # Aplicar filtro promedio con un kernel de 5x5
+    salida = cv2.blur(
+        gaussian_image, (5, 5)
+    )  # Aplicar filtro promedio con un kernel de 5x5
 
     # Mostrar la imagen filtrada
-    plt.imshow(salida, cmap='gray')
+    plt.imshow(salida, cmap="gray")
     plt.title("Filtro Promedio")
-    plt.axis('off')
+    plt.axis("off")
     plt.show()
+
 
 # Funcion para aplicar filtro promedio pesado
 def apply_filter_average_heavy():
@@ -73,14 +78,17 @@ def apply_filter_average_heavy():
         messagebox.showerror("Error", "Por favor, carga la imagen primero.")
         return
 
-    kernel = np.array([[1,1,1],[1,5,1], [1,1,1]]) / 13  # Definir el kernel del filtro promedio pesado, normalizado a 1 y con un peso mayor en el centro, con un tamaño de 3x3 y suma 13
+    kernel = (
+        np.array([[1, 1, 1], [1, 5, 1], [1, 1, 1]]) / 13
+    )  # Definir el kernel del filtro promedio pesado, normalizado a 1 y con un peso mayor en el centro, con un tamaño de 3x3 y suma 13
     salida = cv2.filter2D(gaussian_image, -1, kernel)  # Aplicar filtro promedio pesado
 
     # Mostrar la imagen filtrada
-    plt.imshow(salida, cmap='gray')
+    plt.imshow(salida, cmap="gray")
     plt.title("Filtro Promedio Pesado")
-    plt.axis('off')
+    plt.axis("off")
     plt.show()
+
 
 # Funcion para aplicar filtro gaussiano
 def apply_filter_gaussian():
@@ -89,15 +97,15 @@ def apply_filter_gaussian():
         messagebox.showerror("Error", "Por favor, carga la imagen primero.")
         return
 
-    salida = cv2.GaussianBlur(gaussian_image, (5, 5), SIGMA)  # Aplicar filtro gaussiano, con sigma como desviación estándar
+    salida = cv2.GaussianBlur(
+        gaussian_image, (5, 5), SIGMA
+    )  # Aplicar filtro gaussiano, con sigma como desviación estándar
 
     # Mostrar la imagen filtrada
-    plt.imshow(salida, cmap='gray')
+    plt.imshow(salida, cmap="gray")
     plt.title("Filtro Gaussiano")
-    plt.axis('off')
+    plt.axis("off")
     plt.show()
-
-
 
 
 # Funcion para aplicar filtro de mediana
@@ -107,32 +115,75 @@ def apply_filter_median():
         messagebox.showerror("Error", "Por favor, carga la imagen primero.")
         return
 
-    salida = cv2.medianBlur(salt_pepper_image, 5)  # Aplicar filtro de mediana, con un tamaño de 5x5
+    salida = cv2.medianBlur(
+        salt_pepper_image, 5
+    )  # Aplicar filtro de mediana, con un tamaño de 5x5
 
     # Mostrar la imagen filtrada
-    plt.imshow(salida, cmap='gray')
+    plt.imshow(salida, cmap="gray")
     plt.title("Filtro Mediana")
-    plt.axis('off')
+    plt.axis("off")
     plt.show()
 
+
+# Funcion auxiliar para aplicar filtro de moda
+def custom_mode(arr):
+    arr = arr[arr != 0] if np.any(arr == 0) else arr  # Eliminar el 0 de la vecindad
+    if len(arr) == 0:  # Si no hay elementos en la vecindad, retornar 0
+        return 0
+    return np.bincount(
+        arr.astype(np.uint8)
+    ).argmax()  # Retornar el valor de moda de la vecindad
+
+
 # Funcion para aplicar filtro de moda
-def apply_filter_mode():
+def apply_filter_mode(kernel_size=3):
     global salt_pepper_image
     if salt_pepper_image is None:
         messagebox.showerror("Error", "Por favor, carga la imagen primero.")
         return
 
-    # Definir la función de moda
-    def mode_filter(arr):
-        mode = stats.mode(arr, axis=None)[0][0]
-        return mode
+    salida = np.copy(salt_pepper_image)
+    h, w = salt_pepper_image.shape
+    pad = kernel_size // 2
+    image_padded = np.pad(salt_pepper_image, pad, mode="constant", constant_values=0)
 
-    salida = generic_filter(salt_pepper_image, mode_filter, size=5)  # Aplicar filtro de moda, con un tamaño de 5x5
+    for i in range(h):
+        for j in range(w):
+            vecindad = image_padded[i : i + kernel_size, j : j + kernel_size].flatten()
+            moda = custom_mode(vecindad)
+            salida[i, j] = moda
+
+    print(stats.mode(vecindad))
+    print(stats.mode(vecindad).mode)
+    print(vecindad)
+    plt.imshow(salida, cmap="gray")
+    plt.title("Filtro Moda")
+    plt.axis("off")
+    plt.show()
+
+
+# Funcion para aplicar filtro de maximo y minimo
+def apply_filter_max_min():
+    global salt_pepper_image
+    if salt_pepper_image is None:
+        messagebox.showerror("Error", "Por favor, carga la imagen primero.")
+        return
+
+    salida_max = cv2.dilate(salt_pepper_image, np.ones((3, 3), np.uint8))
+    salida_min = cv2.erode(salt_pepper_image, np.ones((3, 3), np.uint8))
 
     # Mostrar la imagen filtrada
-    plt.imshow(salida, cmap='gray')
-    plt.title("Filtro Moda")
-    plt.axis('off')
+    plt.subplot(1, 2, 1)
+    plt.imshow(salida_max, cmap="gray")
+    plt.title("Filtro Maximo")
+    plt.axis("off")
+
+    plt.subplot(1, 2, 2)
+    plt.imshow(salida_min, cmap="gray")
+    plt.title("Filtro Minimo")
+    plt.axis("off")
+
     plt.show()
 
 
@@ -146,13 +197,13 @@ def apply_noice_s_p():
     salida = np.copy(original_image)
     num_pixeles = int(RUIDO_SAL_PIMIENTA * original_image.size)
     # Añadir ruido sal
-    coords = [np.random.randint(0, i-1, num_pixeles) for i in original_image.shape]
+    coords = [np.random.randint(0, i - 1, num_pixeles) for i in original_image.shape]
     salida[coords[0], coords[1]] = 255
     # Añadir ruido pimienta
-    coords = [np.random.randint(0, i-1, num_pixeles) for i in original_image.shape]
+    coords = [np.random.randint(0, i - 1, num_pixeles) for i in original_image.shape]
     salida[coords[0], coords[1]] = 0
 
-    salt_pepper_image = salida # Guardar la imagen con ruido de sal y pimienta
+    salt_pepper_image = salida  # Guardar la imagen con ruido de sal y pimienta
 
     # Convertir la imagen a un formato compatible con Tkinter
     img_pil = Image.fromarray(salida)
@@ -165,6 +216,7 @@ def apply_noice_s_p():
     label2.config(text="Imagen con Ruido (sal y pimienta)")
     label2.grid(row=1, column=1, padx=5, pady=5)
 
+
 # Funcion para aplicar ruido gaussiano
 def apply_noice_gauss():
     global original_image, gaussian_image, img_label3, MEDIA, SIGMA, label3
@@ -175,7 +227,7 @@ def apply_noice_gauss():
     ruido = np.random.normal(MEDIA, SIGMA, original_image.shape).astype(np.uint8)
     salida = cv2.add(original_image, ruido)
 
-    gaussian_image = salida # Guardar la imagen con ruido gaussiano
+    gaussian_image = salida  # Guardar la imagen con ruido gaussiano
 
     # Convertir la imagen a un formato compatible con Tkinter
     img_pil = Image.fromarray(salida)
@@ -187,8 +239,6 @@ def apply_noice_gauss():
     # Update el label de la imagen
     label3.config(text="Imagen con Ruido (gaussiano)")
     label3.grid(row=1, column=2, padx=5, pady=5)
-
-
 
 
 # Función para cargar la imagen
@@ -317,7 +367,7 @@ btn_g_filter = tk.Button(
     padx=10,
     pady=5,
 )
-btn_g_filter.grid(row=0, column=5, padx=5)
+btn_g_filter.grid(row=1, column=0, padx=5)
 
 # Crear un botón para aplicar el filtro de mediana
 btn_m_filter = tk.Button(
@@ -330,7 +380,7 @@ btn_m_filter = tk.Button(
     padx=10,
     pady=5,
 )
-btn_m_filter.grid(row=1, column=0, padx=5)
+btn_m_filter.grid(row=1, column=1, padx=5)
 
 # Crear un botón para aplicar el filtro de moda
 btn_mode_filter = tk.Button(
@@ -343,7 +393,20 @@ btn_mode_filter = tk.Button(
     padx=10,
     pady=5,
 )
-btn_mode_filter.grid(row=1, column=1, padx=5)
+btn_mode_filter.grid(row=1, column=2, padx=5)
+
+# Crear un botón para aplicar el filtro de maximo y minimo
+btn_max_min_filter = tk.Button(
+    button_frame,
+    text="Aplicar filtro maximo y minimo (sal y pimienta)",
+    command=apply_filter_max_min,
+    bg="#FF4081",
+    fg="white",
+    font=("Arial", 10, "bold"),
+    padx=10,
+    pady=5,
+)
+btn_max_min_filter.grid(row=1, column=3, padx=5)
 
 # Crear slider para ajustar el valor de umbral
 slider_label1 = tk.Label(
