@@ -16,8 +16,17 @@ class Controlador:
         self.vista.get_btn_filtro_laplaciano().config(
             command=self.aplicar_filtro_laplaciano
         )
-        self.vista.get_btn_segmentacion_completa_minimo_histograma().config(
-            command=self.aplicar_segmentacion_completa_minimo_histograma
+        self.vista.get_btn_segmentacion_completa_laplaciano_minimo_histograma_UA().config(
+            command=self.aplicar_segmentacion_completa_laplaciano_minimo_histograma_UA
+        )
+        self.vista.get_btn_segmentacion_completa_minimo_histograma_UA().config(
+            command=self.aplicar_segmentacion_completa_minimo_histograma_UA
+        )
+        self.vista.get_btn_segmentacion_completa_laplaciano_minimo_histograma_UM().config(
+            command=self.aplicar_segmentacion_completa_laplaciano_minimo_histograma_UM
+        )
+        self.vista.get_btn_segmentacion_completa_minimo_histograma_UM().config(
+            command=self.aplicar_segmentacion_completa_minimo_histograma_UM
         )
         self.vista.get_btn_mostrar_histograma().config(command=self.mostrar_histograma)
 
@@ -93,16 +102,65 @@ class Controlador:
             return
         self.modelo.mostrar_histograma()
 
-    def aplicar_segmentacion_completa_minimo_histograma(self):
+    def aplicar_segmentacion_completa_laplaciano_minimo_histograma_UA(self):
         if self.modelo.imagen is None:
             messagebox.showerror("Error", "No hay imagen cargada.")
             return
-        self.modelo.segmentar_imagen()
-        if self.modelo.imagen_segmentada is None:
+        self.modelo.segmentar_imagen_laplacianoUA()
+        if self.modelo.imagen_segmentada_laplacianoUA is None:
             messagebox.showerror("Error", "No se pudo aplicar la segmentación.")
             return
-        self.modelo.set_label("segmentada")
+        self.modelo.set_label("segmentada laplaciano UA")
         self.vista.mostrar_imagen(
-            self.modelo.img_tk, "segmentada", self.modelo.label_info_segmentada
+            self.modelo.img_tk, "segmentada laplaciano UA", self.modelo.label_info_segmentada_laplacianoUA
+        )
+        self.modelo.img_tk = None
+
+    def aplicar_segmentacion_completa_minimo_histograma_UA(self):
+        if self.modelo.imagen is None:
+            messagebox.showerror("Error", "No hay imagen cargada.")
+            return
+        self.modelo.segmentar_imagenUA()
+        if self.modelo.imagen_segmentadaUA is None:
+            messagebox.showerror("Error", "No se pudo aplicar la segmentación.")
+            return
+        self.modelo.set_label("segmentada UA")
+        self.vista.mostrar_imagen(
+            self.modelo.img_tk, "segmentada UA", self.modelo.label_info_segmentadaUA
+        )
+        self.modelo.img_tk = None
+
+    def aplicar_segmentacion_completa_laplaciano_minimo_histograma_UM(self):
+        if self.modelo.imagen is None:
+            messagebox.showerror("Error", "No hay imagen cargada.")
+            return
+
+        # Obtener el umbral del slider
+        umbral = float(self.vista.get_slider_umbral())
+
+        self.modelo.segmentar_imagen_laplacianoUM(umbral)
+        if self.modelo.imagen_segmentada_laplacianoUM is None:
+            messagebox.showerror("Error", "No se pudo aplicar la segmentación.")
+            return
+        self.modelo.set_label("segmentada laplaciano UM")
+        self.vista.mostrar_imagen(
+            self.modelo.img_tk, "segmentada laplaciano UM", self.modelo.label_info_segmentada_laplacianoUM
+        )
+        self.modelo.img_tk = None
+
+    def aplicar_segmentacion_completa_minimo_histograma_UM(self):
+        if self.modelo.imagen is None:
+            messagebox.showerror("Error", "No hay imagen cargada.")
+            return
+
+        umbral = float(self.vista.get_slider_umbral())
+
+        self.modelo.segmentar_imagenUM(umbral)
+        if self.modelo.imagen_segmentadaUM is None:
+            messagebox.showerror("Error", "No se pudo aplicar la segmentación.")
+            return
+        self.modelo.set_label("segmentada UM")
+        self.vista.mostrar_imagen(
+            self.modelo.img_tk, "segmentada UM", self.modelo.label_info_segmentadaUM
         )
         self.modelo.img_tk = None
