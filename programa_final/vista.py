@@ -206,12 +206,12 @@ class Vista:
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
 
     def abrir_ventana_conversion_binario(self):
-        # Crear una ventana para la conversion de RGB a Binario
+        # Crear una ventana para la conversión de RGB a Binario
         self.ventana_conversion_binario = tk.Toplevel(self.root)
         self.ventana_conversion_binario.title("Conversión de RGB a Binario")
         self.ventana_conversion_binario.geometry("1600x900")
 
-        # Crear marco para el slider de umbral
+        # Crear marco para el slider (fijo en la parte superior)
         self.frame_slider = tk.Frame(self.ventana_conversion_binario)
         self.frame_slider.pack(pady=20)
 
@@ -232,9 +232,29 @@ class Vista:
         self.slider.set(128)
         self.slider.pack(side=tk.LEFT, padx=5)
 
-        # Crear marco para las imagenes de resultado
-        self.frame_resultados = tk.Frame(self.ventana_conversion_binario)
-        self.frame_resultados.pack(pady=20)
+        # Crear Canvas y Scrollbar para las imágenes (desplazable)
+        self.canvas = tk.Canvas(self.ventana_conversion_binario, borderwidth=0)
+        self.scrollbar = tk.Scrollbar(
+            self.ventana_conversion_binario,
+            orient="vertical",
+            command=self.canvas.yview,
+        )
+        self.canvas.configure(yscrollcommand=self.scrollbar.set)
+
+        # Posicionar Canvas y Scrollbar
+        self.scrollbar.pack(side="right", fill="y")
+        self.canvas.pack(pady=20, fill="both", expand=True)
+
+        # Crear marco desplazable para las imágenes
+        self.frame_resultados = tk.Frame(self.canvas)
+        # Centrar el frame_resultados dentro del Canvas
+        self.canvas_frame = self.canvas.create_window(
+            (0, 0), window=self.frame_resultados, anchor="n"
+        )
+
+        # Vincular eventos para actualizar la región desplazable y centrar el contenido
+        self.frame_resultados.bind("<Configure>", self.actualizar_scrollregion)
+        self.canvas.bind("<Configure>", self.centrar_contenido)
 
         # Crear label para la visualización de la imagen de umbral manual
         self.label_umbral_manual = tk.Label(self.frame_resultados, text="Umbral manual")
@@ -250,27 +270,27 @@ class Vista:
         self.imagen_umbral_automatico = tk.Label(self.frame_resultados)
         self.imagen_umbral_automatico.grid(row=1, column=1, padx=10, pady=5)
 
-        # Crear label para la visualización de la imagen de umbral manual con correcion de contraste
+        # Crear label para la visualización de la imagen de umbral manual con corrección de contraste
         self.label_umbral_manual_c = tk.Label(
-            self.frame_resultados, text="Umbral manual con correcion de contraste"
+            self.frame_resultados, text="Umbral manual con corrección de contraste"
         )
         self.label_umbral_manual_c.grid(row=2, column=0, padx=10, pady=5)
         self.imagen_umbral_manual_c = tk.Label(self.frame_resultados)
         self.imagen_umbral_manual_c.grid(row=3, column=0, padx=10, pady=5)
 
-        # Crear label para la visualización de la imagen de umbral automático con correcion de contraste
+        # Crear label para la visualización de la imagen de umbral automático con corrección de contraste
         self.label_umbral_automatico_c = tk.Label(
-            self.frame_resultados, text="Umbral automático con correcion de contraste"
+            self.frame_resultados, text="Umbral automático con corrección de contraste"
         )
         self.label_umbral_automatico_c.grid(row=2, column=1, padx=10, pady=5)
         self.imagen_umbral_automatico_c = tk.Label(self.frame_resultados)
         self.imagen_umbral_automatico_c.grid(row=3, column=1, padx=10, pady=5)
 
-        # Crear un marco para los botones y acomodarlos horizontalmente
+        # Crear un marco para los botones y acomodarlos horizontalmente (fijo en la parte inferior)
         self.frame_botones = tk.Frame(self.ventana_conversion_binario)
         self.frame_botones.pack(pady=10)
 
-        # Crear botón para aplicar umbral manual
+        # Crear botón para aplicar umbralizado
         self.boton_umbralizado = ttk.Button(
             self.frame_botones, text="Aplicar umbralizado"
         )
@@ -279,6 +299,30 @@ class Vista:
         # Crear botón para guardar resultados
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultados")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def actualizar_scrollregion(self, event):
+        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
+        # Centrar el contenido después de actualizar la región desplazable
+        self.centrar_contenido(None)
+
+    def centrar_contenido(self, event):
+        if event:
+            canvas_width = event.width
+        else:
+            canvas_width = self.canvas.winfo_width()
+
+        # Obtener el ancho del frame_resultados
+        frame_width = self.frame_resultados.winfo_reqwidth()
+
+        # Calcular la posición x para centrar el frame_resultados
+        x_position = max(0, (canvas_width - frame_width) // 2)
+
+        # Actualizar la posición del frame_resultados en el Canvas
+        self.canvas.coords(self.canvas_frame, x_position, 0)
+
+    def _on_mousewheel(self, event):
+        self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        self.ventana_conversion_binario.bind_all("<MouseWheel>", self._on_mousewheel)
 
     def abrir_ventana_aplicar_ruido(self):
         # Crear una ventana para la correcion_contraste

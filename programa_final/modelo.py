@@ -27,7 +27,7 @@ class Modelo:
         self.imagen_segmentada_lum = None
         self.imagen_segmentada_ua = None
         self.imagen_segmentada_lua = None
-        self.max_size = 300
+        self.max_size = 400
         self.tamaño_original = None
         self.matriz_convolucion = None
 
