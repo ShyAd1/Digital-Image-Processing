@@ -250,7 +250,7 @@ class Modelo:
                     alpha=0.5,
                     label="Canal Rojo",
                 )
-                plt.title("Histograma de la imagen 1")
+                plt.title("Histograma de la imagen en RGB")
                 plt.xlabel("Valor de intensidad")
                 plt.ylabel("Número de píxeles")
                 plt.legend()
@@ -259,7 +259,9 @@ class Modelo:
                 plt.show()
             elif tipo == "grises":
                 plt.figure(figsize=(10, 5))
-                plt.hist(imagen.ravel(), bins=256, range=(0, 256), color="gray", alpha=0.7)
+                plt.hist(
+                    imagen.ravel(), bins=256, range=(0, 256), color="gray", alpha=0.7
+                )
                 plt.title("Histograma de la imagen en escala de grises")
                 plt.xlabel("Valor de intensidad")
                 plt.ylabel("Número de píxeles")
@@ -268,7 +270,9 @@ class Modelo:
                 plt.show()
             elif tipo == "binario":
                 plt.figure(figsize=(6, 4))
-                plt.hist(imagen.ravel(), bins=2, range=(0, 256), color="black", alpha=0.7)
+                plt.hist(
+                    imagen.ravel(), bins=2, range=(0, 256), color="black", alpha=0.7
+                )
                 plt.title("Histograma de la imagen binaria")
                 plt.xlabel("Valor de intensidad (0=negro, 255=blanco)")
                 plt.ylabel("Número de píxeles")
@@ -278,3 +282,35 @@ class Modelo:
                 plt.show()
             else:
                 raise ValueError("No se puede calcular ese histograma")
+
+    def extrae_canales(self, imagen, tipo):
+        if imagen is not None:
+            if tipo == "r":
+                plt.figure(figsize=(6, 4))
+                canal = imagen[:, :, 0]
+                canal_rgb = np.zeros_like(imagen)
+                canal_rgb[:, :, 0] = canal
+                plt.imshow(canal_rgb)
+                plt.title("Canal Rojo")
+                plt.axis("off")
+                plt.show()
+            elif tipo == "g":
+                plt.figure(figsize=(6, 4))
+                canal = imagen[:, :, 1]
+                canal_rgb = np.zeros_like(imagen)
+                canal_rgb[:, :, 1] = canal
+                plt.imshow(canal_rgb)
+                plt.title("Canal Verde")
+                plt.axis("off")
+                plt.show()
+            elif tipo == "b":
+                plt.figure(figsize=(6, 4))
+                canal = imagen[:, :, 2]
+                canal_rgb = np.zeros_like(imagen)
+                canal_rgb[:, :, 2] = canal
+                plt.imshow(canal_rgb)
+                plt.title("Canal Azul")
+                plt.axis("off")
+                plt.show()
+            else:
+                raise ValueError("Tipo de canal no válido. Usa 'r', 'g' o 'b'.")

@@ -28,13 +28,28 @@ class Controlador:
             "Corrección de Contraste", command=self.abrir_y_conectar_correcion_contraste
         )
         self.vista.get_menu_histogramas_canales().entryconfig(
-            "Mostrar Histograma de Color", command=lambda: self.mostrar_histograma("rgb")
+            "Mostrar Histograma de Color",
+            command=lambda: self.mostrar_histograma("rgb"),
         )
         self.vista.get_menu_histogramas_canales().entryconfig(
-            "Mostrar Histograma de Escala de Grises", command=lambda: self.mostrar_histograma("grises")
+            "Mostrar Histograma de Escala de Grises",
+            command=lambda: self.mostrar_histograma("grises"),
         )
         self.vista.get_menu_histogramas_canales().entryconfig(
-            "Mostrar Histograma de Binario", command=lambda: self.mostrar_histograma("binario")
+            "Mostrar Histograma de Binario",
+            command=lambda: self.mostrar_histograma("binario"),
+        )
+        self.vista.get_menu_histogramas_canales().entryconfig(
+            "Extraer Canal Rojo",
+            command=lambda: self.extraer_canales("r"),
+        )
+        self.vista.get_menu_histogramas_canales().entryconfig(
+            "Extraer Canal Verde",
+            command=lambda: self.extraer_canales("g"),
+        )
+        self.vista.get_menu_histogramas_canales().entryconfig(
+            "Extraer Canal Azul",
+            command=lambda: self.extraer_canales("b"),
         )
 
     def cargar_imagen(self):
@@ -124,18 +139,33 @@ class Controlador:
 
     def mostrar_histograma(self, tipo):
         if tipo == "rgb":
-            if self.vista.imagen_original is not None:
-                self.modelo.calcular_histograma(self.modelo.imagen, "rgb")
+            if (
+                self.vista.imagen_original is not None
+                or self.vista.imagen_correccion is not None
+            ):
+                if self.vista.imagen_original is not None:
+                    self.modelo.calcular_histograma(self.modelo.imagen, "rgb")
+                if self.vista.imagen_original is not None:
+                    self.modelo.calcular_histograma(
+                        self.modelo.imagen_correccion, "rgb"
+                    )
             else:
                 messagebox.showinfo("Información", "Primero cargue una imagen.")
         elif tipo == "grises":
-            if self.vista.imagen_grises is not None or self.vista.imagen_grises_c is not None:
+            if (
+                self.vista.imagen_grises is not None
+                or self.vista.imagen_grises_c is not None
+            ):
                 if self.vista.imagen_grises is not None:
                     self.modelo.calcular_histograma(self.modelo.imagen_grises, "grises")
                 if self.vista.imagen_grises_c is not None:
-                    self.modelo.calcular_histograma(self.modelo.imagen_grises_c, "grises")
+                    self.modelo.calcular_histograma(
+                        self.modelo.imagen_grises_c, "grises"
+                    )
             else:
-                messagebox.showinfo("Información", "Primero convierta la imagen a escala de grises.")
+                messagebox.showinfo(
+                    "Información", "Primero convierta la imagen a escala de grises."
+                )
         elif tipo == "binario":
             if (
                 self.vista.imagen_umbral_manual is not None
@@ -144,12 +174,32 @@ class Controlador:
                 or self.vista.imagen_umbral_automatico_c is not None
             ):
                 if self.vista.imagen_umbral_manual is not None:
-                    self.modelo.calcular_histograma(self.modelo.imagen_grises, "binario")
+                    self.modelo.calcular_histograma(
+                        self.modelo.imagen_grises, "binario"
+                    )
                 if self.vista.imagen_umbral_manual_c is not None:
-                    self.modelo.calcular_histograma(self.modelo.imagen_grises_c, "binario")
+                    self.modelo.calcular_histograma(
+                        self.modelo.imagen_grises_c, "binario"
+                    )
                 if self.vista.imagen_umbral_automatico is not None:
-                    self.modelo.calcular_histograma(self.modelo.imagen_grises, "binario")
+                    self.modelo.calcular_histograma(
+                        self.modelo.imagen_grises, "binario"
+                    )
                 if self.vista.imagen_umbral_automatico_c is not None:
-                    self.modelo.calcular_histograma(self.modelo.imagen_grises_c, "binario")
+                    self.modelo.calcular_histograma(
+                        self.modelo.imagen_grises_c, "binario"
+                    )
             else:
-                messagebox.showinfo("Información", "Primero convierta la imagen a binario.")
+                messagebox.showinfo(
+                    "Información", "Primero convierta la imagen a binario."
+                )
+
+    def extraer_canales(self, tipo):
+        if tipo == "r" and self.vista.imagen_original is not None:
+            self.modelo.extrae_canales(self.modelo.imagen_original, tipo)
+        elif tipo == "g" and self.vista.imagen_original is not None:
+            self.modelo.extrae_canales(self.modelo.imagen_original, tipo)
+        elif tipo == "b" and self.vista.imagen_original is not None:
+            self.modelo.extrae_canales(self.modelo.imagen_original, tipo)
+        else:
+            messagebox.showinfo("Información", "Primero cargue una imagen.")

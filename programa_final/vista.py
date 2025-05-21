@@ -68,16 +68,6 @@ class Vista:
             label="Extraer Canal Azul",
             command=None,
         )
-        self.histogram_menu.add_separator()
-        self.histogram_menu.add_command(
-            label="Extraer Canal de Escala de Grises",
-            command=None,
-        )
-        self.histogram_menu.add_separator()
-        self.histogram_menu.add_command(
-            label="Extraer Canal de Binario",
-            command=None,
-        )
         self.menubar.add_cascade(
             label="Mostrar Histogramas y Canales", menu=self.histogram_menu
         )
