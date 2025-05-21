@@ -48,7 +48,7 @@ class Modelo:
 
         # Redimensionar la imagen para que se ajuste al tamaño máximo
         altura, ancho, _ = self.imagen.shape
-        scale_factor = 1000 / max(altura, ancho)
+        scale_factor = 750 / max(altura, ancho)
         new_width = int(ancho * scale_factor)
         new_height = int(altura * scale_factor)
         self.imagen = cv2.resize(self.imagen, (new_width, new_height))
@@ -66,7 +66,7 @@ class Modelo:
 
             # Redimensionar la imagen para que se ajuste al tamaño máximo
             altura, ancho = self.imagen_grises.shape
-            scale_factor = self.max_size / max(altura, ancho)
+            scale_factor = 600 / max(altura, ancho)
             new_width = int(ancho * scale_factor)
             new_height = int(altura * scale_factor)
             self.imagen_grises = cv2.resize(self.imagen_grises, (new_width, new_height))
@@ -81,7 +81,7 @@ class Modelo:
 
             # Redimensionar la imagen para que se ajuste al tamaño máximo
             altura, ancho = self.imagen_grises_c.shape
-            scale_factor = self.max_size / max(altura, ancho)
+            scale_factor = 600 / max(altura, ancho)
             new_width = int(ancho * scale_factor)
             new_height = int(altura * scale_factor)
             self.imagen_grises_c = cv2.resize(
@@ -187,7 +187,7 @@ class Modelo:
 
         # Redimensionar las imagen para que se ajuste al tamaño máximo
         altura, ancho = self.imagen_ruido.shape
-        scale_factor = self.max_size / max(altura, ancho)
+        scale_factor = 600 / max(altura, ancho)
         new_width = int(ancho * scale_factor)
         new_height = int(altura * scale_factor)
         self.imagen_ruido = cv2.resize(self.imagen_ruido, (new_width, new_height))
@@ -209,7 +209,7 @@ class Modelo:
 
         # Redimensionar las imagen para que se ajuste al tamaño máximo
         altura, ancho, _ = self.imagen_correccion.shape
-        scale_factor = self.max_size / max(altura, ancho)
+        scale_factor = 600 / max(altura, ancho)
         new_width = int(ancho * scale_factor)
         new_height = int(altura * scale_factor)
         self.imagen_correccion = cv2.resize(
@@ -221,3 +221,60 @@ class Modelo:
         self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
         return self.img_tk1
+
+    def calcular_histograma(self, imagen, tipo):
+        if imagen is not None:
+            if tipo == "rgb":
+                plt.figure(figsize=(10, 5))
+                plt.hist(
+                    imagen.ravel(),
+                    bins=256,
+                    range=(0, 256),
+                    color="blue",
+                    alpha=0.5,
+                    label="Canal Azul",
+                )
+                plt.hist(
+                    imagen[:, :, 1].ravel(),
+                    bins=256,
+                    range=(0, 256),
+                    color="green",
+                    alpha=0.5,
+                    label="Canal Verde",
+                )
+                plt.hist(
+                    imagen[:, :, 2].ravel(),
+                    bins=256,
+                    range=(0, 256),
+                    color="red",
+                    alpha=0.5,
+                    label="Canal Rojo",
+                )
+                plt.title("Histograma de la imagen 1")
+                plt.xlabel("Valor de intensidad")
+                plt.ylabel("Número de píxeles")
+                plt.legend()
+                plt.grid()
+                plt.tight_layout()
+                plt.show()
+            elif tipo == "grises":
+                plt.figure(figsize=(10, 5))
+                plt.hist(imagen.ravel(), bins=256, range=(0, 256), color="gray", alpha=0.7)
+                plt.title("Histograma de la imagen en escala de grises")
+                plt.xlabel("Valor de intensidad")
+                plt.ylabel("Número de píxeles")
+                plt.grid()
+                plt.tight_layout()
+                plt.show()
+            elif tipo == "binario":
+                plt.figure(figsize=(6, 4))
+                plt.hist(imagen.ravel(), bins=2, range=(0, 256), color="black", alpha=0.7)
+                plt.title("Histograma de la imagen binaria")
+                plt.xlabel("Valor de intensidad (0=negro, 255=blanco)")
+                plt.ylabel("Número de píxeles")
+                plt.xticks([0, 255])
+                plt.grid()
+                plt.tight_layout()
+                plt.show()
+            else:
+                raise ValueError("No se puede calcular ese histograma")
