@@ -93,6 +93,11 @@ class Vista:
         )
         self.filter_menu.add_separator()
         self.filter_menu.add_command(
+            label="Filtro sal y pimienta",
+            command=None,
+        )
+        self.filter_menu.add_separator()
+        self.filter_menu.add_command(
             label="Filtro de laplaciano",
             command=None,
         )
@@ -450,20 +455,20 @@ class Vista:
 
         # Crear label para el slider de sigma
         self.label_sigma = tk.Label(
-            self.frame_slider, text="Ajustar valor de sigma (0-100):"
+            self.frame_slider, text="Ajustar valor de sigma (0.01-1):"
         )
         self.label_sigma.pack(side=tk.LEFT, padx=5)
 
         # Crear slider para sigma
         self.slider_sigma = tk.Scale(
             self.frame_slider,
-            from_=0,
-            to=100,
+            from_=0.01,
+            to=1,
             orient=tk.HORIZONTAL,
             length=200,
-            resolution=1,
+            resolution=0.01,
         )
-        self.slider_sigma.set(25)
+        self.slider_sigma.set(0.50)
         self.slider_sigma.pack(side=tk.LEFT, padx=5)
 
         # Crear marco para la imagen de resultado
@@ -492,10 +497,42 @@ class Vista:
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
 
+    def abrir_ventana_filtro_sal_pimienta(self):
+        # Crear una ventana para el filtro sal y pimienta
+        self.ventana_filtro_sal_pimienta = tk.Toplevel(self.root)
+        self.ventana_filtro_sal_pimienta.title("Filtro Sal y Pimienta")
+        self.ventana_filtro_sal_pimienta.geometry("1600x900")
+
+        # Crear marco para la imagen de resultado
+        self.frame_resultado = tk.Frame(self.ventana_filtro_sal_pimienta)
+        self.frame_resultado.pack(pady=20)
+
+        # Crear label para la visualización de la imagen filtrada
+        self.label_filtrada_sal_pimienta = tk.Label(
+            self.frame_resultado, text="Imagen con filtro sal y pimienta"
+        )
+        self.label_filtrada_sal_pimienta.grid(row=0, column=0, padx=10, pady=5)
+        self.imagen_filtrada_sal_pimienta = tk.Label(self.frame_resultado)
+        self.imagen_filtrada_sal_pimienta.grid(row=1, column=0, padx=10, pady=5)
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_filtro_sal_pimienta)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar el filtro sal y pimienta
+        self.boton_aplicar_filtro_sal_pimienta = ttk.Button(
+            self.frame_botones, text="Aplicar filtro sal y pimienta"
+        )
+        self.boton_aplicar_filtro_sal_pimienta.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
     def abrir_ventana_filtro_laplaciano(self):
-        # Crear una ventana para el filtro gaussiano
+        # Crear una ventana para el filtro Laplaciano
         self.ventana_filtro_laplaciano = tk.Toplevel(self.root)
-        self.ventana_filtro_laplaciano.title("Filtro Gaussiano")
+        self.ventana_filtro_laplaciano.title("Filtro Laplaciano")
         self.ventana_filtro_laplaciano.geometry("1600x900")
 
         # Crear frame para la matriz de convolucion
@@ -512,7 +549,7 @@ class Vista:
                 entry = ttk.Entry(self.frame_matriz, width=5)
                 entry.grid(row=i + 1, column=j, padx=5, pady=5)
                 fila.append(entry)
-                self.entries_matriz.append(fila)
+            self.entries_matriz.append(fila)
 
         # Crear marco para la imagen de resultado
         self.frame_resultado = tk.Frame(self.ventana_filtro_laplaciano)
@@ -697,8 +734,34 @@ class Vista:
             else None
         )
 
+    def get_boton_aplicar_filtro_sal_pimienta(self):
+        return getattr(self, "boton_aplicar_filtro_sal_pimienta", None)
+
+    def get_boton_guardar_filtro_sal_pimienta(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_filtro_sal_pimienta")
+            else None
+        )
+
     def get_boton_guardar_matriz(self):
         return getattr(self, "boton_guardar_matriz", None)
+
+    def get_matriz_convolucion(self):
+        if hasattr(self, "entries_matriz"):
+            matriz = []
+            for i in range(3):
+                fila = []
+                for j in range(3):
+                    entry = self.entries_matriz[i][j]
+                    valor = entry.get()
+                    try:
+                        fila.append(float(valor))
+                    except ValueError:
+                        fila.append(0.0)
+                matriz.append(fila)
+            return matriz
+        return None
 
     def get_boton_aplicar_filtro_laplaciano(self):
         return getattr(self, "boton_aplicar_filtro_laplaciano", None)
@@ -769,7 +832,6 @@ class Vista:
         )
 
     # Getters de los menús de abrir, guardar, mostrar histogramas y canales
-
     def get_menu_abrir(self):
         return self.file_menu
 
@@ -781,6 +843,9 @@ class Vista:
 
     def get_menu_correcciones(self):
         return self.correction_menu
+
+    def get_menu_filtros(self):
+        return self.filter_menu
 
     def mostrar_imagen(self, imagen, tipo):
         if tipo == "original":
@@ -822,6 +887,10 @@ class Vista:
             if hasattr(self, "imagen_filtrada"):
                 self.imagen_filtrada.config(image=imagen)
                 self.imagen_filtrada.image = imagen
+        elif tipo == "filtro_sal_pimienta":
+            if hasattr(self, "imagen_filtrada_sal_pimienta"):
+                self.imagen_filtrada_sal_pimienta.config(image=imagen)
+                self.imagen_filtrada_sal_pimienta.image = imagen
         elif tipo == "filtro_laplaciano":
             if hasattr(self, "imagen_laplaciana"):
                 self.imagen_laplaciana.config(image=imagen)

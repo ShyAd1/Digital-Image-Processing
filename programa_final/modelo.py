@@ -22,6 +22,7 @@ class Modelo:
         self.imagen_ruido = None
         self.imagen_correccion = None
         self.imagen_filtrada = None
+        self.imagen_filtrada_sal_pimienta = None
         self.imagen_laplaciana = None
         self.imagen_segmentada_um = None
         self.imagen_segmentada_lum = None
@@ -314,3 +315,67 @@ class Modelo:
                 plt.show()
             else:
                 raise ValueError("Tipo de canal no válido. Usa 'r', 'g' o 'b'.")
+
+    def aplicar_filtro_gaussiano(self, imagen, sigma):
+        if imagen is None:
+            raise ValueError("No se esta cargada la imagen principal")
+
+        self.imagen_filtrada = cv2.GaussianBlur(
+            imagen, (3, 3), sigma
+        )  # Aplicar filtro gaussiano, con sigma como desviación estándar
+
+        # Redimensionar las imagen para que se ajuste al tamaño máximo
+        altura, ancho = self.imagen_filtrada.shape
+        scale_factor = 600 / max(altura, ancho)
+        new_width = int(ancho * scale_factor)
+        new_height = int(altura * scale_factor)
+        self.imagen_filtrada = cv2.resize(self.imagen_filtrada, (new_width, new_height))
+
+        # Convertir la imagen a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_filtrada)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_filtro_sal_pimienta(self, imagen):
+        if imagen is None:
+            raise ValueError("No se esta cargada la imagen principal")
+
+        self.imagen_filtrada_sal_pimienta = cv2.medianBlur(imagen, 3)
+
+        # Redimensionar las imagen para que se ajuste al tamaño máximo
+        altura, ancho = self.imagen_filtrada_sal_pimienta.shape
+        scale_factor = 600 / max(altura, ancho)
+        new_width = int(ancho * scale_factor)
+        new_height = int(altura * scale_factor)
+        self.imagen_filtrada_sal_pimienta = cv2.resize(
+            self.imagen_filtrada_sal_pimienta, (new_width, new_height)
+        )
+
+        # Convertir la imagen a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_filtrada_sal_pimienta)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_filtro_laplaciano(self, imagen, matriz):
+        # Converir la matriz de convolución a un array de numpy
+        laplaciano = np.array(matriz, dtype=np.float32)
+
+        # Aplicar el filtro Laplaciano a la imagen
+        self.imagen_laplaciana = cv2.filter2D(imagen, -1, laplaciano)
+
+        # Redimensionar la imagen procesada
+        altura, ancho = self.imagen_laplaciana.shape
+        scale_factor = 600 / max(altura, ancho)
+        new_width = int(ancho * scale_factor)
+        new_height = int(altura * scale_factor)
+        self.imagen_laplaciana = cv2.resize(
+            self.imagen_laplaciana, (new_width, new_height)
+        )
+
+        # Convertir la imagen a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_laplaciana)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1

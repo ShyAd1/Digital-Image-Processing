@@ -51,6 +51,15 @@ class Controlador:
             "Extraer Canal Azul",
             command=lambda: self.extraer_canales("b"),
         )
+        self.vista.get_menu_filtros().entryconfig(
+            "Filtro de gausiano", command=self.abrir_y_conectar_filtro_gaussiano
+        )
+        self.vista.get_menu_filtros().entryconfig(
+            "Filtro sal y pimienta", command=self.abrir_y_conectar_filtro_sal_pimienta
+        )
+        self.vista.get_menu_filtros().entryconfig(
+            "Filtro de laplaciano", command=self.abrir_y_conectar_filtro_laplaciano
+        )
 
     def cargar_imagen(self):
         # Aquí llamas al método de modelo para cargar la imagen
@@ -203,3 +212,62 @@ class Controlador:
             self.modelo.extrae_canales(self.modelo.imagen_original, tipo)
         else:
             messagebox.showinfo("Información", "Primero cargue una imagen.")
+
+    def abrir_y_conectar_filtro_gaussiano(self):
+        self.vista.abrir_ventana_filtro_gaussiano()
+        boton = self.vista.get_boton_aplicar_filtro_gaussiano()
+        if boton is not None:
+            boton.config(command=self.aplicar_filtro_gaussiano)
+
+    def aplicar_filtro_gaussiano(self):
+        if self.vista.imagen_filtrada_sal_pimienta is not None:
+            sigma = self.vista.get_slider_filtro_gaussiano_sigma().get()
+            self.modelo.aplicar_filtro_gaussiano(
+                self.modelo.imagen_filtrada_sal_pimienta, sigma
+            )
+            self.vista.mostrar_imagen(self.modelo.img_tk1, "filtro_gaussiano")
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def abrir_y_conectar_filtro_sal_pimienta(self):
+        self.vista.abrir_ventana_filtro_sal_pimienta()
+        boton = self.vista.get_boton_aplicar_filtro_sal_pimienta()
+        if boton is not None:
+            boton.config(command=self.aplicar_filtro_sal_pimienta)
+
+    def aplicar_filtro_sal_pimienta(self):
+        if self.vista.imagen_umbral_manual_c is not None:
+            self.modelo.aplicar_filtro_sal_pimienta(self.modelo.imagen_umbral_manual_c)
+            self.vista.mostrar_imagen(self.modelo.img_tk1, "filtro_sal_pimienta")
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def abrir_y_conectar_filtro_laplaciano(self):
+        self.vista.abrir_ventana_filtro_laplaciano()
+        boton_guardar = self.vista.get_boton_guardar_matriz()
+        if boton_guardar is not None:
+            boton_guardar.config(command=self.guardar_matriz)
+            boton_aplicar = self.vista.get_boton_aplicar_filtro_laplaciano()
+            if boton_aplicar is not None:
+                boton_aplicar.config(command=self.aplicar_filtro_laplaciano)
+
+    def guardar_matriz(self):
+        self.matriz_laplaciana_temp = self.vista.get_matriz_convolucion()
+
+    def aplicar_filtro_laplaciano(self):
+        if self.vista.imagen_filtrada is not None:
+            matriz = getattr(self, "matriz_laplaciana_temp", None)
+            if matriz is not None:
+                self.modelo.aplicar_filtro_laplaciano(
+                    self.modelo.imagen_filtrada, matriz
+                )
+                self.vista.mostrar_imagen(self.modelo.img_tk1, "filtro_laplaciano")
+                self.modelo.img_tk1 = None
+            else:
+                messagebox.showwarning(
+                    "Advertencia", "Primero guarde la matriz de convolución."
+                )
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
