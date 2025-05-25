@@ -9,9 +9,6 @@ class Modelo:
     def __init__(self):
         # Inicializar la imagen original y la imagen de salida
         self.img_tk1 = None
-        self.img_tk2 = None
-        self.img_tk3 = None
-        self.img_tk4 = None
         self.imagen = None
         self.imagen_original = None
         self.imagen_grises = None
@@ -29,7 +26,11 @@ class Modelo:
         self.imagen_segmentada_lum = None
         self.imagen_segmentada_ua = None
         self.imagen_segmentada_lua = None
-        self.max_size = 400
+        self.imagen_negativa = None
+        self.imagen_and = None
+        self.imagen_or = None
+        self.imagen_xor = None
+        self.max_size = 600
         self.tamaño_original = None
         self.matriz_convolucion = None
 
@@ -48,12 +49,7 @@ class Modelo:
 
         self.imagen_original = self.imagen.copy()
 
-        # Redimensionar la imagen para que se ajuste al tamaño máximo
-        altura, ancho, _ = self.imagen.shape
-        scale_factor = 750 / max(altura, ancho)
-        new_width = int(ancho * scale_factor)
-        new_height = int(altura * scale_factor)
-        self.imagen = cv2.resize(self.imagen, (new_width, new_height))
+        self.imagen = self.redimensionar_imagen(self.imagen, 750)
 
         # Convertir la imagen a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen)
@@ -61,122 +57,115 @@ class Modelo:
 
         return self.img_tk1
 
-    def convertir_RGB_a_grises(self, imagen1, imagen2):
-        if imagen1 is not None:
-            # Convertir la imagen de RGB a escala de grises
-            self.imagen_grises = cv2.cvtColor(imagen1, cv2.COLOR_RGB2GRAY)
+    def obtener_lista_imagenes(self):
+        # Devuelve un diccionario con los nombres y referencias de todas las imágenes procesadas
+        imagenes = {
+            "Imagen original": self.imagen_original,
+            "Imagen en grises": self.imagen_grises,
+            "Imagen en grises (contraste)": self.imagen_grises_c,
+            "Imagen binaria (umbral manual)": self.imagen_umbral_manual,
+            "Imagen binaria (umbral automático)": self.imagen_umbral_automatico,
+            "Imagen binaria (umbral manual, contraste)": self.imagen_umbral_manual_c,
+            "Imagen binaria (umbral automático, contraste)": self.imagen_umbral_automatico_c,
+            "Imagen con ruido gaussiano": self.imagen_ruido,
+            "Imagen con corrección de contraste": self.imagen_correccion,
+            "Imagen filtrada gaussiana": self.imagen_filtrada,
+            "Imagen filtrada sal y pimienta": self.imagen_filtrada_sal_pimienta,
+            "Imagen laplaciana": self.imagen_laplaciana,
+            "Imagen segmentada (umbral manual)": self.imagen_segmentada_um,
+            "Imagen segmentada (laplaciano, umbral manual)": self.imagen_segmentada_lum,
+            "Imagen segmentada (umbral automático)": self.imagen_segmentada_ua,
+            "Imagen segmentada (laplaciano, umbral automático)": self.imagen_segmentada_lua,
+            "Imagen negativa": self.imagen_negativa,
+            "Imagen AND": self.imagen_and,
+            "Imagen OR": self.imagen_or,
+            "Imagen XOR": self.imagen_xor,
+        }
+        # Filtrar solo las imágenes que no son None
+        return {k: v for k, v in imagenes.items() if v is not None}
 
-            # Redimensionar la imagen para que se ajuste al tamaño máximo
-            altura, ancho = self.imagen_grises.shape
-            scale_factor = 600 / max(altura, ancho)
-            new_width = int(ancho * scale_factor)
-            new_height = int(altura * scale_factor)
-            self.imagen_grises = cv2.resize(self.imagen_grises, (new_width, new_height))
+    def redimensionar_imagen(self, imagen, max_size=None):
+        if imagen is None:
+            return None
+
+        if max_size is None:
+            max_size = self.max_size
+
+        # Detectar si la imagen es RGB (3 canales) o escala de grises (2D)
+        if len(imagen.shape) == 3:
+            altura, ancho = imagen.shape[:2]
+        else:
+            altura, ancho = imagen.shape
+
+        scale_factor = max_size / max(altura, ancho)
+        new_width = int(ancho * scale_factor)
+        new_height = int(altura * scale_factor)
+        return cv2.resize(imagen, (new_width, new_height))
+
+        # Ejemplo de uso en otros métodos:
+        # self.imagen_grises = self.redimensionar_imagen(self.imagen_grises)
+        # self.imagen_filtrada = self.redimensionar_imagen(self.imagen_filtrada)
+
+    def convertir_RGB_a_grises(self, imagen):
+        if imagen is not None:
+            # Convertir la imagen de RGB a escala de grises
+            self.imagen_grises = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+
+            self.imagen_grises = self.redimensionar_imagen(self.imagen_grises)
 
             # Convertir la imagen a un formato compatible con Tkinter
             img_pil = Image.fromarray(self.imagen_grises)
             self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
-        if imagen2 is not None:
-            # Convertir la imagen de RGB a escala de grises
-            self.imagen_grises_c = cv2.cvtColor(imagen2, cv2.COLOR_RGB2GRAY)
+        return self.img_tk1
 
-            # Redimensionar la imagen para que se ajuste al tamaño máximo
-            altura, ancho = self.imagen_grises_c.shape
-            scale_factor = 600 / max(altura, ancho)
-            new_width = int(ancho * scale_factor)
-            new_height = int(altura * scale_factor)
-            self.imagen_grises_c = cv2.resize(
-                self.imagen_grises_c, (new_width, new_height)
-            )
+    def convertir_RGB_a_grises_c(self, imagen):
+        if imagen is not None:
+            # Convertir la imagen de RGB a escala de grises
+            self.imagen_grises_c = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+
+            self.imagen_grises_c = self.redimensionar_imagen(self.imagen_grises_c)
 
             # Convertir la imagen a un formato compatible con Tkinter
             img_pil = Image.fromarray(self.imagen_grises_c)
-            self.img_tk2 = ImageTk.PhotoImage(img_pil)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
-        return self.img_tk1, self.img_tk2
+        return self.img_tk1
 
-    def convertir_RGB_a_binario(self, imagen1, imagen2, umbral):
-        # imagen1: sin corrección de contraste
-        # imagen2: con corrección de contraste
-
-        # Umbral manual para imagen1
-        if imagen1 is not None:
-            gris1 = cv2.cvtColor(imagen1, cv2.COLOR_RGB2GRAY)
+    def convertir_RGB_a_binario(self, imagen, umbral=None):
+        if imagen is not None:
+            gris1 = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
             _, self.imagen_umbral_manual = cv2.threshold(
                 gris1, umbral, 255, cv2.THRESH_BINARY
             )
 
-            # Redimensionar las imagen para que se ajuste al tamaño máximo
-            altura, ancho = self.imagen_umbral_manual.shape
-            scale_factor = self.max_size / max(altura, ancho)
-            new_width = int(ancho * scale_factor)
-            new_height = int(altura * scale_factor)
-            self.imagen_umbral_manual = cv2.resize(
-                self.imagen_umbral_manual, (new_width, new_height)
+            self.imagen_umbral_manual = self.redimensionar_imagen(
+                self.imagen_umbral_manual
             )
 
             # Convertir la imagen a un formato compatible con Tkinter
             img_pil = Image.fromarray(self.imagen_umbral_manual)
             self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
-            # Umbral automático (Otsu) para imagen1
+        return self.img_tk1
+
+    def convertir_RGB_a_binario_a(self, imagen):
+        if imagen is not None:
+            gris1 = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+            # Umbral automático usando Otsu
             _, self.imagen_umbral_automatico = cv2.threshold(
                 gris1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
             )
 
-            # Redimensionar las imagen para que se ajuste al tamaño máximo
-            altura, ancho = self.imagen_umbral_automatico.shape
-            scale_factor = self.max_size / max(altura, ancho)
-            new_width = int(ancho * scale_factor)
-            new_height = int(altura * scale_factor)
-            self.imagen_umbral_automatico = cv2.resize(
-                self.imagen_umbral_automatico, (new_width, new_height)
+            self.imagen_umbral_automatico = self.redimensionar_imagen(
+                self.imagen_umbral_automatico
             )
 
             # Convertir la imagen a un formato compatible con Tkinter
             img_pil = Image.fromarray(self.imagen_umbral_automatico)
-            self.img_tk2 = ImageTk.PhotoImage(img_pil)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
-        # Umbral manual para imagen2
-        if imagen2 is not None:
-            gris2 = cv2.cvtColor(imagen2, cv2.COLOR_RGB2GRAY)
-            _, self.imagen_umbral_manual_c = cv2.threshold(
-                gris2, umbral, 255, cv2.THRESH_BINARY
-            )
-
-            # Redimensionar las imagen para que se ajuste al tamaño máximo
-            altura, ancho = self.imagen_umbral_manual_c.shape
-            scale_factor = self.max_size / max(altura, ancho)
-            new_width = int(ancho * scale_factor)
-            new_height = int(altura * scale_factor)
-            self.imagen_umbral_manual_c = cv2.resize(
-                self.imagen_umbral_manual_c, (new_width, new_height)
-            )
-
-            # Convertir la imagen a un formato compatible con Tkinter
-            img_pil = Image.fromarray(self.imagen_umbral_manual_c)
-            self.img_tk3 = ImageTk.PhotoImage(img_pil)
-
-            # Umbral automático (Otsu) para imagen2
-            _, self.imagen_umbral_automatico_c = cv2.threshold(
-                gris2, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
-            )
-
-            # Redimensionar las imagen para que se ajuste al tamaño máximo
-            altura, ancho = self.imagen_umbral_automatico_c.shape
-            scale_factor = self.max_size / max(altura, ancho)
-            new_width = int(ancho * scale_factor)
-            new_height = int(altura * scale_factor)
-            self.imagen_umbral_automatico_c = cv2.resize(
-                self.imagen_umbral_automatico_c, (new_width, new_height)
-            )
-
-            # Convertir la imagen a un formato compatible con Tkinter
-            img_pil = Image.fromarray(self.imagen_umbral_automatico_c)
-            self.img_tk4 = ImageTk.PhotoImage(img_pil)
-
-        return self.img_tk1, self.img_tk2, self.img_tk3, self.img_tk4
+        return self.img_tk1
 
     def aplicar_ruido_gaussiano(self, media, sigma):
         if self.imagen_grises is None:
@@ -189,7 +178,7 @@ class Modelo:
 
         # Redimensionar las imagen para que se ajuste al tamaño máximo
         altura, ancho = self.imagen_ruido.shape
-        scale_factor = 600 / max(altura, ancho)
+        scale_factor = self.max_size / max(altura, ancho)
         new_width = int(ancho * scale_factor)
         new_height = int(altura * scale_factor)
         self.imagen_ruido = cv2.resize(self.imagen_ruido, (new_width, new_height))
@@ -200,27 +189,18 @@ class Modelo:
 
         return self.img_tk1
 
-    def aplicar_correccion_contraste(self, gamma):
-        if self.imagen_original is None:
-            raise ValueError("No se esta cargada la imagen principal")
+    def aplicar_correccion_contraste(self, imagen, gamma):
+        if imagen is not None:
+            # Aplicar corrección gamma a la imagen 1
+            self.imagen_correccion = np.clip(
+                255 * ((imagen / 255) ** gamma), 0, 255
+            ).astype(np.uint8)
 
-        # Aplicar corrección gamma a la imagen 1
-        self.imagen_correccion = np.clip(
-            255 * ((self.imagen_original / 255) ** gamma), 0, 255
-        ).astype(np.uint8)
+            self.imagen_correccion = self.redimensionar_imagen(self.imagen_correccion)
 
-        # Redimensionar las imagen para que se ajuste al tamaño máximo
-        altura, ancho, _ = self.imagen_correccion.shape
-        scale_factor = 600 / max(altura, ancho)
-        new_width = int(ancho * scale_factor)
-        new_height = int(altura * scale_factor)
-        self.imagen_correccion = cv2.resize(
-            self.imagen_correccion, (new_width, new_height)
-        )
-
-        # Convertir la imagen a un formato compatible con Tkinter
-        img_pil = Image.fromarray(self.imagen_correccion)
-        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+            # Convertir la imagen a un formato compatible con Tkinter
+            img_pil = Image.fromarray(self.imagen_correccion)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
         return self.img_tk1
 
@@ -318,23 +298,17 @@ class Modelo:
                 raise ValueError("Tipo de canal no válido. Usa 'r', 'g' o 'b'.")
 
     def aplicar_filtro_gaussiano(self, imagen, sigma):
-        if imagen is None:
-            raise ValueError("No se esta cargada la imagen principal")
+        if imagen is not None:
 
-        self.imagen_filtrada = cv2.GaussianBlur(
-            imagen, (3, 3), sigma
-        )  # Aplicar filtro gaussiano, con sigma como desviación estándar
+            self.imagen_filtrada = cv2.GaussianBlur(
+                imagen, (3, 3), sigma
+            )  # Aplicar filtro gaussiano, con sigma como desviación estándar
 
-        # Redimensionar las imagen para que se ajuste al tamaño máximo
-        altura, ancho = self.imagen_filtrada.shape
-        scale_factor = 600 / max(altura, ancho)
-        new_width = int(ancho * scale_factor)
-        new_height = int(altura * scale_factor)
-        self.imagen_filtrada = cv2.resize(self.imagen_filtrada, (new_width, new_height))
+            self.imagen_filtrada = self.redimensionar_imagen(self.imagen_filtrada)
 
-        # Convertir la imagen a un formato compatible con Tkinter
-        img_pil = Image.fromarray(self.imagen_filtrada)
-        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+            # Convertir la imagen a un formato compatible con Tkinter
+            img_pil = Image.fromarray(self.imagen_filtrada)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
         return self.img_tk1
 
@@ -344,13 +318,8 @@ class Modelo:
 
         self.imagen_filtrada_sal_pimienta = cv2.medianBlur(imagen, 3)
 
-        # Redimensionar las imagen para que se ajuste al tamaño máximo
-        altura, ancho = self.imagen_filtrada_sal_pimienta.shape
-        scale_factor = 600 / max(altura, ancho)
-        new_width = int(ancho * scale_factor)
-        new_height = int(altura * scale_factor)
-        self.imagen_filtrada_sal_pimienta = cv2.resize(
-            self.imagen_filtrada_sal_pimienta, (new_width, new_height)
+        self.imagen_filtrada_sal_pimienta = self.redimensionar_imagen(
+            self.imagen_filtrada_sal_pimienta
         )
 
         # Convertir la imagen a un formato compatible con Tkinter
@@ -366,14 +335,7 @@ class Modelo:
         # Aplicar el filtro Laplaciano a la imagen
         self.imagen_laplaciana = cv2.filter2D(imagen, -1, laplaciano)
 
-        # Redimensionar la imagen procesada
-        altura, ancho = self.imagen_laplaciana.shape
-        scale_factor = 600 / max(altura, ancho)
-        new_width = int(ancho * scale_factor)
-        new_height = int(altura * scale_factor)
-        self.imagen_laplaciana = cv2.resize(
-            self.imagen_laplaciana, (new_width, new_height)
-        )
+        self.imagen_laplaciana = self.redimensionar_imagen(self.imagen_laplaciana)
 
         # Convertir la imagen a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen_laplaciana)
@@ -381,7 +343,7 @@ class Modelo:
 
         return self.img_tk1
 
-    def aplicar_segmentacion(self, imagen):
+    def aplicar_segmentacion_lua(self, imagen):
 
         # Normalizar la imagen Laplaciana para trabajar con valores en [0, 255]
         laplacian_normalized = cv2.normalize(
@@ -426,17 +388,92 @@ class Modelo:
             laplacian_normalized, threshold, 255, cv2.THRESH_BINARY
         )
 
-        # Redimensionar la imagen procesada
-        altura, ancho = self.imagen_segmentada_lua.shape
-        scale_factor = 600 / max(altura, ancho)
-        new_width = int(ancho * scale_factor)
-        new_height = int(altura * scale_factor)
-        self.imagen_segmentada_lua = cv2.resize(
-            self.imagen_segmentada_lua, (new_width, new_height)
+        self.imagen_segmentada_lua = self.redimensionar_imagen(
+            self.imagen_segmentada_lua
         )
 
         # Convertir la imagen segmentada a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen_segmentada_lua)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_segmentacion_lum(self, imagen, umbral):
+        # Verificar que el umbral manual esté dentro de un rango razonable
+        if umbral < 0 or umbral > 255:
+            raise ValueError("El umbral manual debe estar entre 0 y 255.")
+
+        # Aplicar umbralización para segmentar la imagen
+        _, self.imagen_segmentada_lum = cv2.threshold(
+            imagen, umbral, 255, cv2.THRESH_BINARY
+        )
+
+        # Convertir la imagen segmentada a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_segmentada_lum)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_segmentacion_ua(self, imagen):
+        # Normalizar la imagen Laplaciana para trabajar con valores en [0, 255]
+        imagen_normalized = cv2.normalize(imagen, None, 0, 255, cv2.NORM_MINMAX).astype(
+            np.uint8
+        )
+
+        # Calcular el histograma de la imagen normalizada
+        hist = cv2.calcHist([imagen_normalized], [0], None, [256], [0, 256]).flatten()
+
+        # Suavizar el histograma con un filtro de promedio móvil para reducir ruido
+        window_size = 5
+        smoothed_hist = np.convolve(
+            hist, np.ones(window_size) / window_size, mode="valid"
+        )
+        pad_size = (window_size - 1) // 2
+        smoothed_hist = np.pad(smoothed_hist, (pad_size, pad_size), mode="edge")
+
+        # Encontrar picos en el histograma suavizado
+        peaks, _ = find_peaks(smoothed_hist, distance=20)
+
+        # Verificar que se encontraron al menos dos picos
+        if len(peaks) < 2:
+            raise ValueError(
+                "No se encontraron suficientes picos en el histograma para determinar el umbral."
+            )
+
+        # Seleccionar los dos picos más prominentes
+        peak_heights = smoothed_hist[peaks]
+        top_peaks = peaks[np.argsort(peak_heights)[-2:]]
+        top_peaks = sorted(top_peaks)
+
+        # Encontrar el mínimo (valle) entre los dos picos
+        valley_region = smoothed_hist[top_peaks[0] : top_peaks[1]]
+        valley_idx = np.argmin(valley_region) + top_peaks[0]
+        threshold = int(valley_idx)
+        print(f"Umbral encontrado: {threshold}")
+
+        # Aplicar umbralización para segmentar la imagen
+        _, self.imagen_segmentada_ua = cv2.threshold(
+            imagen_normalized, threshold, 255, cv2.THRESH_BINARY
+        )
+
+        # Convertir la imagen segmentada a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_segmentada_ua)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_segmentacion_um(self, imagen, umbral):
+        # Verificar que el umbral manual esté dentro de un rango razonable
+        if umbral < 0 or umbral > 255:
+            raise ValueError("El umbral manual debe estar entre 0 y 255.")
+
+        # Aplicar umbralización para segmentar la imagen
+        _, self.imagen_segmentada_um = cv2.threshold(
+            imagen, umbral, 255, cv2.THRESH_BINARY
+        )
+
+        # Convertir la imagen segmentada a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_segmentada_um)
         self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
         return self.img_tk1

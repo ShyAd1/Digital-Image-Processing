@@ -61,7 +61,8 @@ class Controlador:
             "Filtro de laplaciano", command=self.abrir_y_conectar_filtro_laplaciano
         )
         self.vista.get_menu_segmetacion().entryconfig(
-            "Segmentación por minimo histograma", command=self.abrir_y_conectar_segmentacion
+            "Segmentación por minimo histograma",
+            command=self.abrir_y_conectar_segmentacion,
         )
 
     def cargar_imagen(self):
@@ -77,44 +78,112 @@ class Controlador:
 
     def abrir_y_conectar_conversion_grises(self):
         self.vista.abrir_ventana_conversion_grises()
-        boton = self.vista.get_boton_grises()
-        if boton is not None:
-            boton.config(command=self.aplicar_escala_grises)
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_conversion_grises,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
+        boton_grises = self.vista.get_boton_grises()
+        if boton_grises is not None:
+            boton_grises.config(command=self.aplicar_escala_grises)
+
+        boton_grises_c = self.vista.get_boton_grises_c()
+        if boton_grises_c is not None:
+            boton_grises_c.config(command=self.aplicar_escala_grises_c)
 
     def aplicar_escala_grises(self):
         if self.vista.imagen_original is not None:
-            self.modelo.convertir_RGB_a_grises(
-                self.modelo.imagen_original, self.modelo.imagen_correccion
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
             )
-            self.vista.mostrar_imagen(self.modelo.img_tk1, "grises")
-            self.vista.mostrar_imagen(self.modelo.img_tk2, "grises_c")
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.convertir_RGB_a_grises(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_conversion_grises
+            )
             self.modelo.img_tk1 = None
-            self.modelo.img_tk2 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def aplicar_escala_grises_c(self):
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.convertir_RGB_a_grises_c(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_conversion_grises
+            )
+            self.modelo.img_tk1 = None
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
 
     def abrir_y_conectar_conversion_binario(self):
         self.vista.abrir_ventana_conversion_binario()
-        boton = self.vista.get_boton_umbralizado()
-        if boton is not None:
-            boton.config(command=self.aplicar_binarizado)
 
-    def aplicar_binarizado(self):
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_conversion_grises,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
+        boton_manual = self.vista.get_boton_umbralizado_manual()
+        if boton_manual is not None:
+            boton_manual.config(command=self.aplicar_binarizado_manual)
+
+        boton_auto = self.vista.get_boton_umbralizado_auto()
+        if boton_auto is not None:
+            boton_auto.config(command=self.aplicar_binarizado_auto)
+
+    def aplicar_binarizado_manual(self):
         if self.vista.imagen_original is not None:
             umbral = self.vista.get_slider_binario().get()
-            self.modelo.convertir_RGB_a_binario(
-                self.modelo.imagen_original,
-                self.modelo.imagen_correccion,
-                umbral,
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
             )
-            self.vista.mostrar_imagen(self.modelo.img_tk1, "umbral_manual")
-            self.vista.mostrar_imagen(self.modelo.img_tk2, "umbral_automatico")
-            self.vista.mostrar_imagen(self.modelo.img_tk3, "umbral_manual_c")
-            self.vista.mostrar_imagen(self.modelo.img_tk4, "umbral_automatico_c")
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.convertir_RGB_a_binario(imagen_seleccionada, umbral)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_conversion_binario
+            )
             self.modelo.img_tk1 = None
-            self.modelo.img_tk2 = None
-            self.modelo.img_tk3 = None
-            self.modelo.img_tk4 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def aplicar_binarizado_auto(self):
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.convertir_RGB_a_binario_a(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_conversion_binario
+            )
+            self.modelo.img_tk1 = None
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
 
@@ -136,6 +205,15 @@ class Controlador:
 
     def abrir_y_conectar_correcion_contraste(self):
         self.vista.abrir_ventana_correcion_contraste()
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventanda_correcion,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
         boton = self.vista.get_boton_correccion_gamma()
         if boton is not None:
             boton.config(command=self.aplicar_contraste)
@@ -143,8 +221,18 @@ class Controlador:
     def aplicar_contraste(self):
         if self.vista.imagen_original is not None:
             gamma = self.vista.get_slider_contraste_gamma().get()
-            self.modelo.aplicar_correccion_contraste(gamma)
-            self.vista.mostrar_imagen(self.modelo.img_tk1, "correccion")
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_correccion_contraste(imagen_seleccionada, gamma)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventanda_correcion
+            )
             self.modelo.img_tk1 = None
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
@@ -218,37 +306,82 @@ class Controlador:
 
     def abrir_y_conectar_filtro_gaussiano(self):
         self.vista.abrir_ventana_filtro_gaussiano()
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_filtro_gaussiano,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
         boton = self.vista.get_boton_aplicar_filtro_gaussiano()
         if boton is not None:
             boton.config(command=self.aplicar_filtro_gaussiano)
 
     def aplicar_filtro_gaussiano(self):
-        if self.vista.imagen_filtrada_sal_pimienta is not None:
+        if self.vista.imagen_original is not None:
             sigma = self.vista.get_slider_filtro_gaussiano_sigma().get()
-            self.modelo.aplicar_filtro_gaussiano(
-                self.modelo.imagen_filtrada_sal_pimienta, sigma
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
             )
-            self.vista.mostrar_imagen(self.modelo.img_tk1, "filtro_gaussiano")
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_filtro_gaussiano(imagen_seleccionada, sigma)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_filtro_gaussiano
+            )
             self.modelo.img_tk1 = None
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
 
     def abrir_y_conectar_filtro_sal_pimienta(self):
         self.vista.abrir_ventana_filtro_sal_pimienta()
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_filtro_sal_pimienta,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
         boton = self.vista.get_boton_aplicar_filtro_sal_pimienta()
         if boton is not None:
             boton.config(command=self.aplicar_filtro_sal_pimienta)
 
     def aplicar_filtro_sal_pimienta(self):
-        if self.vista.imagen_umbral_automatico_c is not None:
-            self.modelo.aplicar_filtro_sal_pimienta(self.modelo.imagen_umbral_automatico_c)
-            self.vista.mostrar_imagen(self.modelo.img_tk1, "filtro_sal_pimienta")
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_filtro_sal_pimienta(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_filtro_sal_pimienta
+            )
             self.modelo.img_tk1 = None
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
 
     def abrir_y_conectar_filtro_laplaciano(self):
         self.vista.abrir_ventana_filtro_laplaciano()
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_filtro_laplaciano,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
         boton_guardar = self.vista.get_boton_guardar_matriz()
         if boton_guardar is not None:
             boton_guardar.config(command=self.guardar_matriz)
@@ -260,13 +393,21 @@ class Controlador:
         self.matriz_laplaciana_temp = self.vista.get_matriz_convolucion()
 
     def aplicar_filtro_laplaciano(self):
-        if self.vista.imagen_filtrada is not None:
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
             matriz = getattr(self, "matriz_laplaciana_temp", None)
             if matriz is not None:
-                self.modelo.aplicar_filtro_laplaciano(
-                    self.modelo.imagen_filtrada, matriz
+                self.modelo.aplicar_filtro_laplaciano(imagen_seleccionada, matriz)
+                self.vista.mostrar_imagen_unica(
+                    self.modelo.img_tk1, self.vista.ventana_filtro_laplaciano
                 )
-                self.vista.mostrar_imagen(self.modelo.img_tk1, "filtro_laplaciano")
                 self.modelo.img_tk1 = None
             else:
                 messagebox.showwarning(
@@ -277,14 +418,98 @@ class Controlador:
 
     def abrir_y_conectar_segmentacion(self):
         self.vista.abrir_ventana_segmentacion()
-        boton = self.vista.get_boton_aplicar_segmentacion_lua()
-        if boton is not None:
-            boton.config(command=self.aplicar_segmentacion)
 
-    def aplicar_segmentacion(self):
-        if self.vista.imagen_laplaciana is not None:
-            self.modelo.aplicar_segmentacion(self.modelo.imagen_laplaciana)
-            self.vista.mostrar_imagen(self.modelo.img_tk1, "segmentada_lua")
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_segmentacion,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
+        boton_seg_lua = self.vista.get_boton_aplicar_segmentacion_lua()
+        if boton_seg_lua is not None:
+            boton_seg_lua.config(command=self.aplicar_segmentacion_lua)
+        boton_seg_lum = self.vista.get_boton_aplicar_segmentacion_lum()
+        if boton_seg_lum is not None:
+            boton_seg_lum.config(command=self.aplicar_segmentacion_lum)
+        boton_seg_ua = self.vista.get_boton_aplicar_segmentacion_ua()
+        if boton_seg_ua is not None:
+            boton_seg_ua.config(command=self.aplicar_segmentacion_ua)
+        boton_seg_um = self.vista.get_boton_aplicar_segmentacion_um()
+        if boton_seg_um is not None:
+            boton_seg_um.config(command=self.aplicar_segmentacion_um)
+
+    def aplicar_segmentacion_lua(self):
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_segmentacion_lua(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_segmentacion
+            )
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def aplicar_segmentacion_lum(self):
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            umbral = self.vista.get_slider_segmentacion().get()
+
+            self.modelo.aplicar_segmentacion_lum(imagen_seleccionada, umbral)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_segmentacion
+            )
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def aplicar_segmentacion_ua(self):
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_segmentacion_ua(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_segmentacion
+            )
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def aplicar_segmentacion_um(self):
+        if self.vista.imagen_original is not None:
+
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_segmentacion_um(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_segmentacion
+            )
             self.modelo.img_tk1 = None
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")

@@ -72,6 +72,29 @@ class Vista:
             label="Mostrar Histogramas y Canales", menu=self.histogram_menu
         )
 
+        # Crear el menú "Operaciones"
+        self.operation_menu = tk.Menu(self.menubar, tearoff=0)
+        self.operation_menu.add_command(
+            label="Not",
+            command=None,
+        )
+        self.operation_menu.add_separator()
+        self.operation_menu.add_command(
+            label="Or",
+            command=None,
+        )
+        self.operation_menu.add_separator()
+        self.operation_menu.add_command(
+            label="And",
+            command=None,
+        )
+        self.operation_menu.add_separator()
+        self.operation_menu.add_command(
+            label="Xor",
+            command=None,
+        )
+        self.menubar.add_cascade(label="Operaciones", menu=self.operation_menu)
+
         # Crear el menú "Correcciones de ruido y contraste"
         self.correction_menu = tk.Menu(self.menubar, tearoff=0)
         self.correction_menu.add_command(
@@ -151,9 +174,6 @@ class Vista:
         self.frame_imagen = ttk.Frame(self.root)
         self.frame_imagen.pack(pady=20)
 
-        # Crear label para la visualización de la imagen original
-        self.label_original = tk.Label(self.frame_imagen, text="Imagen original")
-        self.label_original.grid(row=0, column=0, padx=10, pady=5)
         self.imagen_original = tk.Label(self.frame_imagen)
         self.imagen_original.grid(row=1, column=0, padx=10, pady=5)
 
@@ -166,26 +186,6 @@ class Vista:
         self.ventana_conversion_grises.title("Conversión de RGB a Escala de grises")
         self.ventana_conversion_grises.geometry("1600x900")
 
-        # Crear marco para las imagenes de resultado
-        self.frame_resultados = tk.Frame(self.ventana_conversion_grises)
-        self.frame_resultados.pack(pady=20)
-
-        # Crear label para la visualización de la imagen en escala de grises
-        self.label_grises = tk.Label(
-            self.frame_resultados, text="Imagen en escala de grises"
-        )
-        self.label_grises.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_grises = tk.Label(self.frame_resultados)
-        self.imagen_grises.grid(row=1, column=0, padx=10, pady=5)
-
-        # Crear label para la visualización de la imagen en escala de grises con ajuste de contraste
-        self.label_grises_c = tk.Label(
-            self.frame_resultados, text="Imagen en escala de grises"
-        )
-        self.label_grises_c.grid(row=0, column=1, padx=10, pady=5)
-        self.imagen_grises_c = tk.Label(self.frame_resultados)
-        self.imagen_grises_c.grid(row=1, column=1, padx=10, pady=5)
-
         # Crear un marco para los botones y acomodarlos horizontalmente
         self.frame_botones = tk.Frame(self.ventana_conversion_grises)
         self.frame_botones.pack(pady=10)
@@ -195,6 +195,12 @@ class Vista:
             self.frame_botones, text="Aplicar conversión a Escala de grises"
         )
         self.boton_grises.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para convertir a escala de grises con correcion de contraste
+        self.boton_grises_c = ttk.Button(
+            self.frame_botones, text="Aplicar conversión a Escala de grises (contraste)"
+        )
+        self.boton_grises_c.pack(side=tk.LEFT, padx=5)
 
         # Crear botón para guardar resultados
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
@@ -227,97 +233,24 @@ class Vista:
         self.slider.set(128)
         self.slider.pack(side=tk.LEFT, padx=5)
 
-        # Crear Canvas y Scrollbar para las imágenes (desplazable)
-        self.canvas = tk.Canvas(self.ventana_conversion_binario, borderwidth=0)
-        self.scrollbar = tk.Scrollbar(
-            self.ventana_conversion_binario,
-            orient="vertical",
-            command=self.canvas.yview,
-        )
-        self.canvas.configure(yscrollcommand=self.scrollbar.set)
-
-        # Posicionar Canvas y Scrollbar
-        self.scrollbar.pack(side="right", fill="y")
-        self.canvas.pack(pady=20, fill="both", expand=True)
-
-        # Crear marco desplazable para las imágenes
-        self.frame_resultados = tk.Frame(self.canvas)
-        # Centrar el frame_resultados dentro del Canvas
-        self.canvas_frame = self.canvas.create_window(
-            (0, 0), window=self.frame_resultados, anchor="n"
-        )
-
-        # Vincular eventos para actualizar la región desplazable y centrar el contenido
-        self.frame_resultados.bind("<Configure>", self.actualizar_scrollregion)
-        self.canvas.bind("<Configure>", self.centrar_contenido)
-
-        # Crear label para la visualización de la imagen de umbral manual
-        self.label_umbral_manual = tk.Label(self.frame_resultados, text="Umbral manual")
-        self.label_umbral_manual.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_umbral_manual = tk.Label(self.frame_resultados)
-        self.imagen_umbral_manual.grid(row=1, column=0, padx=10, pady=5)
-
-        # Crear label para la visualización de la imagen de umbral automático
-        self.label_umbral_automatico = tk.Label(
-            self.frame_resultados, text="Umbral automático"
-        )
-        self.label_umbral_automatico.grid(row=0, column=1, padx=10, pady=5)
-        self.imagen_umbral_automatico = tk.Label(self.frame_resultados)
-        self.imagen_umbral_automatico.grid(row=1, column=1, padx=10, pady=5)
-
-        # Crear label para la visualización de la imagen de umbral manual con corrección de contraste
-        self.label_umbral_manual_c = tk.Label(
-            self.frame_resultados, text="Umbral manual con corrección de contraste"
-        )
-        self.label_umbral_manual_c.grid(row=2, column=0, padx=10, pady=5)
-        self.imagen_umbral_manual_c = tk.Label(self.frame_resultados)
-        self.imagen_umbral_manual_c.grid(row=3, column=0, padx=10, pady=5)
-
-        # Crear label para la visualización de la imagen de umbral automático con corrección de contraste
-        self.label_umbral_automatico_c = tk.Label(
-            self.frame_resultados, text="Umbral automático con corrección de contraste"
-        )
-        self.label_umbral_automatico_c.grid(row=2, column=1, padx=10, pady=5)
-        self.imagen_umbral_automatico_c = tk.Label(self.frame_resultados)
-        self.imagen_umbral_automatico_c.grid(row=3, column=1, padx=10, pady=5)
-
         # Crear un marco para los botones y acomodarlos horizontalmente (fijo en la parte inferior)
         self.frame_botones = tk.Frame(self.ventana_conversion_binario)
         self.frame_botones.pack(pady=10)
 
         # Crear botón para aplicar umbralizado
-        self.boton_umbralizado = ttk.Button(
-            self.frame_botones, text="Aplicar umbralizado"
+        self.boton_umbralizado_manual = ttk.Button(
+            self.frame_botones, text="Aplicar umbralizado manual"
         )
-        self.boton_umbralizado.pack(side=tk.LEFT, padx=5)
+        self.boton_umbralizado_manual.pack(side=tk.LEFT, padx=5)
+
+        self.boton_umbralizado_auto = ttk.Button(
+            self.frame_botones, text="Aplicar umbralizado automatico"
+        )
+        self.boton_umbralizado_auto.pack(side=tk.LEFT, padx=5)
 
         # Crear botón para guardar resultados
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultados")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
-
-    def actualizar_scrollregion(self, event):
-        self.canvas.configure(scrollregion=self.canvas.bbox("all"))
-        # Centrar el contenido después de actualizar la región desplazable
-        self.centrar_contenido(None)
-
-    def centrar_contenido(self, event):
-        if event:
-            canvas_width = event.width
-        else:
-            canvas_width = self.canvas.winfo_width()
-
-        # Obtener el ancho del frame_resultados
-        frame_width = self.frame_resultados.winfo_reqwidth()
-
-        # Calcular la posición x para centrar el frame_resultados
-        x_position = max(0, (canvas_width - frame_width) // 2)
-
-        # Actualizar la posición del frame_resultados en el Canvas
-        self.canvas.coords(self.canvas_frame, x_position, 0)
-
-    def _on_mousewheel(self, event):
-        self.canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
-        self.ventana_conversion_binario.bind_all("<MouseWheel>", self._on_mousewheel)
 
     def abrir_ventana_aplicar_ruido(self):
         # Crear una ventana para la correcion_contraste
@@ -363,18 +296,6 @@ class Vista:
         self.slider2.set(25)
         self.slider2.pack(side=tk.LEFT, padx=5)
 
-        # Crear marco para las imagen de resultado
-        self.frame_resultado = tk.Frame(self.ventanda_ruido)
-        self.frame_resultado.pack(pady=20)
-
-        # Crear label para la visualización de la imagen con ruido
-        self.label_ruido = tk.Label(
-            self.frame_resultado, text="Imagen con el ruido aplicado"
-        )
-        self.label_ruido.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_ruido = tk.Label(self.frame_resultado)
-        self.imagen_ruido.grid(row=1, column=0, padx=10, pady=5)
-
         # Crear un marco para los botones y acomodarlos horizontalmente
         self.frame_botones = tk.Frame(self.ventanda_ruido)
         self.frame_botones.pack(pady=10)
@@ -416,18 +337,6 @@ class Vista:
         )
         self.slider3.set(0.5)
         self.slider3.pack(side=tk.LEFT, padx=5)
-
-        # Crear marco para las imagen de resultado
-        self.frame_resultado = tk.Frame(self.ventanda_correcion)
-        self.frame_resultado.pack(pady=20)
-
-        # Crear label para la visualización de la imagen ya corregida
-        self.label_correccion = tk.Label(
-            self.frame_resultado, text="Imagen con el contraste corregido"
-        )
-        self.label_correccion.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_correccion = tk.Label(self.frame_resultado)
-        self.imagen_correccion.grid(row=1, column=0, padx=10, pady=5)
 
         # Crear un marco para los botones y acomodarlos horizontalmente
         self.frame_botones = tk.Frame(self.ventanda_correcion)
@@ -471,18 +380,6 @@ class Vista:
         self.slider_sigma.set(0.50)
         self.slider_sigma.pack(side=tk.LEFT, padx=5)
 
-        # Crear marco para la imagen de resultado
-        self.frame_resultado = tk.Frame(self.ventana_filtro_gaussiano)
-        self.frame_resultado.pack(pady=20)
-
-        # Crear label para la visualización de la imagen filtrada
-        self.label_filtrada = tk.Label(
-            self.frame_resultado, text="Imagen con filtro gaussiano"
-        )
-        self.label_filtrada.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_filtrada = tk.Label(self.frame_resultado)
-        self.imagen_filtrada.grid(row=1, column=0, padx=10, pady=5)
-
         # Crear un marco para los botones y acomodarlos horizontalmente
         self.frame_botones = tk.Frame(self.ventana_filtro_gaussiano)
         self.frame_botones.pack(pady=10)
@@ -502,18 +399,6 @@ class Vista:
         self.ventana_filtro_sal_pimienta = tk.Toplevel(self.root)
         self.ventana_filtro_sal_pimienta.title("Filtro Sal y Pimienta")
         self.ventana_filtro_sal_pimienta.geometry("1600x900")
-
-        # Crear marco para la imagen de resultado
-        self.frame_resultado = tk.Frame(self.ventana_filtro_sal_pimienta)
-        self.frame_resultado.pack(pady=20)
-
-        # Crear label para la visualización de la imagen filtrada
-        self.label_filtrada_sal_pimienta = tk.Label(
-            self.frame_resultado, text="Imagen con filtro sal y pimienta"
-        )
-        self.label_filtrada_sal_pimienta.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_filtrada_sal_pimienta = tk.Label(self.frame_resultado)
-        self.imagen_filtrada_sal_pimienta.grid(row=1, column=0, padx=10, pady=5)
 
         # Crear un marco para los botones y acomodarlos horizontalmente
         self.frame_botones = tk.Frame(self.ventana_filtro_sal_pimienta)
@@ -550,18 +435,6 @@ class Vista:
                 entry.grid(row=i + 1, column=j, padx=5, pady=5)
                 fila.append(entry)
             self.entries_matriz.append(fila)
-
-        # Crear marco para la imagen de resultado
-        self.frame_resultado = tk.Frame(self.ventana_filtro_laplaciano)
-        self.frame_resultado.pack(pady=20)
-
-        # Crear label para la visualización de la imagen con filtro laplaciano
-        self.label_laplaciana = tk.Label(
-            self.frame_resultado, text="Imagen con filtro laplaciano"
-        )
-        self.label_laplaciana.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_laplaciana = tk.Label(self.frame_resultado)
-        self.imagen_laplaciana.grid(row=1, column=0, padx=10, pady=5)
 
         # Crear un marco para los botones y acomodarlos horizontalmente
         self.frame_botones = tk.Frame(self.ventana_filtro_laplaciano)
@@ -610,43 +483,6 @@ class Vista:
         self.slider4.set(128)
         self.slider4.pack(side=tk.LEFT, padx=5)
 
-        # Crear marco para la imagen de resultado
-        self.frame_resultado = tk.Frame(self.ventana_segmentacion)
-        self.frame_resultado.pack(pady=20)
-
-        # Crear label para la visualización de la imagen segmentada por umbral manual
-        self.label_segmentada_um = tk.Label(
-            self.frame_resultado, text="Imagen segmentada por umbral manual"
-        )
-        self.label_segmentada_um.grid(row=0, column=0, padx=10, pady=5)
-        self.imagen_segmentada_um = tk.Label(self.frame_resultado)
-        self.imagen_segmentada_um.grid(row=1, column=0, padx=10, pady=5)
-
-        # Crear label para la visualización de la imagen segmentada laplaciana por umbral manual
-        self.label_segmentada_lum = tk.Label(
-            self.frame_resultado, text="Imagen segmentada laplaciana por umbral manual"
-        )
-        self.label_segmentada_lum.grid(row=0, column=1, padx=10, pady=5)
-        self.imagen_segmentada_lum = tk.Label(self.frame_resultado)
-        self.imagen_segmentada_lum.grid(row=1, column=1, padx=10, pady=5)
-
-        # Crear label para la visualización de la imagen segmentada por umbral automatico
-        self.label_segmentada_ua = tk.Label(
-            self.frame_resultado, text="Imagen segmentada por umbral automatico"
-        )
-        self.label_segmentada_ua.grid(row=2, column=0, padx=10, pady=5)
-        self.imagen_segmentada_ua = tk.Label(self.frame_resultado)
-        self.imagen_segmentada_ua.grid(row=3, column=0, padx=10, pady=5)
-
-        # Crear label para la visualización de la imagen segmentada laplaciana por umbral automatico
-        self.label_segmentada_lua = tk.Label(
-            self.frame_resultado,
-            text="Imagen segmentada laplaciana por umbral automatico",
-        )
-        self.label_segmentada_lua.grid(row=2, column=1, padx=10, pady=5)
-        self.imagen_segmentada_lua = tk.Label(self.frame_resultado)
-        self.imagen_segmentada_lua.grid(row=3, column=1, padx=10, pady=5)
-
         # Crear un marco para los botones y acomodarlos horizontalmente
         self.frame_botones = tk.Frame(self.ventana_segmentacion)
         self.frame_botones.pack(pady=10)
@@ -655,33 +491,81 @@ class Vista:
         self.boton_aplicar_segmentacion_um = ttk.Button(
             self.frame_botones, text="Aplicar segmentación umbral manual"
         )
-        self.boton_aplicar_segmentacion_um.grid(row=0, column=0, padx=5, pady=5)
+        self.boton_aplicar_segmentacion_um.pack(side=tk.LEFT, padx=5)
 
         # Crear botón para aplicar la segmentación laplaciana umbral manual
         self.boton_aplicar_segmentacion_lum = ttk.Button(
             self.frame_botones, text="Aplicar segmentación laplaciana umbral manual"
         )
-        self.boton_aplicar_segmentacion_lum.grid(row=0, column=1, padx=5, pady=5)
+        self.boton_aplicar_segmentacion_lum.pack(side=tk.LEFT, padx=5)
 
         # Crear botón para aplicar la segmentación umbral automático
         self.boton_aplicar_segmentacion_ua = ttk.Button(
             self.frame_botones, text="Aplicar segmentación umbral automatico"
         )
-        self.boton_aplicar_segmentacion_ua.grid(row=1, column=0, padx=5, pady=5)
+        self.boton_aplicar_segmentacion_ua.pack(side=tk.LEFT, padx=5)
 
         # Crear botón para aplicar la segmentación laplaciana umbral automático
         self.boton_aplicar_segmentacion_lua = ttk.Button(
             self.frame_botones, text="Aplicar segmentación laplaciana umbral automatico"
         )
-        self.boton_aplicar_segmentacion_lua.grid(row=1, column=1, padx=5, pady=5)
+        self.boton_aplicar_segmentacion_lua.pack(side=tk.LEFT, padx=5)
 
         # Crear botón para guardar resultados (abajo de los de segmentación)
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
-        self.boton_guardar.grid(row=2, column=0, columnspan=2, pady=(10, 0))
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def mostrar_imagen(self, imagen, tipo):
+        if tipo == "original":
+            self.imagen_original.config(image=imagen)
+            self.imagen_original.image = imagen
+
+    def mostrar_imagen_unica(self, imagen, ventana, label_attr="imagen_unica"):
+        # Crea el label si no existe o si fue destruido
+        label = getattr(self, label_attr, None)
+        if label is None or not str(label):
+            frame = ttk.Frame(ventana)
+            frame.pack(pady=20)
+            label = tk.Label(frame)
+            label.pack()
+            setattr(self, label_attr, label)
+        try:
+            label.config(image=imagen)
+            label.image = imagen
+        except tk.TclError:
+            # El label fue destruido, crearlo de nuevo
+            frame = ttk.Frame(ventana)
+            frame.pack(pady=20)
+            label = tk.Label(frame)
+            label.pack()
+            setattr(self, label_attr, label)
+            label.config(image=imagen)
+            label.image = imagen
+
+    def crear_combobox_imagenes(
+        self, ventana, imagenes, label_text="Selecciona una imagen:", frame=None
+    ):
+        # Usa el frame proporcionado o crea uno nuevo en la ventana
+        parent = frame if frame is not None else ventana
+        self.frame_combobox = ttk.Frame(parent)
+        self.frame_combobox.pack(side=tk.LEFT, padx=5)
+
+        # Label descriptivo
+        self.label_combobox = ttk.Label(self.frame_combobox, text=label_text)
+        self.label_combobox.pack(side=tk.LEFT, padx=5)
+
+        # Combobox con la lista de nombres de imágenes
+        self.combobox_imagenes = ttk.Combobox(
+            self.frame_combobox, values=imagenes, state="readonly"
+        )
+        self.combobox_imagenes.pack(side=tk.LEFT, padx=5)
 
     # Getters para los botones
     def get_boton_grises(self):
         return getattr(self, "boton_grises", None)
+
+    def get_boton_grises_c(self):
+        return getattr(self, "boton_grises_c", None)
 
     def get_boton_guardar_grises(self):
         return (
@@ -690,8 +574,11 @@ class Vista:
             else None
         )
 
-    def get_boton_umbralizado(self):
-        return getattr(self, "boton_umbralizado", None)
+    def get_boton_umbralizado_manual(self):
+        return getattr(self, "boton_umbralizado_manual", None)
+
+    def get_boton_umbralizado_auto(self):
+        return getattr(self, "boton_umbralizado_auto", None)
 
     def get_boton_guardar_binario(self):
         return (
@@ -846,70 +733,8 @@ class Vista:
     def get_menu_segmetacion(self):
         return self.segmentation_menu
 
-    def mostrar_imagen(self, imagen, tipo):
-        if tipo == "original":
-            self.imagen_original.config(image=imagen)
-            self.imagen_original.image = imagen
-        elif tipo == "grises":
-            if hasattr(self, "imagen_grises"):
-                self.imagen_grises.config(image=imagen)
-                self.imagen_grises.image = imagen
-        elif tipo == "grises_c":
-            if hasattr(self, "imagen_grises_c"):
-                self.imagen_grises_c.config(image=imagen)
-                self.imagen_grises_c.image = imagen
-        elif tipo == "umbral_manual":
-            if hasattr(self, "imagen_umbral_manual"):
-                self.imagen_umbral_manual.config(image=imagen)
-                self.imagen_umbral_manual.image = imagen
-        elif tipo == "umbral_automatico":
-            if hasattr(self, "imagen_umbral_automatico"):
-                self.imagen_umbral_automatico.config(image=imagen)
-                self.imagen_umbral_automatico.image = imagen
-        elif tipo == "umbral_manual_c":
-            if hasattr(self, "imagen_umbral_manual_c"):
-                self.imagen_umbral_manual_c.config(image=imagen)
-                self.imagen_umbral_manual_c.image = imagen
-        elif tipo == "umbral_automatico_c":
-            if hasattr(self, "imagen_umbral_automatico_c"):
-                self.imagen_umbral_automatico_c.config(image=imagen)
-                self.imagen_umbral_automatico_c.image = imagen
-        elif tipo == "ruido":
-            if hasattr(self, "imagen_ruido"):
-                self.imagen_ruido.config(image=imagen)
-                self.imagen_ruido.image = imagen
-        elif tipo == "correccion":
-            if hasattr(self, "imagen_correccion"):
-                self.imagen_correccion.config(image=imagen)
-                self.imagen_correccion.image = imagen
-        elif tipo == "filtro_gaussiano":
-            if hasattr(self, "imagen_filtrada"):
-                self.imagen_filtrada.config(image=imagen)
-                self.imagen_filtrada.image = imagen
-        elif tipo == "filtro_sal_pimienta":
-            if hasattr(self, "imagen_filtrada_sal_pimienta"):
-                self.imagen_filtrada_sal_pimienta.config(image=imagen)
-                self.imagen_filtrada_sal_pimienta.image = imagen
-        elif tipo == "filtro_laplaciano":
-            if hasattr(self, "imagen_laplaciana"):
-                self.imagen_laplaciana.config(image=imagen)
-                self.imagen_laplaciana.image = imagen
-        elif tipo == "segmentada_um":
-            if hasattr(self, "imagen_segmentada_um"):
-                self.imagen_segmentada_um.config(image=imagen)
-                self.imagen_segmentada_um.image = imagen
-        elif tipo == "segmentada_lum":
-            if hasattr(self, "imagen_segmentada_lum"):
-                self.imagen_segmentada_lum.config(image=imagen)
-                self.imagen_segmentada_lum.image = imagen
-        elif tipo == "segmentada_ua":
-            if hasattr(self, "imagen_segmentada_ua"):
-                self.imagen_segmentada_ua.config(image=imagen)
-                self.imagen_segmentada_ua.image = imagen
-        elif tipo == "segmentada_lua":
-            if hasattr(self, "imagen_segmentada_lua"):
-                self.imagen_segmentada_lua.config(image=imagen)
-                self.imagen_segmentada_lua.image = imagen
+    def get_combobox_imagenes(self):
+        return getattr(self, "combobox_imagenes", None)
 
     # Bucle principal
     def mainloop(self):
