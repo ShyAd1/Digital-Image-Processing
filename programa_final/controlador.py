@@ -60,6 +60,9 @@ class Controlador:
         self.vista.get_menu_filtros().entryconfig(
             "Filtro de laplaciano", command=self.abrir_y_conectar_filtro_laplaciano
         )
+        self.vista.get_menu_segmetacion().entryconfig(
+            "Segmentación por minimo histograma", command=self.abrir_y_conectar_segmentacion
+        )
 
     def cargar_imagen(self):
         # Aquí llamas al método de modelo para cargar la imagen
@@ -237,8 +240,8 @@ class Controlador:
             boton.config(command=self.aplicar_filtro_sal_pimienta)
 
     def aplicar_filtro_sal_pimienta(self):
-        if self.vista.imagen_umbral_manual_c is not None:
-            self.modelo.aplicar_filtro_sal_pimienta(self.modelo.imagen_umbral_manual_c)
+        if self.vista.imagen_umbral_automatico_c is not None:
+            self.modelo.aplicar_filtro_sal_pimienta(self.modelo.imagen_umbral_automatico_c)
             self.vista.mostrar_imagen(self.modelo.img_tk1, "filtro_sal_pimienta")
             self.modelo.img_tk1 = None
         else:
@@ -269,5 +272,19 @@ class Controlador:
                 messagebox.showwarning(
                     "Advertencia", "Primero guarde la matriz de convolución."
                 )
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def abrir_y_conectar_segmentacion(self):
+        self.vista.abrir_ventana_segmentacion()
+        boton = self.vista.get_boton_aplicar_segmentacion_lua()
+        if boton is not None:
+            boton.config(command=self.aplicar_segmentacion)
+
+    def aplicar_segmentacion(self):
+        if self.vista.imagen_laplaciana is not None:
+            self.modelo.aplicar_segmentacion(self.modelo.imagen_laplaciana)
+            self.vista.mostrar_imagen(self.modelo.img_tk1, "segmentada_lua")
+            self.modelo.img_tk1 = None
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")

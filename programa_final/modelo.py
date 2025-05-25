@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 from PIL import Image, ImageTk
+from scipy.signal import find_peaks
 
 
 class Modelo:
@@ -376,6 +377,66 @@ class Modelo:
 
         # Convertir la imagen a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen_laplaciana)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_segmentacion(self, imagen):
+
+        # Normalizar la imagen Laplaciana para trabajar con valores en [0, 255]
+        laplacian_normalized = cv2.normalize(
+            imagen, None, 0, 255, cv2.NORM_MINMAX
+        ).astype(np.uint8)
+
+        # Calcular el histograma de la imagen normalizada
+        hist = cv2.calcHist(
+            [laplacian_normalized], [0], None, [256], [0, 256]
+        ).flatten()
+
+        # Suavizar el histograma con un filtro de promedio móvil para reducir ruido
+        window_size = 5
+        smoothed_hist = np.convolve(
+            hist, np.ones(window_size) / window_size, mode="valid"
+        )
+        pad_size = (window_size - 1) // 2
+        smoothed_hist = np.pad(smoothed_hist, (pad_size, pad_size), mode="edge")
+
+        # Encontrar picos en el histograma suavizado
+        peaks, _ = find_peaks(smoothed_hist, distance=20)
+
+        # Verificar que se encontraron al menos dos picos
+        if len(peaks) < 2:
+            raise ValueError(
+                "No se encontraron suficientes picos en el histograma para determinar el umbral."
+            )
+
+        # Seleccionar los dos picos más prominentes
+        peak_heights = smoothed_hist[peaks]
+        top_peaks = peaks[np.argsort(peak_heights)[-2:]]
+        top_peaks = sorted(top_peaks)
+
+        # Encontrar el mínimo (valle) entre los dos picos
+        valley_region = smoothed_hist[top_peaks[0] : top_peaks[1]]
+        valley_idx = np.argmin(valley_region) + top_peaks[0]
+        threshold = int(valley_idx)
+        print(f"Umbral encontrado: {threshold}")
+
+        # Aplicar umbralización para segmentar la imagen
+        _, self.imagen_segmentada_lua = cv2.threshold(
+            laplacian_normalized, threshold, 255, cv2.THRESH_BINARY
+        )
+
+        # Redimensionar la imagen procesada
+        altura, ancho = self.imagen_segmentada_lua.shape
+        scale_factor = 600 / max(altura, ancho)
+        new_width = int(ancho * scale_factor)
+        new_height = int(altura * scale_factor)
+        self.imagen_segmentada_lua = cv2.resize(
+            self.imagen_segmentada_lua, (new_width, new_height)
+        )
+
+        # Convertir la imagen segmentada a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_segmentada_lua)
         self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
         return self.img_tk1

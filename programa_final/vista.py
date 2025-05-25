@@ -679,10 +679,6 @@ class Vista:
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
         self.boton_guardar.grid(row=2, column=0, columnspan=2, pady=(10, 0))
 
-        # Método para salir de la aplicación
-        if messagebox.askokcancel("Salir", "¿Quieres salir de la aplicación?"):
-            self.root.destroy()
-
     # Getters para los botones
     def get_boton_grises(self):
         return getattr(self, "boton_grises", None)
@@ -846,6 +842,9 @@ class Vista:
 
     def get_menu_filtros(self):
         return self.filter_menu
+
+    def get_menu_segmetacion(self):
+        return self.segmentation_menu
 
     def mostrar_imagen(self, imagen, tipo):
         if tipo == "original":
