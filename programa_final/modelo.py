@@ -26,10 +26,12 @@ class Modelo:
         self.imagen_segmentada_lum = None
         self.imagen_segmentada_ua = None
         self.imagen_segmentada_lua = None
-        self.imagen_negativa = None
+        self.imagen_not = None
         self.imagen_and = None
         self.imagen_or = None
         self.imagen_xor = None
+        self.imagen_conectividad_4 = None
+        self.imagen_conectividad_8 = None
         self.max_size = 600
         self.tamaño_original = None
         self.matriz_convolucion = None
@@ -61,14 +63,12 @@ class Modelo:
         # Devuelve un diccionario con los nombres y referencias de todas las imágenes procesadas
         imagenes = {
             "Imagen original": self.imagen_original,
+            "Imagen con corrección de contraste": self.imagen_correccion,
             "Imagen en grises": self.imagen_grises,
             "Imagen en grises (contraste)": self.imagen_grises_c,
             "Imagen binaria (umbral manual)": self.imagen_umbral_manual,
             "Imagen binaria (umbral automático)": self.imagen_umbral_automatico,
-            "Imagen binaria (umbral manual, contraste)": self.imagen_umbral_manual_c,
-            "Imagen binaria (umbral automático, contraste)": self.imagen_umbral_automatico_c,
             "Imagen con ruido gaussiano": self.imagen_ruido,
-            "Imagen con corrección de contraste": self.imagen_correccion,
             "Imagen filtrada gaussiana": self.imagen_filtrada,
             "Imagen filtrada sal y pimienta": self.imagen_filtrada_sal_pimienta,
             "Imagen laplaciana": self.imagen_laplaciana,
@@ -76,10 +76,12 @@ class Modelo:
             "Imagen segmentada (laplaciano, umbral manual)": self.imagen_segmentada_lum,
             "Imagen segmentada (umbral automático)": self.imagen_segmentada_ua,
             "Imagen segmentada (laplaciano, umbral automático)": self.imagen_segmentada_lua,
-            "Imagen negativa": self.imagen_negativa,
+            "Imagen NOT": self.imagen_not,
             "Imagen AND": self.imagen_and,
             "Imagen OR": self.imagen_or,
             "Imagen XOR": self.imagen_xor,
+            "Imagen conectivida 4": self.imagen_conectividad_4,
+            "Imagen conectivida 8": self.imagen_conectividad_8,
         }
         # Filtrar solo las imágenes que no son None
         return {k: v for k, v in imagenes.items() if v is not None}
@@ -101,10 +103,6 @@ class Modelo:
         new_width = int(ancho * scale_factor)
         new_height = int(altura * scale_factor)
         return cv2.resize(imagen, (new_width, new_height))
-
-        # Ejemplo de uso en otros métodos:
-        # self.imagen_grises = self.redimensionar_imagen(self.imagen_grises)
-        # self.imagen_filtrada = self.redimensionar_imagen(self.imagen_filtrada)
 
     def convertir_RGB_a_grises(self, imagen):
         if imagen is not None:
@@ -167,26 +165,16 @@ class Modelo:
 
         return self.img_tk1
 
-    def aplicar_ruido_gaussiano(self, media, sigma):
-        if self.imagen_grises is None:
-            raise ValueError("No se esta cargada la imagen principal")
+    def aplicar_ruido_gaussiano(self, imagen, media, sigma):
+        if imagen is not None:
+            ruido = np.random.normal(media, sigma, imagen.shape).astype(np.uint8)
+            self.imagen_ruido = cv2.add(imagen, ruido)
 
-        ruido = np.random.normal(media, sigma, self.imagen_grises.shape).astype(
-            np.uint8
-        )
-        self.imagen_ruido = cv2.add(self.imagen_grises, ruido)
+            self.imagen_ruido = self.redimensionar_imagen(self.imagen_ruido)
 
-        # Redimensionar las imagen para que se ajuste al tamaño máximo
-        altura, ancho = self.imagen_ruido.shape
-        scale_factor = self.max_size / max(altura, ancho)
-        new_width = int(ancho * scale_factor)
-        new_height = int(altura * scale_factor)
-        self.imagen_ruido = cv2.resize(self.imagen_ruido, (new_width, new_height))
-
-        # Convertir la imagen a un formato compatible con Tkinter
-        img_pil = Image.fromarray(self.imagen_ruido)
-        self.img_tk1 = ImageTk.PhotoImage(img_pil)
-
+            # Convertir la imagen a un formato compatible con Tkinter
+            img_pil = Image.fromarray(self.imagen_ruido)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
         return self.img_tk1
 
     def aplicar_correccion_contraste(self, imagen, gamma):
@@ -297,6 +285,91 @@ class Modelo:
             else:
                 raise ValueError("Tipo de canal no válido. Usa 'r', 'g' o 'b'.")
 
+    def aplicar_conversion_not(self, imagen):
+        if imagen is not None:
+            self.imagen_not = cv2.bitwise_not(imagen)
+
+            self.imagen_not = self.redimensionar_imagen(self.imagen_not)
+
+            img_pil = Image.fromarray(self.imagen_not)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
+        return self.img_tk1
+
+    def aplicar_conversion_or(self, imagen1, imagen2):
+        if imagen1 is not None and imagen2 is not None:
+
+            # Redimensionar imagen2 si es necesario
+            if imagen1.shape[:2] != imagen2.shape[:2]:
+                imagen2 = cv2.resize(imagen2, (imagen1.shape[1], imagen1.shape[0]))
+
+            # Convertir a 3 canales si uno es de 1 canal y el otro de 3
+            if len(imagen1.shape) == 2 and len(imagen2.shape) == 3:
+                imagen1 = cv2.cvtColor(imagen1, cv2.COLOR_GRAY2RGB)
+            elif len(imagen1.shape) == 3 and len(imagen2.shape) == 2:
+                imagen2 = cv2.cvtColor(imagen2, cv2.COLOR_GRAY2RGB)
+
+            # Igualar tipos de datos
+            if imagen1.dtype != imagen2.dtype:
+                imagen2 = imagen2.astype(imagen1.dtype)
+
+            self.imagen_or = cv2.bitwise_or(imagen1, imagen2)
+
+            self.imagen_or = self.redimensionar_imagen(self.imagen_or)
+
+            img_pil = Image.fromarray(self.imagen_or)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
+        return self.img_tk1
+
+    def aplicar_conversion_and(self, imagen1, imagen2):
+        if imagen1 is not None and imagen2 is not None:
+
+            # Redimensionar imagen2 si es necesario
+            if imagen1.shape[:2] != imagen2.shape[:2]:
+                imagen2 = cv2.resize(imagen2, (imagen1.shape[1], imagen1.shape[0]))
+
+            # Convertir a 3 canales si uno es de 1 canal y el otro de 3
+            if len(imagen1.shape) == 2 and len(imagen2.shape) == 3:
+                imagen1 = cv2.cvtColor(imagen1, cv2.COLOR_GRAY2RGB)
+            elif len(imagen1.shape) == 3 and len(imagen2.shape) == 2:
+                imagen2 = cv2.cvtColor(imagen2, cv2.COLOR_GRAY2RGB)
+
+            # Igualar tipos de datos
+            if imagen1.dtype != imagen2.dtype:
+                imagen2 = imagen2.astype(imagen1.dtype)
+
+            self.imagen_and = cv2.bitwise_and(imagen1, imagen2)
+
+            self.imagen_and = self.redimensionar_imagen(self.imagen_and)
+
+            img_pil = Image.fromarray(self.imagen_and)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
+        return self.img_tk1
+
+    def aplicar_conversion_xor(self, imagen1, imagen2):
+        if imagen1 is not None and imagen2 is not None:
+
+            # Redimensionar imagen2 si es necesario
+            if imagen1.shape[:2] != imagen2.shape[:2]:
+                imagen2 = cv2.resize(imagen2, (imagen1.shape[1], imagen1.shape[0]))
+
+            # Convertir a 3 canales si uno es de 1 canal y el otro de 3
+            if len(imagen1.shape) == 2 and len(imagen2.shape) == 3:
+                imagen1 = cv2.cvtColor(imagen1, cv2.COLOR_GRAY2RGB)
+            elif len(imagen1.shape) == 3 and len(imagen2.shape) == 2:
+                imagen2 = cv2.cvtColor(imagen2, cv2.COLOR_GRAY2RGB)
+
+            # Igualar tipos de datos
+            if imagen1.dtype != imagen2.dtype:
+                imagen2 = imagen2.astype(imagen1.dtype)
+
+            self.imagen_xor = cv2.bitwise_xor(imagen1, imagen2)
+
+            self.imagen_xor = self.redimensionar_imagen(self.imagen_xor)
+
+            img_pil = Image.fromarray(self.imagen_xor)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
+        return self.img_tk1
+
     def aplicar_filtro_gaussiano(self, imagen, sigma):
         if imagen is not None:
 
@@ -344,10 +417,18 @@ class Modelo:
         return self.img_tk1
 
     def aplicar_segmentacion_lua(self, imagen):
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        # Convertir a escala de grises si es RGB o binaria de 3 canales
+        if len(imagen.shape) == 3:
+            imagen_proc = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+        else:
+            imagen_proc = imagen.copy()
 
         # Normalizar la imagen Laplaciana para trabajar con valores en [0, 255]
         laplacian_normalized = cv2.normalize(
-            imagen, None, 0, 255, cv2.NORM_MINMAX
+            imagen_proc, None, 0, 255, cv2.NORM_MINMAX
         ).astype(np.uint8)
 
         # Calcular el histograma de la imagen normalizada
@@ -381,7 +462,6 @@ class Modelo:
         valley_region = smoothed_hist[top_peaks[0] : top_peaks[1]]
         valley_idx = np.argmin(valley_region) + top_peaks[0]
         threshold = int(valley_idx)
-        print(f"Umbral encontrado: {threshold}")
 
         # Aplicar umbralización para segmentar la imagen
         _, self.imagen_segmentada_lua = cv2.threshold(
@@ -399,13 +479,27 @@ class Modelo:
         return self.img_tk1
 
     def aplicar_segmentacion_lum(self, imagen, umbral):
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        # Convertir a escala de grises si es RGB o binaria de 3 canales
+        if len(imagen.shape) == 3:
+            imagen_proc = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+        else:
+            imagen_proc = imagen.copy()
+
+        # Normalizar la imagen Laplaciana para trabajar con valores en [0, 255]
+        laplacian_normalized = cv2.normalize(
+            imagen_proc, None, 0, 255, cv2.NORM_MINMAX
+        ).astype(np.uint8)
+
         # Verificar que el umbral manual esté dentro de un rango razonable
         if umbral < 0 or umbral > 255:
             raise ValueError("El umbral manual debe estar entre 0 y 255.")
 
         # Aplicar umbralización para segmentar la imagen
         _, self.imagen_segmentada_lum = cv2.threshold(
-            imagen, umbral, 255, cv2.THRESH_BINARY
+            laplacian_normalized, umbral, 255, cv2.THRESH_BINARY
         )
 
         # Convertir la imagen segmentada a un formato compatible con Tkinter
@@ -415,10 +509,19 @@ class Modelo:
         return self.img_tk1
 
     def aplicar_segmentacion_ua(self, imagen):
-        # Normalizar la imagen Laplaciana para trabajar con valores en [0, 255]
-        imagen_normalized = cv2.normalize(imagen, None, 0, 255, cv2.NORM_MINMAX).astype(
-            np.uint8
-        )
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        # Convertir a escala de grises si es RGB o binaria de 3 canales
+        if len(imagen.shape) == 3:
+            imagen_proc = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+        else:
+            imagen_proc = imagen.copy()
+
+        # Normalizar la imagen para trabajar con valores en [0, 255]
+        imagen_normalized = cv2.normalize(
+            imagen_proc, None, 0, 255, cv2.NORM_MINMAX
+        ).astype(np.uint8)
 
         # Calcular el histograma de la imagen normalizada
         hist = cv2.calcHist([imagen_normalized], [0], None, [256], [0, 256]).flatten()
@@ -449,7 +552,6 @@ class Modelo:
         valley_region = smoothed_hist[top_peaks[0] : top_peaks[1]]
         valley_idx = np.argmin(valley_region) + top_peaks[0]
         threshold = int(valley_idx)
-        print(f"Umbral encontrado: {threshold}")
 
         # Aplicar umbralización para segmentar la imagen
         _, self.imagen_segmentada_ua = cv2.threshold(
@@ -463,13 +565,27 @@ class Modelo:
         return self.img_tk1
 
     def aplicar_segmentacion_um(self, imagen, umbral):
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        # Convertir a escala de grises si es RGB o binaria de 3 canales
+        if len(imagen.shape) == 3:
+            imagen_proc = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+        else:
+            imagen_proc = imagen.copy()
+
+        # Normalizar la imagen para trabajar con valores en [0, 255]
+        imagen_normalized = cv2.normalize(
+            imagen_proc, None, 0, 255, cv2.NORM_MINMAX
+        ).astype(np.uint8)
+
         # Verificar que el umbral manual esté dentro de un rango razonable
         if umbral < 0 or umbral > 255:
             raise ValueError("El umbral manual debe estar entre 0 y 255.")
 
         # Aplicar umbralización para segmentar la imagen
         _, self.imagen_segmentada_um = cv2.threshold(
-            imagen, umbral, 255, cv2.THRESH_BINARY
+            imagen_normalized, umbral, 255, cv2.THRESH_BINARY
         )
 
         # Convertir la imagen segmentada a un formato compatible con Tkinter
@@ -477,3 +593,91 @@ class Modelo:
         self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
         return self.img_tk1
+
+    def aplicar_conectividad_4(self, imagen):
+        if imagen is not None:
+            # Convertir a binario si no lo está
+            if len(imagen.shape) == 3:
+                img_bin = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+            else:
+                img_bin = imagen.copy()
+            _, img_bin = cv2.threshold(
+                img_bin, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+            )
+
+            # Etiquetado de componentes conectados (conectividad 4)
+            num_labels, labels = cv2.connectedComponents(img_bin, connectivity=4)
+
+            # Asignar colores a cada etiqueta
+            label_hue = (
+                np.uint8(179 * labels / np.max(labels))
+                if np.max(labels) > 0
+                else labels
+            )
+            blank_ch = 255 * np.ones_like(label_hue)
+            labeled_img = cv2.merge([label_hue, blank_ch, blank_ch])
+            labeled_img = cv2.cvtColor(labeled_img, cv2.COLOR_HSV2RGB)
+            labeled_img[label_hue == 0] = 0  # Fondo en negro
+
+            self.imagen_conectividad_4 = self.redimensionar_imagen(labeled_img)
+
+            img_pil = Image.fromarray(self.imagen_conectividad_4)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_conectividad_8(self, imagen):
+        if imagen is not None:
+            # Convertir a binario si no lo está
+            if len(imagen.shape) == 3:
+                img_bin = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+            else:
+                img_bin = imagen.copy()
+            _, img_bin = cv2.threshold(
+                img_bin, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU
+            )
+
+            # Etiquetado de componentes conectados (conectividad 8)
+            num_labels, labels = cv2.connectedComponents(img_bin, connectivity=8)
+
+            # Asignar colores a cada etiqueta
+            label_hue = (
+                np.uint8(179 * labels / np.max(labels))
+                if np.max(labels) > 0
+                else labels
+            )
+            blank_ch = 255 * np.ones_like(label_hue)
+            labeled_img = cv2.merge([label_hue, blank_ch, blank_ch])
+            labeled_img = cv2.cvtColor(labeled_img, cv2.COLOR_HSV2RGB)
+            labeled_img[label_hue == 0] = 0  # Fondo en negro
+
+            self.imagen_conectividad_8 = self.redimensionar_imagen(labeled_img)
+
+            img_pil = Image.fromarray(self.imagen_conectividad_8)
+            self.img_tk1 = ImageTk.PhotoImage(img_pil)
+        return self.img_tk1
+
+    def guardar_imagenes(self, ruta_guardar, imagen):
+        # Guardar la imagen procesada
+        if imagen is not None:
+            # Redimensionar la imagen al tamaño original si es necesario
+            if self.tamaño_original is not None and (
+                imagen.shape[0] != self.tamaño_original[0]
+                or imagen.shape[1] != self.tamaño_original[1]
+            ):
+                imagen_a_guardar = cv2.resize(
+                    imagen, (self.tamaño_original[1], self.tamaño_original[0])
+                )
+            else:
+                imagen_a_guardar = imagen
+
+            # Si la imagen es RGB, convertir a BGR para guardar correctamente con OpenCV
+            if len(imagen_a_guardar.shape) == 3 and imagen_a_guardar.shape[2] == 3:
+                imagen_a_guardar = cv2.cvtColor(imagen_a_guardar, cv2.COLOR_RGB2BGR)
+
+            # Si la ruta no tiene una extensión válida, agregar ".png" por defecto
+            extensiones_validas = (".png", ".jpg", ".jpeg", ".bmp", ".tiff", ".tif")
+            if not ruta_guardar.lower().endswith(extensiones_validas):
+                ruta_guardar += ".png"
+
+            cv2.imwrite(ruta_guardar, imagen_a_guardar)

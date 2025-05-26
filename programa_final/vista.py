@@ -8,7 +8,7 @@ class Vista:
         # Inicializar la ventana principal
         self.root = root
         self.root.title("Procesador de Imágenes")
-        self.root.geometry("1400x800")
+        self.root.geometry("1600x900")
 
         # Ruta orginal
         self.ruta_imagen = None
@@ -352,6 +352,86 @@ class Vista:
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
 
+    def abrir_ventana_not(self):
+        # Crear una ventana para la not
+        self.ventana_not = tk.Toplevel(self.root)
+        self.ventana_not.title("Convercion Inversa")
+        self.ventana_not.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_not)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar la conversion not
+        self.boton_conversion_not = ttk.Button(
+            self.frame_botones, text="Aplicar conversion Not"
+        )
+        self.boton_conversion_not.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def abrir_ventana_or(self):
+        # Crear una ventana para la or
+        self.ventana_or = tk.Toplevel(self.root)
+        self.ventana_or.title("Conversion Or")
+        self.ventana_or.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_or)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar la correccion gamma
+        self.boton_conversion_or = ttk.Button(
+            self.frame_botones, text="Aplicar conversion Or"
+        )
+        self.boton_conversion_or.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def abrir_ventana_and(self):
+        # Crear una ventana para la and
+        self.ventana_and = tk.Toplevel(self.root)
+        self.ventana_and.title("Conversion And")
+        self.ventana_and.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_and)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar la correccion gamma
+        self.boton_conversion_and = ttk.Button(
+            self.frame_botones, text="Aplicar conversion And"
+        )
+        self.boton_conversion_and.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def abrir_ventana_xor(self):
+        # Crear una ventana para la xor
+        self.ventana_xor = tk.Toplevel(self.root)
+        self.ventana_xor.title("Conversion Xor")
+        self.ventana_xor.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_xor)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar la correccion gamma
+        self.boton_conversion_xor = ttk.Button(
+            self.frame_botones, text="Aplicar conversion Xor"
+        )
+        self.boton_conversion_xor.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
     def abrir_ventana_filtro_gaussiano(self):
         # Crear una ventana para el filtro gaussiano
         self.ventana_filtro_gaussiano = tk.Toplevel(self.root)
@@ -515,6 +595,46 @@ class Vista:
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
 
+    def abrir_ventana_conectividad_4(self):
+        # Crear una ventana para mostrar la conectividad 4
+        self.ventana_conectividad_4 = tk.Toplevel(self.root)
+        self.ventana_conectividad_4.title("Conectividad 4")
+        self.ventana_conectividad_4.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_conectividad_4)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar conectividad 4
+        self.boton_aplicar_conectividad_4 = ttk.Button(
+            self.frame_botones, text="Aplicar conectividad 4"
+        )
+        self.boton_aplicar_conectividad_4.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def abrir_ventana_conectividad_8(self):
+        # Crear una ventana para mostrar la conectividad 8
+        self.ventana_conectividad_8 = tk.Toplevel(self.root)
+        self.ventana_conectividad_8.title("Conectividad 8")
+        self.ventana_conectividad_8.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_conectividad_8)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar conectividad 8
+        self.boton_aplicar_conectividad_8 = ttk.Button(
+            self.frame_botones, text="Aplicar conectividad 8"
+        )
+        self.boton_aplicar_conectividad_8.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
     def mostrar_imagen(self, imagen, tipo):
         if tipo == "original":
             self.imagen_original.config(image=imagen)
@@ -555,8 +675,12 @@ class Vista:
         self.label_combobox.pack(side=tk.LEFT, padx=5)
 
         # Combobox con la lista de nombres de imágenes
+        max_length = max((len(str(nombre)) for nombre in imagenes), default=20)
+        width = min(
+            max_length, 80
+        )  # Limita el ancho máximo para evitar que sea demasiado grande
         self.combobox_imagenes = ttk.Combobox(
-            self.frame_combobox, values=imagenes, state="readonly"
+            self.frame_combobox, values=imagenes, state="readonly", width=width
         )
         self.combobox_imagenes.pack(side=tk.LEFT, padx=5)
 
@@ -604,6 +728,46 @@ class Vista:
         return (
             getattr(self, "boton_guardar", None)
             if hasattr(self, "ventanda_correcion")
+            else None
+        )
+
+    def get_boton_conversion_not(self):
+        return getattr(self, "boton_conversion_not", None)
+
+    def get_boton_guardar_not(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventanda_not")
+            else None
+        )
+
+    def get_boton_conversion_or(self):
+        return getattr(self, "boton_conversion_or", None)
+
+    def get_boton_guardar_or(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventanda_or")
+            else None
+        )
+
+    def get_boton_conversion_and(self):
+        return getattr(self, "boton_conversion_and", None)
+
+    def get_boton_guardar_and(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_and")
+            else None
+        )
+
+    def get_boton_conversion_xor(self):
+        return getattr(self, "boton_conversion_xor", None)
+
+    def get_boton_guardar_xor(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_xor")
             else None
         )
 
@@ -675,6 +839,26 @@ class Vista:
             else None
         )
 
+    def get_boton_aplicar_conectividad_4(self):
+        return getattr(self, "boton_aplicar_conectividad_4", None)
+
+    def get_boton_guardar_conectividad_4(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_conectividad_4")
+            else None
+        )
+
+    def get_boton_aplicar_conectividad_8(self):
+        return getattr(self, "boton_aplicar_conectividad_8", None)
+
+    def get_boton_guardar_conectividad_8(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_conectividad_8")
+            else None
+        )
+
     # Getters para los sliders
     def get_slider_binario(self):
         return (
@@ -724,6 +908,9 @@ class Vista:
     def get_menu_histogramas_canales(self):
         return self.histogram_menu
 
+    def get_menu_operaciones(self):
+        return self.operation_menu
+
     def get_menu_correcciones(self):
         return self.correction_menu
 
@@ -732,6 +919,9 @@ class Vista:
 
     def get_menu_segmetacion(self):
         return self.segmentation_menu
+
+    def get_menu_conectividades(self):
+        return self.labeling_menu
 
     def get_combobox_imagenes(self):
         return getattr(self, "combobox_imagenes", None)
