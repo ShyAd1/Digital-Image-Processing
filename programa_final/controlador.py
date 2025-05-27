@@ -125,6 +125,8 @@ class Controlador:
         self.modelo.imagen_and = None
         self.modelo.imagen_or = None
         self.modelo.imagen_xor = None
+        self.modelo.imagen_conectividad_4 = None
+        self.modelo.imagen_conectividad_8 = None
 
     def abrir_y_conectar_conversion_grises(self):
         self.vista.abrir_ventana_conversion_grises()
@@ -197,7 +199,7 @@ class Controlador:
         imagenes = self.modelo.obtener_lista_imagenes()
         nombres = list(imagenes.keys())  # Solo los nombres
         self.vista.crear_combobox_imagenes(
-            self.vista.ventana_conversion_grises,
+            self.vista.ventana_conversion_binario,
             nombres,
             frame=self.vista.frame_botones,
         )
