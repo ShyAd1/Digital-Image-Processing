@@ -747,7 +747,7 @@ class Vista:
     def get_boton_guardar_or(self):
         return (
             getattr(self, "boton_guardar", None)
-            if hasattr(self, "ventanda_or")
+            if hasattr(self, "ventana_or")
             else None
         )
 
