@@ -81,9 +81,13 @@ class Controlador:
             "Filtro de laplaciano",
             command=self.abrir_y_conectar_filtro_laplaciano,
         )
-        self.vista.get_menu_segmetacion().entryconfig(
+        self.vista.get_menu_segmentacion().entryconfig(
             "Segmentación por minimo histograma",
-            command=self.abrir_y_conectar_segmentacion,
+            command=self.abrir_y_conectar_segmentacion_minimo,
+        )
+        self.vista.get_menu_segmentacion().entryconfig(
+            "Segmentación por multiples umbrales",
+            command=self.abrir_y_conectar_segmentacion_multi_umbral,
         )
         self.vista.get_menu_conectividades().entryconfig(
             "Etiquetado de componentes conectados-4",
@@ -121,6 +125,7 @@ class Controlador:
         self.modelo.imagen_segmentada_lum = None
         self.modelo.imagen_segmentada_ua = None
         self.modelo.imagen_segmentada_lua = None
+        self.modelo.imagen_segmentada_multi_umbral = None
         self.modelo.imagen_not = None
         self.modelo.imagen_and = None
         self.modelo.imagen_or = None
@@ -739,13 +744,13 @@ class Controlador:
         else:
             messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
 
-    def abrir_y_conectar_segmentacion(self):
-        self.vista.abrir_ventana_segmentacion()
+    def abrir_y_conectar_segmentacion_minimo(self):
+        self.vista.abrir_ventana_segmentacion_minimo()
 
         imagenes = self.modelo.obtener_lista_imagenes()
         nombres = list(imagenes.keys())  # Solo los nombres
         self.vista.crear_combobox_imagenes(
-            self.vista.ventana_segmentacion,
+            self.vista.ventana_segmentacion_minimo,
             nombres,
             frame=self.vista.frame_botones,
         )
@@ -753,7 +758,7 @@ class Controlador:
         boton_seg_lua = self.vista.get_boton_aplicar_segmentacion_lua()
         if boton_seg_lua is not None:
             boton_seg_lua.config(command=self.aplicar_segmentacion_lua)
-            boton_guardar = self.vista.get_boton_guardar_segmentacion()
+            boton_guardar = self.vista.get_boton_guardar_segmentacion_minimo()
             if boton_guardar is not None:
                 boton_guardar.config(
                     command=lambda: self.guardar_imagen(
@@ -763,7 +768,7 @@ class Controlador:
         boton_seg_lum = self.vista.get_boton_aplicar_segmentacion_lum()
         if boton_seg_lum is not None:
             boton_seg_lum.config(command=self.aplicar_segmentacion_lum)
-            boton_guardar = self.vista.get_boton_guardar_segmentacion()
+            boton_guardar = self.vista.get_boton_guardar_segmentacion_minimo()
             if boton_guardar is not None:
                 boton_guardar.config(
                     command=lambda: self.guardar_imagen(
@@ -773,7 +778,7 @@ class Controlador:
         boton_seg_ua = self.vista.get_boton_aplicar_segmentacion_ua()
         if boton_seg_ua is not None:
             boton_seg_ua.config(command=self.aplicar_segmentacion_ua)
-            boton_guardar = self.vista.get_boton_guardar_segmentacion()
+            boton_guardar = self.vista.get_boton_guardar_segmentacion_minimo()
             if boton_guardar is not None:
                 boton_guardar.config(
                     command=lambda: self.guardar_imagen(
@@ -783,7 +788,7 @@ class Controlador:
         boton_seg_um = self.vista.get_boton_aplicar_segmentacion_um()
         if boton_seg_um is not None:
             boton_seg_um.config(command=self.aplicar_segmentacion_um)
-            boton_guardar = self.vista.get_boton_guardar_segmentacion()
+            boton_guardar = self.vista.get_boton_guardar_segmentacion_minimo()
             if boton_guardar is not None:
                 boton_guardar.config(
                     command=lambda: self.guardar_imagen(
@@ -803,7 +808,7 @@ class Controlador:
 
             self.modelo.aplicar_segmentacion_lua(imagen_seleccionada)
             self.vista.mostrar_imagen_unica(
-                self.modelo.img_tk1, self.vista.ventana_segmentacion
+                self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
             )
             self.modelo.img_tk1 = None
         else:
@@ -819,11 +824,11 @@ class Controlador:
             imagenes = self.modelo.obtener_lista_imagenes()
             imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
 
-            umbral = self.vista.get_slider_segmentacion().get()
+            umbral = self.vista.get_slider_segmentacion_minimo().get()
 
             self.modelo.aplicar_segmentacion_lum(imagen_seleccionada, umbral)
             self.vista.mostrar_imagen_unica(
-                self.modelo.img_tk1, self.vista.ventana_segmentacion
+                self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
             )
             self.modelo.img_tk1 = None
         else:
@@ -841,7 +846,7 @@ class Controlador:
 
             self.modelo.aplicar_segmentacion_ua(imagen_seleccionada)
             self.vista.mostrar_imagen_unica(
-                self.modelo.img_tk1, self.vista.ventana_segmentacion
+                self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
             )
             self.modelo.img_tk1 = None
         else:
@@ -857,11 +862,55 @@ class Controlador:
             imagenes = self.modelo.obtener_lista_imagenes()
             imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
 
-            umbral = self.vista.get_slider_segmentacion().get()
+            umbral = self.vista.get_slider_segmentacion_minimo().get()
 
             self.modelo.aplicar_segmentacion_um(imagen_seleccionada, umbral)
             self.vista.mostrar_imagen_unica(
-                self.modelo.img_tk1, self.vista.ventana_segmentacion
+                self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
+            )
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def abrir_y_conectar_segmentacion_multi_umbral(self):
+        self.vista.abrir_ventana_segmentacion_multi_umbral()
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_segmentacion_multi_umbral,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
+        boton = self.vista.get_boton_aplicar_segmentacion_multi_umbral()
+        if boton is not None:
+            boton.config(command=self.aplicar_segmentacion_multi_umbral)
+            boton_guardar = self.vista.get_boton_guardar_segmentacion_multi_umbral()
+            if boton_guardar is not None:
+                boton_guardar.config(
+                    command=lambda: self.guardar_imagen(
+                        self.modelo.imagen_segmentada_multi_umbral
+                    )
+                )
+
+    def aplicar_segmentacion_multi_umbral(self):
+        if self.vista.imagen_original is not None:
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            umbral1 = self.vista.get_slider_segmentacion_multi_umbral_1().get()
+            umbral2 = self.vista.get_slider_segmentacion_multi_umbral_2().get()
+
+            self.modelo.aplicar_segmentacion_multi_umbral(
+                imagen_seleccionada, umbral1, umbral2
+            )
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_segmentacion_multi_umbral
             )
             self.modelo.img_tk1 = None
         else:

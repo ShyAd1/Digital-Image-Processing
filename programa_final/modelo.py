@@ -26,6 +26,7 @@ class Modelo:
         self.imagen_segmentada_lum = None
         self.imagen_segmentada_ua = None
         self.imagen_segmentada_lua = None
+        self.imagen_segmentada_multi_umbral = None
         self.imagen_not = None
         self.imagen_and = None
         self.imagen_or = None
@@ -76,6 +77,7 @@ class Modelo:
             "Imagen segmentada (laplaciano, umbral manual)": self.imagen_segmentada_lum,
             "Imagen segmentada (umbral automático)": self.imagen_segmentada_ua,
             "Imagen segmentada (laplaciano, umbral automático)": self.imagen_segmentada_lua,
+            "Imagen segmentada multi umbral": self.imagen_segmentada_multi_umbral,
             "Imagen NOT": self.imagen_not,
             "Imagen AND": self.imagen_and,
             "Imagen OR": self.imagen_or,
@@ -590,6 +592,40 @@ class Modelo:
 
         # Convertir la imagen segmentada a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen_segmentada_um)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_segmentacion_multi_umbral(self, imagen, umbral1, umbral2):
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        # Convertir a escala de grises si es RGB o binaria de 3 canales
+        if len(imagen.shape) == 3:
+            imagen_proc = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+        else:
+            imagen_proc = imagen.copy()
+
+        # Normalizar la imagen para trabajar con valores en [0, 255]
+        imagen_normalized = cv2.normalize(
+            imagen_proc, None, 0, 255, cv2.NORM_MINMAX
+        ).astype(np.uint8)
+
+        # Segmentación con dos umbrales (tres categorías)
+        imagen_multi_umbrales = np.zeros_like(imagen_normalized)
+        imagen_multi_umbrales[imagen_normalized < umbral1] = 0
+        imagen_multi_umbrales[
+            (imagen_normalized >= umbral1) & (imagen_normalized < umbral2)
+        ] = 127
+        imagen_multi_umbrales[imagen_normalized >= umbral2] = 255
+
+        self.imagen_segmentada_multi_umbral = imagen_multi_umbrales
+        self.imagen_segmentada_multi_umbral = self.redimensionar_imagen(
+            self.imagen_segmentada_multi_umbral
+        )
+
+        # Convertir la imagen segmentada a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_segmentada_multi_umbral)
         self.img_tk1 = ImageTk.PhotoImage(img_pil)
 
         return self.img_tk1

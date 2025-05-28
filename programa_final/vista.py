@@ -132,6 +132,11 @@ class Vista:
             label="Segmentación por minimo histograma",
             command=None,
         )
+        self.segmentation_menu.add_separator()
+        self.segmentation_menu.add_command(
+            label="Segmentación por multiples umbrales",
+            command=None,
+        )
         self.menubar.add_cascade(label="Segmentaciónes", menu=self.segmentation_menu)
 
         # Crear el menú "Etiquetado"
@@ -536,14 +541,14 @@ class Vista:
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
 
-    def abrir_ventana_segmentacion(self):
+    def abrir_ventana_segmentacion_minimo(self):
         # Crear una ventana para la segmentación por mínimo de histograma
-        self.ventana_segmentacion = tk.Toplevel(self.root)
-        self.ventana_segmentacion.title("Segmentación por mínimo de histograma")
-        self.ventana_segmentacion.geometry("1600x900")
+        self.ventana_segmentacion_minimo = tk.Toplevel(self.root)
+        self.ventana_segmentacion_minimo.title("Segmentación por mínimo de histograma")
+        self.ventana_segmentacion_minimo.geometry("1600x900")
 
         # Crear marco para el slider de umbral
-        self.frame_slider = tk.Frame(self.ventana_segmentacion)
+        self.frame_slider = tk.Frame(self.ventana_segmentacion_minimo)
         self.frame_slider.pack(pady=20)
 
         # Crear label para el slider
@@ -564,7 +569,7 @@ class Vista:
         self.slider4.pack(side=tk.LEFT, padx=5)
 
         # Crear un marco para los botones y acomodarlos horizontalmente
-        self.frame_botones = tk.Frame(self.ventana_segmentacion)
+        self.frame_botones = tk.Frame(self.ventana_segmentacion_minimo)
         self.frame_botones.pack(pady=10)
 
         # Crear botón para aplicar la segmentación umbral manual
@@ -592,6 +597,66 @@ class Vista:
         self.boton_aplicar_segmentacion_lua.pack(side=tk.LEFT, padx=5)
 
         # Crear botón para guardar resultados (abajo de los de segmentación)
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def abrir_ventana_segmentacion_multi_umbral(self):
+        # Crear una ventana para la segmentación por múltiples umbrales
+        self.ventana_segmentacion_multi_umbral = tk.Toplevel(self.root)
+        self.ventana_segmentacion_multi_umbral.title(
+            "Segmentación por múltiples umbrales"
+        )
+        self.ventana_segmentacion_multi_umbral.geometry("1600x900")
+
+        # Crear marco para los sliders
+        self.frame_slider = tk.Frame(self.ventana_segmentacion_multi_umbral)
+        self.frame_slider.pack(pady=20)
+
+        # Crear label para el slider
+        self.label_slider5 = tk.Label(
+            self.frame_slider, text="Umbral de segmentación (0-255):"
+        )
+        self.label_slider5.pack(side=tk.LEFT, padx=5)
+
+        # Crear slider para el umbral
+        self.slider5 = tk.Scale(
+            self.frame_slider,
+            from_=0,
+            to=255,
+            orient=tk.HORIZONTAL,
+            length=200,
+        )
+        self.slider5.set(128)
+        self.slider5.pack(side=tk.LEFT, padx=5)
+
+        # Crear segundo label para el slider
+        self.label_slider6 = tk.Label(
+            self.frame_slider, text="Umbral de segmentación (0-255):"
+        )
+        self.label_slider6.pack(side=tk.LEFT, padx=5)
+
+        # Crear segundo slider para el umbral
+        self.slider6 = tk.Scale(
+            self.frame_slider,
+            from_=0,
+            to=255,
+            orient=tk.HORIZONTAL,
+            length=200,
+        )
+        self.slider6.set(128)
+        self.slider6.pack(side=tk.LEFT, padx=5)
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_segmentacion_multi_umbral)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar la segmentación por múltiples umbrales
+        self.boton_aplicar_segmentacion_multi_umbral = ttk.Button(
+            self.frame_botones, text="Aplicar segmentación por múltiples umbrales"
+        )
+        self.boton_aplicar_segmentacion_multi_umbral.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
 
@@ -832,10 +897,20 @@ class Vista:
     def get_boton_aplicar_segmentacion_lua(self):
         return getattr(self, "boton_aplicar_segmentacion_lua", None)
 
-    def get_boton_guardar_segmentacion(self):
+    def get_boton_guardar_segmentacion_minimo(self):
         return (
             getattr(self, "boton_guardar", None)
             if hasattr(self, "ventana_segmentacion")
+            else None
+        )
+
+    def get_boton_aplicar_segmentacion_multi_umbral(self):
+        return getattr(self, "boton_aplicar_segmentacion_multi_umbral", None)
+
+    def get_boton_guardar_segmentacion_multi_umbral(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_segmentacion_multi_umbral")
             else None
         )
 
@@ -891,10 +966,24 @@ class Vista:
             else None
         )
 
-    def get_slider_segmentacion(self):
+    def get_slider_segmentacion_minimo(self):
         return (
             getattr(self, "slider4", None)
-            if hasattr(self, "ventana_segmentacion")
+            if hasattr(self, "ventana_segmentacion_minimo")
+            else None
+        )
+
+    def get_slider_segmentacion_multi_umbral_1(self):
+        return (
+            getattr(self, "slider5", None)
+            if hasattr(self, "ventana_segmentacion_multi_umbral")
+            else None
+        )
+
+    def get_slider_segmentacion_multi_umbral_2(self):
+        return (
+            getattr(self, "slider6", None)
+            if hasattr(self, "ventana_segmentacion_multi_umbral")
             else None
         )
 
@@ -917,7 +1006,7 @@ class Vista:
     def get_menu_filtros(self):
         return self.filter_menu
 
-    def get_menu_segmetacion(self):
+    def get_menu_segmentacion(self):
         return self.segmentation_menu
 
     def get_menu_conectividades(self):
