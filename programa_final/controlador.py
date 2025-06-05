@@ -90,12 +90,20 @@ class Controlador:
             command=self.abrir_y_conectar_segmentacion_multi_umbral,
         )
         self.vista.get_menu_conectividades().entryconfig(
-            "Etiquetado de componentes conectados-4",
+            "Conectividad 4",
             command=self.abrir_y_conectar_conectividad_4,
         )
         self.vista.get_menu_conectividades().entryconfig(
-            "Etiquetado de componentes conectados-8",
+            "Conectividad 8",
             command=self.abrir_y_conectar_conectividad_8,
+        )
+        self.vista.get_menu_conectividades().entryconfig(
+            "Etiquetado Conectividad 4",
+            command=self.abrir_y_conectar_etiquetado_conectividad_4,
+        )
+        self.vista.get_menu_conectividades().entryconfig(
+            "Etiquetado Conectividad 8",
+            command=self.abrir_y_conectar_etiquetado_conectividad_8,
         )
 
     def cargar_imagen(self):
@@ -126,12 +134,15 @@ class Controlador:
         self.modelo.imagen_segmentada_ua = None
         self.modelo.imagen_segmentada_lua = None
         self.modelo.imagen_segmentada_multi_umbral = None
+        self.modelo.imagen_recortada = None
         self.modelo.imagen_not = None
         self.modelo.imagen_and = None
         self.modelo.imagen_or = None
         self.modelo.imagen_xor = None
         self.modelo.imagen_conectividad_4 = None
         self.modelo.imagen_conectividad_8 = None
+        self.modelo.imagen_etiquetado_conectividad_4 = None
+        self.modelo.imagen_etiquetado_conectividad_8 = None
 
     def abrir_y_conectar_conversion_grises(self):
         self.vista.abrir_ventana_conversion_grises()
@@ -806,7 +817,10 @@ class Controlador:
             imagenes = self.modelo.obtener_lista_imagenes()
             imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
 
-            self.modelo.aplicar_segmentacion_lua(imagen_seleccionada)
+            # Aplicar la obtencion de region de la imagen seleccionada
+            self.modelo.obtener_region_interes(imagen_seleccionada)
+
+            self.modelo.aplicar_segmentacion_lua(self.modelo.imagen_recortada)
             self.vista.mostrar_imagen_unica(
                 self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
             )
@@ -826,7 +840,10 @@ class Controlador:
 
             umbral = self.vista.get_slider_segmentacion_minimo().get()
 
-            self.modelo.aplicar_segmentacion_lum(imagen_seleccionada, umbral)
+            # Aplicar la obtencion de region de la imagen seleccionada
+            self.modelo.obtener_region_interes(imagen_seleccionada)
+
+            self.modelo.aplicar_segmentacion_lum(self.modelo.imagen_recortada, umbral)
             self.vista.mostrar_imagen_unica(
                 self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
             )
@@ -844,7 +861,10 @@ class Controlador:
             imagenes = self.modelo.obtener_lista_imagenes()
             imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
 
-            self.modelo.aplicar_segmentacion_ua(imagen_seleccionada)
+            # Aplicar la obtencion de region de la imagen seleccionada
+            self.modelo.obtener_region_interes(imagen_seleccionada)
+
+            self.modelo.aplicar_segmentacion_ua(self.modelo.imagen_recortada)
             self.vista.mostrar_imagen_unica(
                 self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
             )
@@ -864,7 +884,10 @@ class Controlador:
 
             umbral = self.vista.get_slider_segmentacion_minimo().get()
 
-            self.modelo.aplicar_segmentacion_um(imagen_seleccionada, umbral)
+            # Aplicar la obtencion de region de la imagen seleccionada
+            self.modelo.obtener_region_interes(imagen_seleccionada)
+
+            self.modelo.aplicar_segmentacion_um(self.modelo.imagen_recortada, umbral)
             self.vista.mostrar_imagen_unica(
                 self.modelo.img_tk1, self.vista.ventana_segmentacion_minimo
             )
@@ -989,6 +1012,84 @@ class Controlador:
             self.modelo.aplicar_conectividad_8(imagen_seleccionada)
             self.vista.mostrar_imagen_unica(
                 self.modelo.img_tk1, self.vista.ventana_conectividad_8
+            )
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def abrir_y_conectar_etiquetado_conectividad_4(self):
+        self.vista.abrir_ventana_etiquetado_conectividad_4()
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())  # Solo los nombres
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_etiquetado_conectividad_4,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
+        boton = self.vista.get_boton_aplicar_etiquetado_conectividad_4()
+        if boton is not None:
+            boton.config(command=self.aplicar_etiquetado_conectividad_4)
+            boton_guardar = self.vista.get_boton_guardar_etiquetado_conectividad_4()
+            if boton_guardar is not None:
+                boton_guardar.config(
+                    command=lambda: self.guardar_imagen(
+                        self.modelo.imagen_etiquetado_conectividad_4
+                    )
+                )
+
+    def aplicar_etiquetado_conectividad_4(self):
+        if self.vista.imagen_original is not None:
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_etiquetado_conectividad_4(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_etiquetado_conectividad_4
+            )
+            self.modelo.img_tk1 = None
+        else:
+            messagebox.showwarning("Advertencia", "Primero cargue una imagen.")
+
+    def abrir_y_conectar_etiquetado_conectividad_8(self):
+        self.vista.abrir_ventana_etiquetado_conectividad_8()
+
+        imagenes = self.modelo.obtener_lista_imagenes()
+        nombres = list(imagenes.keys())
+        self.vista.crear_combobox_imagenes(
+            self.vista.ventana_etiquetado_conectividad_8,
+            nombres,
+            frame=self.vista.frame_botones,
+        )
+
+        boton = self.vista.get_boton_aplicar_etiquetado_conectividad_8()
+        if boton is not None:
+            boton.config(command=self.aplicar_etiquetado_conectividad_8)
+            boton_guardar = self.vista.get_boton_guardar_etiquetado_conectividad_8()
+            if boton_guardar is not None:
+                boton_guardar.config(
+                    command=lambda: self.guardar_imagen(
+                        self.modelo.imagen_etiquetado_conectividad_8
+                    )
+                )
+
+    def aplicar_etiquetado_conectividad_8(self):
+        if self.vista.imagen_original is not None:
+            combobox = self.vista.get_combobox_imagenes()
+            imagen_seleccionada_nombre = (
+                combobox.get() if combobox is not None else None
+            )
+            imagenes = self.modelo.obtener_lista_imagenes()
+            imagen_seleccionada = imagenes.get(imagen_seleccionada_nombre)
+
+            self.modelo.aplicar_etiquetado_conectividad_8(imagen_seleccionada)
+            self.vista.mostrar_imagen_unica(
+                self.modelo.img_tk1, self.vista.ventana_etiquetado_conectividad_8
             )
             self.modelo.img_tk1 = None
         else:

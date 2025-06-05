@@ -142,12 +142,22 @@ class Vista:
         # Crear el menú "Etiquetado"
         self.labeling_menu = tk.Menu(self.menubar, tearoff=0)
         self.labeling_menu.add_command(
-            label="Etiquetado de componentes conectados-4",
+            label="Conectividad 4",
             command=None,
         )
         self.labeling_menu.add_separator()
         self.labeling_menu.add_command(
-            label="Etiquetado de componentes conectados-8",
+            label="Conectividad 8",
+            command=None,
+        )
+        self.labeling_menu.add_separator()
+        self.labeling_menu.add_command(
+            label="Etiquetado Conectividad 4",
+            command=None,
+        )
+        self.labeling_menu.add_separator()
+        self.labeling_menu.add_command(
+            label="Etiquetado Conectividad 8",
             command=None,
         )
         self.menubar.add_cascade(label="Etiquetado", menu=self.labeling_menu)
@@ -700,6 +710,46 @@ class Vista:
         self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
         self.boton_guardar.pack(side=tk.LEFT, padx=5)
 
+    def abrir_ventana_etiquetado_conectividad_4(self):
+        # Crear una ventana para el etiquetado con conectividad 4
+        self.ventana_etiquetado_conectividad_4 = tk.Toplevel(self.root)
+        self.ventana_etiquetado_conectividad_4.title("Etiquetado Conectividad 4")
+        self.ventana_etiquetado_conectividad_4.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_etiquetado_conectividad_4)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar etiquetado conectividad 4
+        self.boton_aplicar_etiquetado_conectividad_4 = ttk.Button(
+            self.frame_botones, text="Aplicar etiquetado conectividad 4"
+        )
+        self.boton_aplicar_etiquetado_conectividad_4.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
+    def abrir_ventana_etiquetado_conectividad_8(self):
+        # Crear una ventana para el etiquetado con conectividad 8
+        self.ventana_etiquetado_conectividad_8 = tk.Toplevel(self.root)
+        self.ventana_etiquetado_conectividad_8.title("Etiquetado Conectividad 8")
+        self.ventana_etiquetado_conectividad_8.geometry("1600x900")
+
+        # Crear un marco para los botones y acomodarlos horizontalmente
+        self.frame_botones = tk.Frame(self.ventana_etiquetado_conectividad_8)
+        self.frame_botones.pack(pady=10)
+
+        # Crear botón para aplicar etiquetado conectividad 8
+        self.boton_aplicar_etiquetado_conectividad_8 = ttk.Button(
+            self.frame_botones, text="Aplicar etiquetado conectividad 8"
+        )
+        self.boton_aplicar_etiquetado_conectividad_8.pack(side=tk.LEFT, padx=5)
+
+        # Crear botón para guardar resultados
+        self.boton_guardar = ttk.Button(self.frame_botones, text="Guardar resultado")
+        self.boton_guardar.pack(side=tk.LEFT, padx=5)
+
     def mostrar_imagen(self, imagen, tipo):
         if tipo == "original":
             self.imagen_original.config(image=imagen)
@@ -931,6 +981,26 @@ class Vista:
         return (
             getattr(self, "boton_guardar", None)
             if hasattr(self, "ventana_conectividad_8")
+            else None
+        )
+
+    def get_boton_aplicar_etiquetado_conectividad_4(self):
+        return getattr(self, "boton_aplicar_etiquetado_conectividad_4", None)
+
+    def get_boton_guardar_etiquetado_conectividad_4(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_etiquetado_conectividad_4")
+            else None
+        )
+
+    def get_boton_aplicar_etiquetado_conectividad_8(self):
+        return getattr(self, "boton_aplicar_etiquetado_conectividad_8", None)
+
+    def get_boton_guardar_etiquetado_conectividad_8(self):
+        return (
+            getattr(self, "boton_guardar", None)
+            if hasattr(self, "ventana_etiquetado_conectividad_8")
             else None
         )
 

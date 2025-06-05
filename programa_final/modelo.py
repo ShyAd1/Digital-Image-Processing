@@ -6,6 +6,8 @@ from scipy.signal import find_peaks
 
 
 class Modelo:
+    WINDOW_NAME = "image"  # Define window name as a constant
+
     def __init__(self):
         # Inicializar la imagen original y la imagen de salida
         self.img_tk1 = None
@@ -22,6 +24,7 @@ class Modelo:
         self.imagen_filtrada = None
         self.imagen_filtrada_sal_pimienta = None
         self.imagen_laplaciana = None
+        self.imagen_recortada = None
         self.imagen_segmentada_um = None
         self.imagen_segmentada_lum = None
         self.imagen_segmentada_ua = None
@@ -33,6 +36,8 @@ class Modelo:
         self.imagen_xor = None
         self.imagen_conectividad_4 = None
         self.imagen_conectividad_8 = None
+        self.imagen_etiquetado_conectividad_4 = None
+        self.imagen_etiquetado_conectividad_8 = None
         self.max_size = 600
         self.tamaño_original = None
         self.matriz_convolucion = None
@@ -84,6 +89,8 @@ class Modelo:
             "Imagen XOR": self.imagen_xor,
             "Imagen conectivida 4": self.imagen_conectividad_4,
             "Imagen conectivida 8": self.imagen_conectividad_8,
+            "Imagen etiquetado conectivida 4": self.imagen_etiquetado_conectividad_4,
+            "Imagen etiquetado conectivida 8": self.imagen_etiquetado_conectividad_8,
         }
         # Filtrar solo las imágenes que no son None
         return {k: v for k, v in imagenes.items() if v is not None}
@@ -418,6 +425,109 @@ class Modelo:
 
         return self.img_tk1
 
+    def obtener_region_interes(self, imagen):
+        # Permite seleccionar una región de interés (ROI) de la imagen con el mouse
+        # Devuelve la ROI seleccionada redimensionada y en formato compatible con Tkinter
+
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        img = imagen.copy()
+        # Redimensionar para mostrar (máx 600 px)
+        max_dim = 600
+        h, w = img.shape[:2]
+        scale = min(max_dim / h, max_dim / w, 1.0)
+        dim = (int(w * scale), int(h * scale))
+        resized_img = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
+
+        pt1 = None
+        pt2 = None
+        roi = None
+        cropped = False
+
+        def select_region(event, x, y, _, __):
+            nonlocal pt1, pt2, roi, cropped
+            if event == cv2.EVENT_LBUTTONDOWN:
+                pt1 = (x, y)
+                pt2 = None
+                cropped = False
+            elif event == cv2.EVENT_LBUTTONUP:
+                pt2 = (x, y)
+                cv2.rectangle(resized_img, pt1, pt2, (0, 255, 0), 2)
+                cv2.imshow(self.WINDOW_NAME, resized_img)
+                cropped = True
+                # Recortar la región en la imagen original usando la escala
+                x1 = int(pt1[0] * img.shape[1] / resized_img.shape[1])
+                y1 = int(pt1[1] * img.shape[0] / resized_img.shape[0])
+                x2 = int(pt2[0] * img.shape[1] / resized_img.shape[1])
+                y2 = int(pt2[1] * img.shape[0] / resized_img.shape[0])
+                x1, x2 = sorted([x1, x2])
+                y1, y2 = sorted([y1, y2])
+                # Validar que la ROI tenga tamaño válido
+                if (x2 - x1) > 0 and (y2 - y1) > 0:
+                    roi = img[y1:y2, x1:x2].copy()
+                    self.imagen_recortada = roi
+                    # Redimensionar la ROI para mostrarla, proporcionalmente y mantener la relación de aspecto
+                    roi_height, roi_width = roi.shape[:2]
+                    aspect_ratio = roi_width / roi_height if roi_height > 0 else 1
+                    new_width = 300
+                    new_height = (
+                        int(new_width / aspect_ratio) if aspect_ratio > 0 else 300
+                    )
+                    roi_show = cv2.resize(
+                        roi, (new_width, new_height), interpolation=cv2.INTER_AREA
+                    )
+                    cv2.imshow("ROI", roi_show)
+                    cv2.moveWindow("ROI", 500, 100)
+                else:
+                    roi = None
+                    self.imagen_recortada = None
+
+        cv2.namedWindow(self.WINDOW_NAME)
+        cv2.setMouseCallback(self.WINDOW_NAME, select_region)
+        cv2.moveWindow(self.WINDOW_NAME, 100, 100)
+
+        # Mostrar la imagen la primera vez
+        cv2.imshow(self.WINDOW_NAME, resized_img)
+
+        running = True
+        while running:
+            temp_img = resized_img.copy()
+            if pt1 and pt2:
+                cv2.imshow(self.WINDOW_NAME, temp_img)
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord("q"):
+                running = False
+            elif key == ord("r"):
+                # Reiniciar selección
+                pt1 = None
+                pt2 = None
+                cropped = False
+                roi = None
+                self.imagen_recortada = None
+                resized_img = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
+                cv2.imshow(self.WINDOW_NAME, resized_img)
+            # Cerrar ventana ROI si está abierta y se cierra manualmente
+            if cropped and roi is not None:
+                try:
+                    if cv2.getWindowProperty("ROI", cv2.WND_PROP_VISIBLE) < 1:
+                        cropped = False
+                        roi = None
+                        self.imagen_recortada = None
+                except cv2.error:
+                    pass  # Ignore if the window does not exist
+                # ROI seleccionada correctamente, salir del bucle y devolver la imagen
+                cv2.destroyAllWindows()
+                self.imagen_recortada = roi.copy()
+                roi_redim = self.redimensionar_imagen(self.imagen_recortada)
+                img_pil = Image.fromarray(roi_redim)
+                self.img_tk1 = ImageTk.PhotoImage(img_pil)
+                return self.img_tk1
+
+        # Si no se seleccionó ROI válida
+        cv2.destroyAllWindows()
+        return None
+
     def aplicar_segmentacion_lua(self, imagen):
         if imagen is None:
             raise ValueError("No se ha proporcionado una imagen.")
@@ -504,6 +614,10 @@ class Modelo:
             laplacian_normalized, umbral, 255, cv2.THRESH_BINARY
         )
 
+        self.imagen_segmentada_lum = self.redimensionar_imagen(
+            self.imagen_segmentada_lum
+        )
+
         # Convertir la imagen segmentada a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen_segmentada_lum)
         self.img_tk1 = ImageTk.PhotoImage(img_pil)
@@ -560,6 +674,8 @@ class Modelo:
             imagen_normalized, threshold, 255, cv2.THRESH_BINARY
         )
 
+        self.imagen_segmentada_ua = self.redimensionar_imagen(self.imagen_segmentada_ua)
+
         # Convertir la imagen segmentada a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen_segmentada_ua)
         self.img_tk1 = ImageTk.PhotoImage(img_pil)
@@ -589,6 +705,8 @@ class Modelo:
         _, self.imagen_segmentada_um = cv2.threshold(
             imagen_normalized, umbral, 255, cv2.THRESH_BINARY
         )
+
+        self.imagen_segmentada_um = self.redimensionar_imagen(self.imagen_segmentada_um)
 
         # Convertir la imagen segmentada a un formato compatible con Tkinter
         img_pil = Image.fromarray(self.imagen_segmentada_um)
@@ -691,6 +809,90 @@ class Modelo:
 
             img_pil = Image.fromarray(self.imagen_conectividad_8)
             self.img_tk1 = ImageTk.PhotoImage(img_pil)
+        return self.img_tk1
+
+    def aplicar_etiquetado_conectividad_4(self, imagen):
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        # Asegurarse de que la imagen sea binaria (1 canal)
+        if len(imagen.shape) == 3:
+            img_bin = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+        else:
+            img_bin = imagen.copy()
+        _, img_bin = cv2.threshold(img_bin, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+        # Encontrar contornos
+        contours, _ = cv2.findContours(
+            img_bin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+        )
+
+        # Convertir a color para dibujar
+        image_color = cv2.cvtColor(img_bin, cv2.COLOR_GRAY2BGR)
+
+        # Dibujar y numerar los contornos
+        for i, contour in enumerate(contours):
+            cv2.drawContours(image_color, [contour], -1, (0, 255, 0), 2)
+            x, y, w, h = cv2.boundingRect(contour)
+            cv2.putText(
+                image_color,
+                f"{i + 1}",
+                (x, y - 10),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 255, 0),
+                2,
+            )
+
+        # Redimensionar la imagen para mostrarla en la interfaz
+        self.imagen_etiquetado_conectividad_4 = self.redimensionar_imagen(image_color)
+
+        # Convertir la imagen a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_etiquetado_conectividad_4)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
+        return self.img_tk1
+
+    def aplicar_etiquetado_conectividad_8(self, imagen):
+        if imagen is None:
+            raise ValueError("No se ha proporcionado una imagen.")
+
+        # Asegurarse de que la imagen sea binaria (1 canal)
+        if len(imagen.shape) == 3:
+            img_bin = cv2.cvtColor(imagen, cv2.COLOR_RGB2GRAY)
+        else:
+            img_bin = imagen.copy()
+        _, img_bin = cv2.threshold(img_bin, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+
+        # Encontrar contornos
+        contours, _ = cv2.findContours(
+            img_bin, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
+        )
+
+        # Convertir a color para dibujar
+        image_color = cv2.cvtColor(img_bin, cv2.COLOR_GRAY2BGR)
+
+        # Dibujar y numerar los contornos
+        for i, contour in enumerate(contours):
+            cv2.drawContours(image_color, [contour], -1, (0, 255, 0), 2)
+            x, y, w, h = cv2.boundingRect(contour)
+            cv2.putText(
+                image_color,
+                f"{i + 1}",
+                (x, y - 10),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (0, 255, 0),
+                2,
+            )
+
+        # Redimensionar la imagen para mostrarla en la interfaz
+        self.imagen_etiquetado_conectividad_8 = self.redimensionar_imagen(image_color)
+
+        # Convertir la imagen a un formato compatible con Tkinter
+        img_pil = Image.fromarray(self.imagen_etiquetado_conectividad_8)
+        self.img_tk1 = ImageTk.PhotoImage(img_pil)
+
         return self.img_tk1
 
     def guardar_imagenes(self, ruta_guardar, imagen):
