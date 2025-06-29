@@ -38,7 +38,7 @@ class Modelo:
         self.imagen_conectividad_8 = None
         self.imagen_etiquetado_conectividad_4 = None
         self.imagen_etiquetado_conectividad_8 = None
-        self.max_size = 600
+        self.max_size = 750
         self.tamaño_original = None
         self.matriz_convolucion = None
 
@@ -844,6 +844,9 @@ class Modelo:
                 2,
             )
 
+        # Imprimir numero de componentes encontrados
+        print(f"Número de componentes encontrados (conectividad 4): {len(contours)}")
+
         # Redimensionar la imagen para mostrarla en la interfaz
         self.imagen_etiquetado_conectividad_4 = self.redimensionar_imagen(image_color)
 
@@ -885,6 +888,9 @@ class Modelo:
                 (0, 255, 0),
                 2,
             )
+
+        # Imprimir numero de componentes encontrados
+        print(f"Número de componentes encontrados (conectividad 8): {len(contours)}")
 
         # Redimensionar la imagen para mostrarla en la interfaz
         self.imagen_etiquetado_conectividad_8 = self.redimensionar_imagen(image_color)
