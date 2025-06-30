@@ -11,11 +11,22 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
 import java.io.File;
+
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 import modelo.ImagenModelo;
 import vista.ElementoEstructura;
 import vista.ImagenVista;
@@ -1780,11 +1791,94 @@ public class ImagenControlador {
         }
     }
     
+    class hitOrAndMissButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e){
+            if(modelo.getImagenActual() == null){
+                vista.mostrarMensajeError("No hay una imagen cargada.");
+                return;
+            }
+
+            ElementoEstructura ventana = new ElementoEstructura();
+            ventana.setElementoEstructuraListener(estructura -> {
+                modelo.setElementoEstructurante(estructura);
+                BufferedImage backup = deepCopy(modelo.getImagenActual());
+                modelo.hitOrAndMissTransformed();
+                vista.mostrarImagen(modelo.getImagenActual());
+            });
+        }
+    }
+
+    class waterSheedsButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (modelo.getImagenActual() == null) {
+                vista.mostrarMensajeError("No hay una imagen cargada.");
+                return;
+            }
+            modelo.waterSheedTransformed();
+            vista.mostrarImagen(modelo.getImagenActual());
+        }
+    }
+
+    class LabeledConectivity4ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (modelo.getImagenActual() == null) {
+                vista.mostrarMensajeError("No hay una imagen cargada.");
+                return;
+            }
+            modelo.etiquetadoComponentes4();
+            vista.mostrarImagen(modelo.getImagenActual());
+        }
+    }
+
+    class LabeledConectivity8ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (modelo.getImagenActual() == null) {
+                vista.mostrarMensajeError("No hay una imagen cargada.");
+                return;
+            }
+            modelo.etiquetadoComponentes8();
+            vista.mostrarImagen(modelo.getImagenActual());
+        }
+    }
+
+    class CountObjectsButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (modelo.getImagenActual() == null) {
+                vista.mostrarMensajeError("No hay una imagen cargada.");
+                return;
+            }
+            // Preguntar al usuario por la conectividad (4 u 8)
+            Object[] options = {"Conectividad 4", "Conectividad 8"};
+            int seleccion = JOptionPane.showOptionDialog(
+                vista,
+                "Seleccione el tipo de conectividad para el conteo de objetos:",
+                "Tipo de Conectividad",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]
+            );
+            int conectividad = (seleccion == 1) ? 8 : 4;
+            int count = modelo.contarYMostrarObjetos(conectividad);
+            vista.mostrarMensajeInformativo("Número de objetos etiquetados: " + count);
+        }
+    }
+    
     public ImagenControlador(ImagenModelo modelo, ImagenVista vista) {
         this.modelo = modelo;
         this.vista = vista;
 
         // Asignar listeners a los botones
+        // Conectividad y etiquetados
+        vista.getLabeled4Button().addActionListener(new LabeledConectivity4ButtonListener());
+        vista.getLabeled8Button().addActionListener(new LabeledConectivity8ButtonListener());
+        vista.getCountObjectsButton().addActionListener(new CountObjectsButtonListener());
         
         // Sliders
         vista.getBrightnessSlider().addChangeListener(new BrightnessSliderListener());
@@ -1909,5 +2003,7 @@ public class ImagenControlador {
         vista.getBinaryClosingButton().addActionListener(new BinaryClosingButtonListener());
         vista.getGrayScaleOpeningButton().addActionListener(new GrayScaleOpeningButtonListener());
         vista.getGrayScaleClosingButton().addActionListener(new GrayScaleClosingButtonListener());
+        vista.getHitOrAndMissButton().addActionListener(new hitOrAndMissButtonListener());
+        vista.getWaterSheedsButton().addActionListener(new waterSheedsButtonListener());
     }
 }

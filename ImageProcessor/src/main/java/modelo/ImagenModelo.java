@@ -1,7 +1,9 @@
-
 package modelo;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
@@ -9,28 +11,34 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class ImagenModelo {
+
     private BufferedImage imagenActual;    // Imagen que se está mostrando y modificando
     private BufferedImage imagenOriginal;  // Copia de la imagen original para reset
     private BufferedImage imagenConRuido;  // Imagen con Ruido
     private double totalScale = 1.0;
-    
+
     // Constructor
     public ImagenModelo() {
         this.imagenActual = null;
         this.imagenOriginal = null;
     }
-    
+
     public BufferedImage getImagenConRuido() {
         return imagenConRuido;
     }
 
     // Método para cargar una nueva imagen
     public void cargarImagen(BufferedImage nuevaImagen) {
-        if (nuevaImagen == null) return;
+        if (nuevaImagen == null) {
+            return;
+        }
         // Hacer una copia profunda de la nueva imagen para imagenOriginal
         imagenOriginal = deepCopy(nuevaImagen);
         // Hacer una copia profunda para imagenActual
@@ -39,7 +47,9 @@ public class ImagenModelo {
 
     // Método para resetear la imagen actual a la original
     public void resetearImagen() {
-        if (imagenOriginal == null) return;
+        if (imagenOriginal == null) {
+            return;
+        }
         // Restaurar imagenActual a partir de imagenOriginal
         imagenActual = deepCopy(imagenOriginal);
     }
@@ -54,7 +64,7 @@ public class ImagenModelo {
             ImageIO.write(imagenActual, "jpg", archivo);
         }
     }
-    
+
     public void setImagenConRuido(BufferedImage imagenConRuido) {
         this.imagenConRuido = imagenConRuido;
     }
@@ -62,7 +72,7 @@ public class ImagenModelo {
     public void setImagenActual(BufferedImage imagenActual) {
         this.imagenActual = imagenActual;
     }
-    
+
 // SLIDERS DE BRILLO Y CONTRASTE
     public void ajustarBrillo(int factor) {
         if (imagenOriginal == null) {
@@ -133,10 +143,12 @@ public class ImagenModelo {
         // Actualizar imagenActual con el resultado
         imagenActual = result;
     }
-   
+
 // OPERACIONES
     public void interpolation(int newWidth, int newHeight) {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         BufferedImage interpolatedImage = new BufferedImage(newWidth, newHeight, imagenActual.getType());
 
         double xRatio = (double) imagenActual.getWidth() / newWidth;
@@ -151,9 +163,11 @@ public class ImagenModelo {
         }
         imagenActual = interpolatedImage;
     }
-    
+
     public void rotation(double angle) {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage rotatedImage = new BufferedImage(width, height, imagenActual.getType());
@@ -174,9 +188,11 @@ public class ImagenModelo {
         }
         imagenActual = rotatedImage;
     }
-    
+
     public void translation(int deltaX, int deltaY) {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         BufferedImage translatedImage = new BufferedImage(imagenActual.getWidth(), imagenActual.getHeight(), imagenActual.getType());
 
         for (int y = 0; y < imagenActual.getHeight(); y++) {
@@ -191,9 +207,11 @@ public class ImagenModelo {
         }
         imagenActual = translatedImage;
     }
-    
+
     public void sum(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -218,9 +236,11 @@ public class ImagenModelo {
         }
         imagenActual = result;
     }
-    
+
     public void subtraction(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -247,7 +267,9 @@ public class ImagenModelo {
     }
 
     public void multiplication(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -274,7 +296,9 @@ public class ImagenModelo {
     }
 
     public void division(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -301,7 +325,9 @@ public class ImagenModelo {
     }
 
     public void not() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -327,7 +353,9 @@ public class ImagenModelo {
     }
 
     public void xor(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -354,7 +382,9 @@ public class ImagenModelo {
     }
 
     public void or(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -381,7 +411,9 @@ public class ImagenModelo {
     }
 
     public void and(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -408,7 +440,9 @@ public class ImagenModelo {
     }
 
     public void lessThan(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -418,8 +452,8 @@ public class ImagenModelo {
                 int rgb1 = imagenActual.getRGB(x, y);
                 int rgb2 = segundaImagen.getRGB(x, y);
 
-                int lum1 = (int)((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
-                int lum2 = (int)((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
+                int lum1 = (int) ((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
+                int lum2 = (int) ((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
 
                 int nuevoRGB;
                 if (lum1 < lum2) {
@@ -434,7 +468,9 @@ public class ImagenModelo {
     }
 
     public void lessThanOrEqual(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -444,8 +480,8 @@ public class ImagenModelo {
                 int rgb1 = imagenActual.getRGB(x, y);
                 int rgb2 = segundaImagen.getRGB(x, y);
 
-                int lum1 = (int)((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
-                int lum2 = (int)((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
+                int lum1 = (int) ((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
+                int lum2 = (int) ((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
 
                 int nuevoRGB;
                 if (lum1 <= lum2) {
@@ -460,7 +496,9 @@ public class ImagenModelo {
     }
 
     public void greaterThan(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -470,8 +508,8 @@ public class ImagenModelo {
                 int rgb1 = imagenActual.getRGB(x, y);
                 int rgb2 = segundaImagen.getRGB(x, y);
 
-                int lum1 = (int)((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
-                int lum2 = (int)((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
+                int lum1 = (int) ((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
+                int lum2 = (int) ((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
 
                 int nuevoRGB;
                 if (lum1 > lum2) {
@@ -486,7 +524,9 @@ public class ImagenModelo {
     }
 
     public void greaterThanOrEqual(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -496,8 +536,8 @@ public class ImagenModelo {
                 int rgb1 = imagenActual.getRGB(x, y);
                 int rgb2 = segundaImagen.getRGB(x, y);
 
-                int lum1 = (int)((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
-                int lum2 = (int)((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
+                int lum1 = (int) ((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
+                int lum2 = (int) ((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
 
                 int nuevoRGB;
                 if (lum1 >= lum2) {
@@ -512,7 +552,9 @@ public class ImagenModelo {
     }
 
     public void equal(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -522,8 +564,8 @@ public class ImagenModelo {
                 int rgb1 = imagenActual.getRGB(x, y);
                 int rgb2 = segundaImagen.getRGB(x, y);
 
-                int lum1 = (int)((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
-                int lum2 = (int)((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
+                int lum1 = (int) ((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
+                int lum2 = (int) ((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
 
                 int nuevoRGB;
                 if (lum1 == lum2) {
@@ -538,7 +580,9 @@ public class ImagenModelo {
     }
 
     public void notEqual(BufferedImage segundaImagen) {
-        if (imagenActual == null || segundaImagen == null) return;
+        if (imagenActual == null || segundaImagen == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), segundaImagen.getWidth());
         int height = Math.min(imagenActual.getHeight(), segundaImagen.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -548,8 +592,8 @@ public class ImagenModelo {
                 int rgb1 = imagenActual.getRGB(x, y);
                 int rgb2 = segundaImagen.getRGB(x, y);
 
-                int lum1 = (int)((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
-                int lum2 = (int)((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
+                int lum1 = (int) ((0.299 * ((rgb1 >> 16) & 0xFF)) + (0.587 * ((rgb1 >> 8) & 0xFF)) + (0.114 * (rgb1 & 0xFF)));
+                int lum2 = (int) ((0.299 * ((rgb2 >> 16) & 0xFF)) + (0.587 * ((rgb2 >> 8) & 0xFF)) + (0.114 * (rgb2 & 0xFF)));
 
                 int nuevoRGB;
                 if (lum1 != lum2) {
@@ -565,7 +609,9 @@ public class ImagenModelo {
 
 // MODIFICACIONES AL HISTOGRAMA
     public void matchHistogram(BufferedImage target) {
-        if (imagenActual == null || target == null) return;
+        if (imagenActual == null || target == null) {
+            return;
+        }
         int width = Math.min(imagenActual.getWidth(), target.getWidth());
         int height = Math.min(imagenActual.getHeight(), target.getHeight());
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -683,7 +729,9 @@ public class ImagenModelo {
     }
 
     public void equalizeHistogram() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -722,9 +770,15 @@ public class ImagenModelo {
         // Encontrar el valor mínimo no nulo de la CDF para cada canal
         int cdfMinR = 0, cdfMinG = 0, cdfMinB = 0;
         for (int i = 0; i < 256; i++) {
-            if (cdfR[i] > 0 && cdfMinR == 0) cdfMinR = cdfR[i];
-            if (cdfG[i] > 0 && cdfMinG == 0) cdfMinG = cdfG[i];
-            if (cdfB[i] > 0 && cdfMinB == 0) cdfMinB = cdfB[i];
+            if (cdfR[i] > 0 && cdfMinR == 0) {
+                cdfMinR = cdfR[i];
+            }
+            if (cdfG[i] > 0 && cdfMinG == 0) {
+                cdfMinG = cdfG[i];
+            }
+            if (cdfB[i] > 0 && cdfMinB == 0) {
+                cdfMinB = cdfB[i];
+            }
         }
 
         // Total de píxeles
@@ -847,7 +901,9 @@ public class ImagenModelo {
 
 // ECUALIZACIONES AL HISTOGRAMA
     public void equalizeUniform() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         // Convertir a escala de grises primero
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -1015,7 +1071,9 @@ public class ImagenModelo {
     }
 
     public void equalizeHyperbolicLogarithmic() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         // Convertir a escala de grises
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -1052,7 +1110,7 @@ public class ImagenModelo {
         int[] mapped = new int[256];
         for (int i = 0; i < 256; i++) {
             double val = fmin * Math.pow(ratio, cdf[i]);
-            int newVal = (int)Math.round(val);
+            int newVal = (int) Math.round(val);
             mapped[i] = Math.min(255, Math.max(0, newVal));
         }
 
@@ -1075,7 +1133,9 @@ public class ImagenModelo {
 
 // RUIDOS
     public void addGaussianNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir a escala de grises la imagen actual (basada en la original si es necesario)
@@ -1107,9 +1167,11 @@ public class ImagenModelo {
         // Paso 4: actualizar imagen actual con la imagen ruidosa
         imagenActual = noisyImage;
     }
-    
+
     public void addRayleighNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir a escala de grises
@@ -1142,9 +1204,10 @@ public class ImagenModelo {
         imagenActual = noisyImage;
     }
 
-
     public void addSaltAndPepperNoise(double probability) {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir la imagen actual a escala de grises
@@ -1173,9 +1236,10 @@ public class ImagenModelo {
         imagenActual = noisyImage;
     }
 
-
     public void addExponentialNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir imagen actual a escala de grises
@@ -1208,9 +1272,10 @@ public class ImagenModelo {
         imagenActual = noisyImage;
     }
 
-
     public void addUniformNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir la imagen actual a escala de grises
@@ -1243,9 +1308,10 @@ public class ImagenModelo {
         imagenActual = noisyImage;
     }
 
-
     public void addGammaNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir la imagen a escala de grises
@@ -1278,9 +1344,10 @@ public class ImagenModelo {
         imagenActual = noisyImage;
     }
 
-
     public void addCoherentNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         // Paso 1: convertir la imagen actual a escala de grises
         convertirEscalaGrises();
@@ -1312,10 +1379,11 @@ public class ImagenModelo {
         imagenActual = noisyImage;
     }
 
-
     // Método auxiliar
     private BufferedImage deepCopy(BufferedImage img) {
-        if (img == null) return null;
+        if (img == null) {
+            return null;
+        }
         ColorModel cm = img.getColorModel();
         boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
         WritableRaster raster = img.copyData(null);
@@ -1323,7 +1391,9 @@ public class ImagenModelo {
     }
 
     public void addSaltNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir la imagen actual a escala de grises
@@ -1352,7 +1422,9 @@ public class ImagenModelo {
     }
 
     public void addPepperNoise() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         Random rand = new Random();
 
         // Paso 1: convertir la imagen actual a escala de grises
@@ -1546,9 +1618,11 @@ public class ImagenModelo {
     public int[] computeGrayHistogram() {
         return computeGrayHistogram(imagenActual);
     }
-    
+
     public int[][] computeRGBHistogram(BufferedImage image) {
-        if (image == null) return new int[3][256];
+        if (image == null) {
+            return new int[3][256];
+        }
         int[][] histogram = new int[3][256]; // R, G, B
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -1564,9 +1638,11 @@ public class ImagenModelo {
         }
         return histogram;
     }
-    
+
     public int[] computeGrayHistogram(BufferedImage image) {
-        if (image == null) return new int[256];
+        if (image == null) {
+            return new int[256];
+        }
         int[] histogram = new int[256];
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -1655,10 +1731,12 @@ public class ImagenModelo {
 
         imagenActual = blueImage;
     }
-    
+
 // BINARIZADOS
     public void binarizeWith1Threshold(int threshold) {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         // Convertir a YIQ para obtener el canal Y
         convertToYIQprocessingY();
         int width = imagenActual.getWidth();
@@ -1676,7 +1754,9 @@ public class ImagenModelo {
     }
 
     public void binarizeWithTwoThresholds(int threshold1, int threshold2) {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         // Convertir a YIQ para obtener el canal Y
         convertToYIQprocessingY();
         int width = imagenActual.getWidth();
@@ -1701,7 +1781,9 @@ public class ImagenModelo {
     }
 
     public void binarizeWithThreeThresholds(int threshold1, int threshold2, int threshold3) {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         // Convertir a YIQ para obtener el canal Y
         convertToYIQprocessingY();
         int width = imagenActual.getWidth();
@@ -1728,7 +1810,9 @@ public class ImagenModelo {
     }
 
     public void invertBinarization() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage invertedImage = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
@@ -1744,7 +1828,9 @@ public class ImagenModelo {
     }
 
     public void convertBinaryToRGB() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage rgbImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -1754,11 +1840,17 @@ public class ImagenModelo {
                 int pixel = imagenActual.getRGB(x, y) & 0xFF; // Obtener el valor Y
                 int r, g, b;
                 if (pixel < 85) {
-                    r = 0; g = 0; b = 255; // Azul
+                    r = 0;
+                    g = 0;
+                    b = 255; // Azul
                 } else if (pixel < 170) {
-                    r = 0; g = 255; b = 0; // Verde
+                    r = 0;
+                    g = 255;
+                    b = 0; // Verde
                 } else {
-                    r = 255; g = 0; b = 0; // Rojo
+                    r = 255;
+                    g = 0;
+                    b = 0; // Rojo
                 }
                 rgbImg.setRGB(x, y, (r << 16) | (g << 8) | b);
             }
@@ -1768,7 +1860,9 @@ public class ImagenModelo {
 
 // CONVERSIONES
     public void convertToLab() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage labImage = new BufferedImage(width, height, imagenActual.getType());
@@ -1840,7 +1934,9 @@ public class ImagenModelo {
     }
 
     public void convertLabToRGB() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage rgbImage = new BufferedImage(width, height, imagenActual.getType());
@@ -1914,7 +2010,9 @@ public class ImagenModelo {
     }
 
     public void convertToCMY() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage cmyImage = new BufferedImage(width, height, imagenActual.getType());
@@ -1945,7 +2043,9 @@ public class ImagenModelo {
     }
 
     public void convertCMYtoRGB() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage rgbImage = new BufferedImage(width, height, imagenActual.getType());
@@ -1974,7 +2074,9 @@ public class ImagenModelo {
     }
 
     public void convertToYIQ() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage yiqImage = new BufferedImage(width, height, imagenActual.getType());
@@ -2008,7 +2110,9 @@ public class ImagenModelo {
     }
 
     public void convertYIQtoRGB() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage rgbImage = new BufferedImage(width, height, imagenActual.getType());
@@ -2041,7 +2145,9 @@ public class ImagenModelo {
     }
 
     public void convertToHSI() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage hsiImg = new BufferedImage(width, height, imagenActual.getType());
@@ -2099,7 +2205,9 @@ public class ImagenModelo {
     }
 
     public void convertHSItoRGB() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage rgbImage = new BufferedImage(width, height, imagenActual.getType());
@@ -2133,17 +2241,35 @@ public class ImagenModelo {
 
                     switch (sector) {
                         case 0: // 0°–60°
-                            R = INorm; G = t; B = p; break;
+                            R = INorm;
+                            G = t;
+                            B = p;
+                            break;
                         case 1: // 60°–120°
-                            R = q; G = INorm; B = p; break;
+                            R = q;
+                            G = INorm;
+                            B = p;
+                            break;
                         case 2: // 120°–180°
-                            R = p; G = INorm; B = t; break;
+                            R = p;
+                            G = INorm;
+                            B = t;
+                            break;
                         case 3: // 180°–240°
-                            R = p; G = q; B = INorm; break;
+                            R = p;
+                            G = q;
+                            B = INorm;
+                            break;
                         case 4: // 240°–300°
-                            R = t; G = p; B = INorm; break;
+                            R = t;
+                            G = p;
+                            B = INorm;
+                            break;
                         default: // 300°–360°
-                            R = INorm; G = p; B = q; break;
+                            R = INorm;
+                            G = p;
+                            B = q;
+                            break;
                     }
                 }
 
@@ -2168,7 +2294,9 @@ public class ImagenModelo {
     }
 
     public void convertCMYtoCMYK() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage cmykImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -2324,17 +2452,29 @@ public class ImagenModelo {
 
                     // Convert based on hue sector
                     if (HNorm < 60) {
-                        R = C; G = X; B = 0;
+                        R = C;
+                        G = X;
+                        B = 0;
                     } else if (HNorm < 120) {
-                        R = X; G = C; B = 0;
+                        R = X;
+                        G = C;
+                        B = 0;
                     } else if (HNorm < 180) {
-                        R = 0; G = C; B = X;
+                        R = 0;
+                        G = C;
+                        B = X;
                     } else if (HNorm < 240) {
-                        R = 0; G = X; B = C;
+                        R = 0;
+                        G = X;
+                        B = C;
                     } else if (HNorm < 300) {
-                        R = X; G = 0; B = C;
+                        R = X;
+                        G = 0;
+                        B = C;
                     } else {
-                        R = C; G = 0; B = X;
+                        R = C;
+                        G = 0;
+                        B = X;
                     }
 
                     // Add offset
@@ -2424,7 +2564,7 @@ public class ImagenModelo {
         // Actualizar imagenActual
         imagenActual = translatedImage;
     }
-    
+
     public void rotate(double angle) {
         if (imagenActual == null) {
             throw new IllegalArgumentException("No hay una imagen cargada.");
@@ -2471,7 +2611,7 @@ public class ImagenModelo {
         // Actualizar imagenActual
         imagenActual = rotatedImage;
     }
-    
+
     /*public void interpolate(double scale) {
         if (imagenActual == null) {
             throw new IllegalArgumentException("No hay una imagen cargada.");
@@ -2627,7 +2767,7 @@ public class ImagenModelo {
         // Actualizar imagenActual
         imagenActual = scaledImage;
     }
-    
+
 // EXTRACCION DE CANALES
     public BufferedImage[] getCMYChannels() {
         if (imagenOriginal == null) {
@@ -2661,7 +2801,7 @@ public class ImagenModelo {
 
         return new BufferedImage[]{cImage, mImage, yImage};
     }
-    
+
     public BufferedImage[] getYIQChannels() {
         if (imagenOriginal == null) {
             throw new IllegalArgumentException("No hay una imagen cargada.");
@@ -2690,7 +2830,7 @@ public class ImagenModelo {
                 int qVal = (int) (((Q + 128) / 256.0) * 255); // Normalizar al rango [0, 255]
 
                 // Y se muestra en escala de grises
-                yImage.setRGB(x, y, new Color((int)Y, (int)Y, (int)Y).getRGB());
+                yImage.setRGB(x, y, new Color((int) Y, (int) Y, (int) Y).getRGB());
 
                 // I se muestra en tonos de rojo-naranja a cian
                 iImage.setRGB(x, y, new Color(iVal, 128, 255 - iVal).getRGB()); // Aproximación visual
@@ -2702,7 +2842,7 @@ public class ImagenModelo {
 
         return new BufferedImage[]{yImage, iImage, qImage};
     }
-    
+
     public BufferedImage[] getHSIChannels() {
         if (imagenOriginal == null) {
             throw new IllegalArgumentException("No hay una imagen cargada.");
@@ -2725,8 +2865,8 @@ public class ImagenModelo {
                 double I = (r + g + b) / 3.0;
                 double min = Math.min(Math.min(r, g), b);
                 double S = (I == 0) ? 0 : 1 - (min / I);
-                double theta = Math.acos((0.5 * ((r - g) + (r - b))) / 
-                                        Math.sqrt((r - g) * (r - g) + (r - b) * (g - b) + 0.0001));
+                double theta = Math.acos((0.5 * ((r - g) + (r - b)))
+                        / Math.sqrt((r - g) * (r - g) + (r - b) * (g - b) + 0.0001));
                 double H = (b <= g) ? theta : (2 * Math.PI - theta);
 
                 // Normalizar para visualización
@@ -2746,7 +2886,7 @@ public class ImagenModelo {
 
         return new BufferedImage[]{hImage, sImage, iImage};
     }
-    
+
     public BufferedImage[] getHSVChannels() {
         if (imagenOriginal == null) {
             throw new IllegalArgumentException("No hay una imagen cargada.");
@@ -2786,9 +2926,11 @@ public class ImagenModelo {
 
         return new BufferedImage[]{hImage, sImage, vImage};
     }
-    
+
     public void cannyEdgeDetection() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         // Paso 1: Suavizar la imagen con un filtro Gaussiano
         convertirEscalaGrises();
@@ -2852,7 +2994,9 @@ public class ImagenModelo {
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
                 float angle = direction[x][y] * (180f / (float) Math.PI);
-                if (angle < 0) angle += 180;
+                if (angle < 0) {
+                    angle += 180;
+                }
 
                 float mag = magnitude[x][y];
                 float mag1 = 0, mag2 = 0;
@@ -2912,9 +3056,11 @@ public class ImagenModelo {
 
         imagenActual = result;
     }
-    
+
     public void operadorHomogeneidad() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -2926,14 +3072,14 @@ public class ImagenModelo {
                 int pixelCentro = (imagenActual.getRGB(x, y) >> 16) & 0xFF;
 
                 int[] vecinos = new int[8];
-                vecinos[0] = (imagenActual.getRGB(x-1, y-1) >> 16) & 0xFF;
-                vecinos[1] = (imagenActual.getRGB(x, y-1) >> 16) & 0xFF;
-                vecinos[2] = (imagenActual.getRGB(x+1, y-1) >> 16) & 0xFF;
-                vecinos[3] = (imagenActual.getRGB(x-1, y) >> 16) & 0xFF;
-                vecinos[4] = (imagenActual.getRGB(x+1, y) >> 16) & 0xFF;
-                vecinos[5] = (imagenActual.getRGB(x-1, y+1) >> 16) & 0xFF;
-                vecinos[6] = (imagenActual.getRGB(x, y+1) >> 16) & 0xFF;
-                vecinos[7] = (imagenActual.getRGB(x+1, y+1) >> 16) & 0xFF;
+                vecinos[0] = (imagenActual.getRGB(x - 1, y - 1) >> 16) & 0xFF;
+                vecinos[1] = (imagenActual.getRGB(x, y - 1) >> 16) & 0xFF;
+                vecinos[2] = (imagenActual.getRGB(x + 1, y - 1) >> 16) & 0xFF;
+                vecinos[3] = (imagenActual.getRGB(x - 1, y) >> 16) & 0xFF;
+                vecinos[4] = (imagenActual.getRGB(x + 1, y) >> 16) & 0xFF;
+                vecinos[5] = (imagenActual.getRGB(x - 1, y + 1) >> 16) & 0xFF;
+                vecinos[6] = (imagenActual.getRGB(x, y + 1) >> 16) & 0xFF;
+                vecinos[7] = (imagenActual.getRGB(x + 1, y + 1) >> 16) & 0xFF;
 
                 int maxDiff = 0;
                 for (int i = 0; i < 8; i++) {
@@ -2952,7 +3098,9 @@ public class ImagenModelo {
     }
 
     public void operadorDiferencia() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -2964,10 +3112,10 @@ public class ImagenModelo {
                 int pixelCentro = (imagenActual.getRGB(x, y) >> 16) & 0xFF;
 
                 int[] vecinos = new int[4];
-                vecinos[0] = (imagenActual.getRGB(x-1, y) >> 16) & 0xFF;   // izquierda
-                vecinos[1] = (imagenActual.getRGB(x-1, y+1) >> 16) & 0xFF; // esquina inferior izquierda
-                vecinos[2] = (imagenActual.getRGB(x, y+1) >> 16) & 0xFF;   // abajo
-                vecinos[3] = (imagenActual.getRGB(x+1, y+1) >> 16) & 0xFF; // esquina inferior derecha
+                vecinos[0] = (imagenActual.getRGB(x - 1, y) >> 16) & 0xFF;   // izquierda
+                vecinos[1] = (imagenActual.getRGB(x - 1, y + 1) >> 16) & 0xFF; // esquina inferior izquierda
+                vecinos[2] = (imagenActual.getRGB(x, y + 1) >> 16) & 0xFF;   // abajo
+                vecinos[3] = (imagenActual.getRGB(x + 1, y + 1) >> 16) & 0xFF; // esquina inferior derecha
 
                 int maxDiff = 0;
                 for (int i = 0; i < 4; i++) {
@@ -2984,9 +3132,11 @@ public class ImagenModelo {
 
         imagenActual = result;
     }
-    
+
     public void gradientePrimerOrden() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3032,7 +3182,9 @@ public class ImagenModelo {
     }
 
     public void filtroPrewitt() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3077,9 +3229,10 @@ public class ImagenModelo {
         imagenActual = result;
     }
 
-    
     public void filtroSobel() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3125,7 +3278,9 @@ public class ImagenModelo {
     }
 
     public void filtroFreiChen() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3162,7 +3317,7 @@ public class ImagenModelo {
                     }
                 }
 
-                int magnitude = (int)(Math.abs(sumHf) + Math.abs(sumHc));
+                int magnitude = (int) (Math.abs(sumHf) + Math.abs(sumHc));
                 magnitude = Math.min(255, magnitude);
 
                 int nuevoRGB = (magnitude << 16) | (magnitude << 8) | magnitude;
@@ -3174,7 +3329,9 @@ public class ImagenModelo {
     }
 
     public void gradienteCompas() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3183,14 +3340,14 @@ public class ImagenModelo {
 
         // Definir las 8 máscaras
         int[][][] masks = {
-            { {1, 1, 1}, {0, 0, 0}, {-1, -1, -1} }, // Norte
-            { {0, 1, 1}, {-1, 0, 1}, {-1, -1, 0} }, // Noreste
-            { {-1, 0, 1}, {-1, 0, 1}, {-1, 0, 1} }, // Este
-            { {-1, -1, 0}, {-1, 0, 1}, {0, 1, 1} }, // Sureste
-            { {-1, -1, -1}, {0, 0, 0}, {1, 1, 1} }, // Sur
-            { {0, -1, -1}, {1, 0, -1}, {1, 1, 0} }, // Suroeste
-            { {1, 0, -1}, {1, 0, -1}, {1, 0, -1} }, // Oeste
-            { {1, 1, 0}, {1, 0, -1}, {0, -1, -1} }  // Noroeste
+            {{1, 1, 1}, {0, 0, 0}, {-1, -1, -1}}, // Norte
+            {{0, 1, 1}, {-1, 0, 1}, {-1, -1, 0}}, // Noreste
+            {{-1, 0, 1}, {-1, 0, 1}, {-1, 0, 1}}, // Este
+            {{-1, -1, 0}, {-1, 0, 1}, {0, 1, 1}}, // Sureste
+            {{-1, -1, -1}, {0, 0, 0}, {1, 1, 1}}, // Sur
+            {{0, -1, -1}, {1, 0, -1}, {1, 1, 0}}, // Suroeste
+            {{1, 0, -1}, {1, 0, -1}, {1, 0, -1}}, // Oeste
+            {{1, 1, 0}, {1, 0, -1}, {0, -1, -1}} // Noroeste
         };
 
         for (int y = 1; y < height - 1; y++) {
@@ -3222,7 +3379,9 @@ public class ImagenModelo {
     }
 
     public void filtroLaplaciano() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3258,7 +3417,9 @@ public class ImagenModelo {
     }
 
     public void prewittSegundoOrden() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3267,14 +3428,14 @@ public class ImagenModelo {
 
         // Definir las 8 máscaras de Prewitt segundo orden
         int[][][] masks = {
-            { {1, 1, 1}, {0, 0, 0}, {-1, -1, -1} }, // Norte
-            { {0, 1, 1}, {-1, 0, 1}, {-1, -1, 0} }, // Noreste
-            { {-1, 0, 1}, {-1, 0, 1}, {-1, 0, 1} }, // Este
-            { {-1, -1, 0}, {-1, 0, 1}, {0, 1, 1} }, // Sureste
-            { {-1, -1, -1}, {0, 0, 0}, {1, 1, 1} }, // Sur
-            { {0, -1, -1}, {1, 0, -1}, {1, 1, 0} }, // Suroeste
-            { {1, 0, -1}, {1, 0, -1}, {1, 0, -1} }, // Oeste
-            { {1, 1, 0}, {1, 0, -1}, {0, -1, -1} }  // Noroeste
+            {{1, 1, 1}, {0, 0, 0}, {-1, -1, -1}}, // Norte
+            {{0, 1, 1}, {-1, 0, 1}, {-1, -1, 0}}, // Noreste
+            {{-1, 0, 1}, {-1, 0, 1}, {-1, 0, 1}}, // Este
+            {{-1, -1, 0}, {-1, 0, 1}, {0, 1, 1}}, // Sureste
+            {{-1, -1, -1}, {0, 0, 0}, {1, 1, 1}}, // Sur
+            {{0, -1, -1}, {1, 0, -1}, {1, 1, 0}}, // Suroeste
+            {{1, 0, -1}, {1, 0, -1}, {1, 0, -1}}, // Oeste
+            {{1, 1, 0}, {1, 0, -1}, {0, -1, -1}} // Noroeste
         };
 
         for (int y = 1; y < height - 1; y++) {
@@ -3306,7 +3467,9 @@ public class ImagenModelo {
     }
 
     public void filtroKirsch() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3315,14 +3478,14 @@ public class ImagenModelo {
 
         // Definir las 8 máscaras de Kirsch
         int[][][] masks = {
-            { {5, 5, 5}, {-3, 0, -3}, {-3, -3, -3} }, // Norte
-            { {5, 5, -3}, {5, 0, -3}, {-3, -3, -3} }, // Noreste
-            { {5, -3, -3}, {5, 0, -3}, {5, -3, -3} }, // Este
-            { {-3, -3, -3}, {5, 0, -3}, {5, 5, -3} }, // Sureste
-            { {-3, -3, -3}, {-3, 0, -3}, {5, 5, 5} }, // Sur
-            { {-3, -3, -3}, {-3, 0, 5}, {-3, 5, 5} }, // Suroeste
-            { {-3, -3, 5}, {-3, 0, 5}, {-3, -3, 5} }, // Oeste
-            { {-3, 5, 5}, {-3, 0, 5}, {-3, -3, -3} }  // Noroeste
+            {{5, 5, 5}, {-3, 0, -3}, {-3, -3, -3}}, // Norte
+            {{5, 5, -3}, {5, 0, -3}, {-3, -3, -3}}, // Noreste
+            {{5, -3, -3}, {5, 0, -3}, {5, -3, -3}}, // Este
+            {{-3, -3, -3}, {5, 0, -3}, {5, 5, -3}}, // Sureste
+            {{-3, -3, -3}, {-3, 0, -3}, {5, 5, 5}}, // Sur
+            {{-3, -3, -3}, {-3, 0, 5}, {-3, 5, 5}}, // Suroeste
+            {{-3, -3, 5}, {-3, 0, 5}, {-3, -3, 5}}, // Oeste
+            {{-3, 5, 5}, {-3, 0, 5}, {-3, -3, -3}} // Noroeste
         };
 
         for (int y = 1; y < height - 1; y++) {
@@ -3354,7 +3517,9 @@ public class ImagenModelo {
     }
 
     public void filtroRobinson() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3363,14 +3528,14 @@ public class ImagenModelo {
 
         // Definir las 8 máscaras de Robinson
         int[][][] masks = {
-            { {1, 2, 1}, {0, 0, 0}, {-1, -2, -1} }, // Norte
-            { {2, 1, 0}, {1, 0, -1}, {0, -1, -2} }, // Noreste
-            { {1, 0, -1}, {2, 0, -2}, {1, 0, -1} }, // Este
-            { {0, -1, -2}, {1, 0, -1}, {2, 1, 0} }, // Sureste
-            { {-1, -2, -1}, {0, 0, 0}, {1, 2, 1} }, // Sur
-            { {-2, -1, 0}, {-1, 0, 1}, {0, 1, 2} }, // Suroeste
-            { {-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1} }, // Oeste
-            { {0, 1, 2}, {-1, 0, 1}, {-2, -1, 0} }  // Noroeste
+            {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}}, // Norte
+            {{2, 1, 0}, {1, 0, -1}, {0, -1, -2}}, // Noreste
+            {{1, 0, -1}, {2, 0, -2}, {1, 0, -1}}, // Este
+            {{0, -1, -2}, {1, 0, -1}, {2, 1, 0}}, // Sureste
+            {{-1, -2, -1}, {0, 0, 0}, {1, 2, 1}}, // Sur
+            {{-2, -1, 0}, {-1, 0, 1}, {0, 1, 2}}, // Suroeste
+            {{-1, 0, 1}, {-2, 0, 2}, {-1, 0, 1}}, // Oeste
+            {{0, 1, 2}, {-1, 0, 1}, {-2, -1, 0}} // Noroeste
         };
 
         for (int y = 1; y < height - 1; y++) {
@@ -3402,47 +3567,36 @@ public class ImagenModelo {
     }
 
     public void filtroPromediador() {
-        if (imagenActual == null) return;
-
-        convertirEscalaGrises();
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
 
-        int[][] kernel = {
-            {1, 1, 1},
-            {1, 1, 1},
-            {1, 1, 1}
-        };
-
-        int factor = 9; // Suma de todos los elementos del kernel (3x3)
-
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
-                int sum = 0;
-
+                int sumaR = 0, sumaG = 0, sumaB = 0;
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        sum += pixel * kernel[ky + 1][kx + 1];
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        sumaR += (rgb >> 16) & 0xFF;
+                        sumaG += (rgb >> 8) & 0xFF;
+                        sumaB += rgb & 0xFF;
                     }
                 }
-
-                int promedio = sum / factor;
-                promedio = Math.min(255, Math.max(0, promedio));
-
-                int nuevoRGB = (promedio << 16) | (promedio << 8) | promedio;
+                int r = sumaR / 9, g = sumaG / 9, b = sumaB / 9;
+                int nuevoRGB = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, nuevoRGB);
             }
         }
-
         imagenActual = result;
     }
 
     public void filtroGaussiano() {
-        if (imagenActual == null) return;
-
-        convertirEscalaGrises();
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
@@ -3452,33 +3606,34 @@ public class ImagenModelo {
             {2, 4, 2},
             {1, 2, 1}
         };
-
-        int factor = 16; // Suma de todos los elementos del kernel
+        int factor = 16;
 
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
-                int sum = 0;
-
+                int sumaR = 0, sumaG = 0, sumaB = 0;
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        sum += pixel * kernel[ky + 1][kx + 1];
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        int peso = kernel[ky + 1][kx + 1];
+                        sumaR += ((rgb >> 16) & 0xFF) * peso;
+                        sumaG += ((rgb >> 8) & 0xFF) * peso;
+                        sumaB += (rgb & 0xFF) * peso;
                     }
                 }
-
-                int gauss = sum / factor;
-                gauss = Math.min(255, Math.max(0, gauss));
-
-                int nuevoRGB = (gauss << 16) | (gauss << 8) | gauss;
+                int r = Math.min(255, Math.max(0, sumaR / factor));
+                int g = Math.min(255, Math.max(0, sumaG / factor));
+                int b = Math.min(255, Math.max(0, sumaB / factor));
+                int nuevoRGB = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, nuevoRGB);
             }
         }
-
         imagenActual = result;
     }
 
     public void filtroDefinicion() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         convertirEscalaGrises();
         int width = imagenActual.getWidth();
@@ -3512,67 +3667,278 @@ public class ImagenModelo {
         imagenActual = result;
     }
     // FIltros no Lineales
-    
-    public void filtroMediana() {
-        if (imagenActual == null) return;
 
+    public void filtroMediana() {
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
 
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
-                int[] ventana = new int[9];
-                int index = 0;
-
+                int[] ventanaR = new int[9];
+                int[] ventanaG = new int[9];
+                int[] ventanaB = new int[9];
+                int idx = 0;
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        ventana[index++] = pixel;
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        ventanaR[idx] = (rgb >> 16) & 0xFF;
+                        ventanaG[idx] = (rgb >> 8) & 0xFF;
+                        ventanaB[idx] = rgb & 0xFF;
+                        idx++;
                     }
                 }
-
-                Arrays.sort(ventana);
-                int mediana = ventana[4]; // valor central
-
-                int nuevoRGB = (mediana << 16) | (mediana << 8) | mediana;
+                Arrays.sort(ventanaR);
+                Arrays.sort(ventanaG);
+                Arrays.sort(ventanaB);
+                int r = ventanaR[4], g = ventanaG[4], b = ventanaB[4];
+                int nuevoRGB = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, nuevoRGB);
             }
         }
-
         imagenActual = result;
     }
-    
-    public void filtroMinimo() {
-        if (imagenActual == null) return;
 
+    public void filtroMinimo() {
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
 
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
-                int min = 255;
-
+                int minR = 255, minG = 255, minB = 255;
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        if (pixel < min) {
-                            min = pixel;
-                        }
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        minR = Math.min(minR, (rgb >> 16) & 0xFF);
+                        minG = Math.min(minG, (rgb >> 8) & 0xFF);
+                        minB = Math.min(minB, rgb & 0xFF);
                     }
                 }
-
-                int nuevoRGB = (min << 16) | (min << 8) | min;
+                int nuevoRGB = (minR << 16) | (minG << 8) | minB;
                 result.setRGB(x, y, nuevoRGB);
             }
         }
-
         imagenActual = result;
     }
 
     public void filtroMaximo() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                int maxR = 0, maxG = 0, maxB = 0;
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        maxR = Math.max(maxR, (rgb >> 16) & 0xFF);
+                        maxG = Math.max(maxG, (rgb >> 8) & 0xFF);
+                        maxB = Math.max(maxB, rgb & 0xFF);
+                    }
+                }
+                int nuevoRGB = (maxR << 16) | (maxG << 8) | maxB;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+        imagenActual = result;
+    }
+
+    public void filtroPuntoMedio() {
+        if (imagenActual == null) {
+            return;
+        }
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                int minR = 255, minG = 255, minB = 255;
+                int maxR = 0, maxG = 0, maxB = 0;
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+                        minR = Math.min(minR, r);
+                        maxR = Math.max(maxR, r);
+                        minG = Math.min(minG, g);
+                        maxG = Math.max(maxG, g);
+                        minB = Math.min(minB, b);
+                        maxB = Math.max(maxB, b);
+                    }
+                }
+                int r = (minR + maxR) / 2, g = (minG + maxG) / 2, b = (minB + maxB) / 2;
+                int nuevoRGB = (r << 16) | (g << 8) | b;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+        imagenActual = result;
+    }
+
+    public void filtroAlfaRecortado() {
+        if (imagenActual == null) {
+            return;
+        }
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+        int d = 2, n = 9;
+
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                int[] ventanaR = new int[n], ventanaG = new int[n], ventanaB = new int[n];
+                int idx = 0;
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        ventanaR[idx] = (rgb >> 16) & 0xFF;
+                        ventanaG[idx] = (rgb >> 8) & 0xFF;
+                        ventanaB[idx] = rgb & 0xFF;
+                        idx++;
+                    }
+                }
+                Arrays.sort(ventanaR);
+                Arrays.sort(ventanaG);
+                Arrays.sort(ventanaB);
+                int sumaR = 0, sumaG = 0, sumaB = 0;
+                for (int i = d; i < n - d; i++) {
+                    sumaR += ventanaR[i];
+                    sumaG += ventanaG[i];
+                    sumaB += ventanaB[i];
+                }
+                int r = sumaR / (n - 2 * d), g = sumaG / (n - 2 * d), b = sumaB / (n - 2 * d);
+                int nuevoRGB = (r << 16) | (g << 8) | b;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+        imagenActual = result;
+    }
+
+    public void filtroArmonicoInferior() {
+        if (imagenActual == null) {
+            return;
+        }
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                double sumaInvR = 0, sumaInvG = 0, sumaInvB = 0;
+                int n = 0;
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+                        if (r != 0) {
+                            sumaInvR += 1.0 / r;
+                        }
+                        if (g != 0) {
+                            sumaInvG += 1.0 / g;
+                        }
+                        if (b != 0) {
+                            sumaInvB += 1.0 / b;
+                        }
+                        n++;
+                    }
+                }
+                int r = (sumaInvR != 0) ? (int) Math.round(n / sumaInvR) : 0;
+                int g = (sumaInvG != 0) ? (int) Math.round(n / sumaInvG) : 0;
+                int b = (sumaInvB != 0) ? (int) Math.round(n / sumaInvB) : 0;
+                int nuevoRGB = (r << 16) | (g << 8) | b;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+        imagenActual = result;
+    }
+
+    public void filtroContraArmonico() {
+        if (imagenActual == null) {
+            return;
+        }
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+        double Q = 1.5;
+
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                double sumaSupR = 0, sumaInfR = 0, sumaSupG = 0, sumaInfG = 0, sumaSupB = 0, sumaInfB = 0;
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+                        sumaSupR += Math.pow(r, Q + 1);
+                        sumaInfR += Math.pow(r, Q);
+                        sumaSupG += Math.pow(g, Q + 1);
+                        sumaInfG += Math.pow(g, Q);
+                        sumaSupB += Math.pow(b, Q + 1);
+                        sumaInfB += Math.pow(b, Q);
+                    }
+                }
+                int r = (sumaInfR != 0) ? (int) Math.round(sumaSupR / sumaInfR) : 0;
+                int g = (sumaInfG != 0) ? (int) Math.round(sumaSupG / sumaInfG) : 0;
+                int b = (sumaInfB != 0) ? (int) Math.round(sumaSupB / sumaInfB) : 0;
+                r = Math.min(255, Math.max(0, r));
+                g = Math.min(255, Math.max(0, g));
+                b = Math.min(255, Math.max(0, b));
+                int nuevoRGB = (r << 16) | (g << 8) | b;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+        imagenActual = result;
+    }
+
+    public void filtroGeometricoInferior() {
+        if (imagenActual == null) {
+            return;
+        }
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+
+        for (int y = 1; y < height - 1; y++) {
+            for (int x = 1; x < width - 1; x++) {
+                double prodR = 1, prodG = 1, prodB = 1;
+                int n = 0;
+                for (int ky = -1; ky <= 1; ky++) {
+                    for (int kx = -1; kx <= 1; kx++) {
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+                        prodR *= (r > 0) ? r : 1;
+                        prodG *= (g > 0) ? g : 1;
+                        prodB *= (b > 0) ? b : 1;
+                        n++;
+                    }
+                }
+                int r = (int) Math.round(Math.pow(prodR, 1.0 / n));
+                int g = (int) Math.round(Math.pow(prodG, 1.0 / n));
+                int b = (int) Math.round(Math.pow(prodB, 1.0 / n));
+                r = Math.min(255, Math.max(0, r));
+                g = Math.min(255, Math.max(0, g));
+                b = Math.min(255, Math.max(0, b));
+                int nuevoRGB = (r << 16) | (g << 8) | b;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+        imagenActual = result;
+    }
+
+    public void filtroMaximoMenosMinimo() {
+        if (imagenActual == null) {
+            return;
+        }
 
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
@@ -3581,6 +3947,7 @@ public class ImagenModelo {
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
                 int max = 0;
+                int min = 255;
 
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
@@ -3588,200 +3955,9 @@ public class ImagenModelo {
                         if (pixel > max) {
                             max = pixel;
                         }
-                    }
-                }
-
-                int nuevoRGB = (max << 16) | (max << 8) | max;
-                result.setRGB(x, y, nuevoRGB);
-            }
-        }
-
-        imagenActual = result;
-    }
-    
-    public void filtroPuntoMedio() {
-        if (imagenActual == null) return;
-
-        int width = imagenActual.getWidth();
-        int height = imagenActual.getHeight();
-        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
-
-        for (int y = 1; y < height - 1; y++) {
-            for (int x = 1; x < width - 1; x++) {
-                int min = 255;
-                int max = 0;
-
-                for (int ky = -1; ky <= 1; ky++) {
-                    for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        if (pixel < min) min = pixel;
-                        if (pixel > max) max = pixel;
-                    }
-                }
-
-                int medio = (min + max) / 2;
-                int nuevoRGB = (medio << 16) | (medio << 8) | medio;
-                result.setRGB(x, y, nuevoRGB);
-            }
-        }
-
-        imagenActual = result;
-    }
-    
-    public void filtroAlfaRecortado() {
-        if (imagenActual == null) return;
-
-        int width = imagenActual.getWidth();
-        int height = imagenActual.getHeight();
-        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
-
-        int d = 2; // valores a recortar por cada extremo
-        int n = 9; // tamaño de la ventana 3x3
-
-        for (int y = 1; y < height - 1; y++) {
-            for (int x = 1; x < width - 1; x++) {
-                int[] ventana = new int[n];
-                int index = 0;
-
-                for (int ky = -1; ky <= 1; ky++) {
-                    for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        ventana[index++] = pixel;
-                    }
-                }
-
-                Arrays.sort(ventana);
-
-                int suma = 0;
-                for (int i = d; i < n - d; i++) {
-                    suma += ventana[i];
-                }
-
-                int promedio = suma / (n - 2 * d);
-                int nuevoRGB = (promedio << 16) | (promedio << 8) | promedio;
-                result.setRGB(x, y, nuevoRGB);
-            }
-        }
-
-        imagenActual = result;
-    }
-    
-    public void filtroArmonicoInferior() {
-        if (imagenActual == null) return;
-
-        int width = imagenActual.getWidth();
-        int height = imagenActual.getHeight();
-        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
-
-        for (int y = 1; y < height - 1; y++) {
-            for (int x = 1; x < width - 1; x++) {
-                double sumaInversos = 0.0;
-                int contador = 0;
-
-                for (int ky = -1; ky <= 1; ky++) {
-                    for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        if (pixel != 0) {
-                            sumaInversos += 1.0 / pixel;
-                            contador++;
+                        if (pixel < min) {
+                            min = pixel;
                         }
-                    }
-                }
-
-                int valorArm = (sumaInversos != 0) ? (int) Math.round(contador / sumaInversos) : 0;
-                valorArm = Math.min(255, Math.max(0, valorArm));
-
-                int nuevoRGB = (valorArm << 16) | (valorArm << 8) | valorArm;
-                result.setRGB(x, y, nuevoRGB);
-            }
-        }
-
-        imagenActual = result;
-    }
-
-    public void filtroContraArmonico() {
-        if (imagenActual == null) return;
-
-        int width = imagenActual.getWidth();
-        int height = imagenActual.getHeight();
-        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
-
-        double Q = 1.5; // Parámetro configurable: positivo elimina ruido negro (pimienta)
-
-        for (int y = 1; y < height - 1; y++) {
-            for (int x = 1; x < width - 1; x++) {
-                double sumaSuperior = 0;
-                double sumaInferior = 0;
-
-                for (int ky = -1; ky <= 1; ky++) {
-                    for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        sumaSuperior += Math.pow(pixel, Q + 1);
-                        sumaInferior += Math.pow(pixel, Q);
-                    }
-                }
-
-                int valor = (sumaInferior != 0) ? (int) Math.round(sumaSuperior / sumaInferior) : 0;
-                valor = Math.min(255, Math.max(0, valor));
-
-                int nuevoRGB = (valor << 16) | (valor << 8) | valor;
-                result.setRGB(x, y, nuevoRGB);
-            }
-        }
-
-        imagenActual = result;
-    }
-    
-    public void filtroGeometricoInferior() {
-        if (imagenActual == null) return;
-
-        int width = imagenActual.getWidth();
-        int height = imagenActual.getHeight();
-        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
-
-        for (int y = 1; y < height - 1; y++) {
-            for (int x = 1; x < width - 1; x++) {
-                double producto = 1.0;
-                int n = 0;
-
-                for (int ky = -1; ky <= 1; ky++) {
-                    for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        if (pixel > 0) {
-                            producto *= pixel;
-                            n++;
-                        }
-                    }
-                }
-
-                int valor = (n > 0) ? (int) Math.round(Math.pow(producto, 1.0 / n)) : 0;
-                valor = Math.min(255, Math.max(0, valor));
-
-                int nuevoRGB = (valor << 16) | (valor << 8) | valor;
-                result.setRGB(x, y, nuevoRGB);
-            }
-        }
-
-        imagenActual = result;
-    }
-
-    public void filtroMaximoMenosMinimo() {
-        if (imagenActual == null) return;
-
-        int width = imagenActual.getWidth();
-        int height = imagenActual.getHeight();
-        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
-
-        for (int y = 1; y < height - 1; y++) {
-            for (int x = 1; x < width - 1; x++) {
-                int max = 0;
-                int min = 255;
-
-                for (int ky = -1; ky <= 1; ky++) {
-                    for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        if (pixel > max) max = pixel;
-                        if (pixel < min) min = pixel;
                     }
                 }
 
@@ -3796,106 +3972,114 @@ public class ImagenModelo {
     }
 
     public void filtroMediaAritmetica() {
-        if (imagenActual == null) return;
-
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
 
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
-                int suma = 0;
-
+                int sumaR = 0, sumaG = 0, sumaB = 0;
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        suma += pixel;
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        sumaR += (rgb >> 16) & 0xFF;
+                        sumaG += (rgb >> 8) & 0xFF;
+                        sumaB += rgb & 0xFF;
                     }
                 }
-
-                int promedio = suma / 9;
-                int nuevoRGB = (promedio << 16) | (promedio << 8) | promedio;
+                int r = sumaR / 9, g = sumaG / 9, b = sumaB / 9;
+                int nuevoRGB = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, nuevoRGB);
             }
         }
-
         imagenActual = result;
     }
 
     public void filtroContraGeometrico() {
-        if (imagenActual == null) return;
-
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
 
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
-                double productoInverso = 1.0;
+                double prodInvR = 1, prodInvG = 1, prodInvB = 1;
                 int n = 0;
-
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        if (pixel != 0) {
-                            productoInverso *= 1.0 / pixel;
-                            n++;
-                        }
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        int r = (rgb >> 16) & 0xFF, g = (rgb >> 8) & 0xFF, b = rgb & 0xFF;
+                        prodInvR *= (r != 0) ? 1.0 / r : 1;
+                        prodInvG *= (g != 0) ? 1.0 / g : 1;
+                        prodInvB *= (b != 0) ? 1.0 / b : 1;
+                        n++;
                     }
                 }
-
-                int valor = (n > 0) ? (int) Math.round(Math.pow(productoInverso, -1.0 / n)) : 0;
-                valor = Math.min(255, Math.max(0, valor));
-
-                int nuevoRGB = (valor << 16) | (valor << 8) | valor;
+                int r = (int) Math.round(Math.pow(prodInvR, -1.0 / n));
+                int g = (int) Math.round(Math.pow(prodInvG, -1.0 / n));
+                int b = (int) Math.round(Math.pow(prodInvB, -1.0 / n));
+                r = Math.min(255, Math.max(0, r));
+                g = Math.min(255, Math.max(0, g));
+                b = Math.min(255, Math.max(0, b));
+                int nuevoRGB = (r << 16) | (g << 8) | b;
                 result.setRGB(x, y, nuevoRGB);
             }
         }
-
         imagenActual = result;
     }
 
     public void filtroModa() {
-        if (imagenActual == null) return;
-
+        if (imagenActual == null) {
+            return;
+        }
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
         BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
 
         for (int y = 1; y < height - 1; y++) {
             for (int x = 1; x < width - 1; x++) {
-                int[] frecuencias = new int[256];
-
+                int[] freqR = new int[256], freqG = new int[256], freqB = new int[256];
                 for (int ky = -1; ky <= 1; ky++) {
                     for (int kx = -1; kx <= 1; kx++) {
-                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
-                        frecuencias[pixel]++;
+                        int rgb = imagenActual.getRGB(x + kx, y + ky);
+                        freqR[(rgb >> 16) & 0xFF]++;
+                        freqG[(rgb >> 8) & 0xFF]++;
+                        freqB[rgb & 0xFF]++;
                     }
                 }
-
-                int moda = 0;
-                int maxFrecuencia = 0;
+                int modaR = 0, modaG = 0, modaB = 0, maxR = 0, maxG = 0, maxB = 0;
                 for (int i = 0; i < 256; i++) {
-                    if (frecuencias[i] > maxFrecuencia) {
-                        maxFrecuencia = frecuencias[i];
-                        moda = i;
+                    if (freqR[i] > maxR) {
+                        maxR = freqR[i];
+                        modaR = i;
+                    }
+                    if (freqG[i] > maxG) {
+                        maxG = freqG[i];
+                        modaG = i;
+                    }
+                    if (freqB[i] > maxB) {
+                        maxB = freqB[i];
+                        modaB = i;
                     }
                 }
-
-                int nuevoRGB = (moda << 16) | (moda << 8) | moda;
+                int nuevoRGB = (modaR << 16) | (modaG << 8) | modaB;
                 result.setRGB(x, y, nuevoRGB);
             }
         }
-
         imagenActual = result;
     }
-    
+
     private int[][] elementoEstructurante = {
         {1, 1, 1},
         {1, 1, 1},
         {1, 1, 1}
     };
-    
+
     public void setElementoEstructurante(int[][] elemento) {
         if (elemento != null && elemento.length == 3 && elemento[0].length == 3) {
             this.elementoEstructurante = elemento;
@@ -3904,7 +4088,9 @@ public class ImagenModelo {
 
     // Implementacion de las morfologias de erosion, dilatacion
     public void BinaryErotion() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
@@ -3937,7 +4123,9 @@ public class ImagenModelo {
                             }
                         }
                     }
-                    if (hits) break;
+                    if (hits) {
+                        break;
+                    }
                 }
                 int nuevoRGB = hits ? 0 : 255;
                 result.setRGB(x, y, (nuevoRGB << 16) | (nuevoRGB << 8) | nuevoRGB);
@@ -3948,7 +4136,9 @@ public class ImagenModelo {
     }
 
     public void BinaryDilation() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
@@ -3980,7 +4170,9 @@ public class ImagenModelo {
                             }
                         }
                     }
-                    if (!fits) break;
+                    if (!fits) {
+                        break;
+                    }
                 }
                 int nuevoRGB = fits ? 0 : 255;
                 result.setRGB(x, y, (nuevoRGB << 16) | (nuevoRGB << 8) | nuevoRGB);
@@ -3991,7 +4183,9 @@ public class ImagenModelo {
     }
 
     public void GrayScaleErotion() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
@@ -4033,7 +4227,9 @@ public class ImagenModelo {
     }
 
     public void GrayScaleDilation() {
-        if (imagenActual == null) return;
+        if (imagenActual == null) {
+            return;
+        }
 
         int width = imagenActual.getWidth();
         int height = imagenActual.getHeight();
@@ -4074,6 +4270,350 @@ public class ImagenModelo {
         imagenActual = result;
     }
 
+    public void hitOrAndMissTransformed() {
+        if (imagenActual == null) {
+            return;
+        }
+
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+
+        // Elemento estructurante 3x3 centrado
+        int structWidth = 3;
+        int structHeight = 3;
+        int originX = 1;
+        int originY = 1;
+
+        // Determinar el rango de píxeles donde se puede aplicar la operación
+        int xmin = Math.max(originX, 0);
+        int ymin = Math.max(originY, 0);
+        int xmax = Math.min(width - 1, originX + width - structWidth);
+        int ymax = Math.min(height - 1, originY + height - structHeight);
+
+        for (int y = ymin; y <= ymax; y++) {
+            for (int x = xmin; x <= xmax; x++) {
+                boolean match = true;
+                for (int ky = -originY; ky <= structHeight - originY - 1; ky++) {
+                    for (int kx = -originX; kx <= structWidth - originX - 1; kx++) {
+                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
+                        int valorElemento = elementoEstructurante[ky + originY][kx + originX];
+
+                        if (valorElemento == 1 && pixel != 255) {
+                            match = false;
+                        } else if (valorElemento == 0 && pixel != 0) {
+                            match = false;
+                        }
+                        // Si valorElemento == -1, ignorar (don't care)
+                    }
+                }
+                int nuevoRGB = match ? 0xFFFFFF : 0x000000;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+
+        imagenActual = result;
+    }
+
+    public void waterSheedTransformed() {
+        if (imagenActual == null) {
+            return;
+        }
+
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        BufferedImage result = new BufferedImage(width, height, imagenActual.getType());
+
+        // Elemento estructurante 3x3 centrado
+        int structWidth = 3;
+        int structHeight = 3;
+        int originX = 1;
+        int originY = 1;
+
+        // Determinar el rango de píxeles donde se puede aplicar la operación
+        int xmin = Math.max(originX, 0);
+        int ymin = Math.max(originY, 0);
+        int xmax = Math.min(width - 1, originX + width - structWidth);
+        int ymax = Math.min(height - 1, originY + height - structHeight);
+
+        for (int y = ymin; y <= ymax; y++) {
+            for (int x = xmin; x <= xmax; x++) {
+                boolean match = true;
+                for (int ky = -originY; ky <= structHeight - originY - 1; ky++) {
+                    for (int kx = -originX; kx <= structWidth - originX - 1; kx++) {
+                        int pixel = (imagenActual.getRGB(x + kx, y + ky) >> 16) & 0xFF;
+                        int valorElemento = elementoEstructurante[ky + originY][kx + originX];
+
+                        if (valorElemento == 1 && pixel != 255) {
+                            match = false;
+                        } else if (valorElemento == 0 && pixel != 0) {
+                            match = false;
+                        }
+                        // Si valorElemento == -1, ignorar (don't care)
+                    }
+                }
+                int nuevoRGB = match ? 0xFFFFFF : 0x000000;
+                result.setRGB(x, y, nuevoRGB);
+            }
+        }
+
+        imagenActual = result;
+    }
+
+    // Etiquetado de componentes conectados (conectividad 4) con colores
+    public void etiquetadoComponentes4() {
+        if (imagenActual == null) {
+            return;
+        }
+
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        int[][] labels = new int[width][height];
+        int nextLabel = 1;
+
+        // Unión-Find para etiquetas equivalentes
+        int[] parent = new int[width * height / 2 + 1];
+        for (int i = 0; i < parent.length; i++) {
+            parent[i] = i;
+        }
+
+        // Primera pasada: asignar etiquetas y registrar equivalencias (solo vecinos arriba e izquierda)
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixel = (imagenActual.getRGB(x, y) >> 16) & 0xFF;
+                if (pixel != 0) {
+                    continue; // Solo fondo negro es objeto
+                }
+                int labelArriba = (y > 0) ? labels[x][y - 1] : 0;
+                int labelIzquierda = (x > 0) ? labels[x - 1][y] : 0;
+
+                if (labelArriba == 0 && labelIzquierda == 0) {
+                    labels[x][y] = nextLabel;
+                    nextLabel++;
+                } else if (labelArriba != 0 && labelIzquierda == 0) {
+                    labels[x][y] = labelArriba;
+                } else if (labelArriba == 0 && labelIzquierda != 0) {
+                    labels[x][y] = labelIzquierda;
+                } else {
+                    labels[x][y] = Math.min(labelArriba, labelIzquierda);
+                    int a = find(parent, labelArriba);
+                    int b = find(parent, labelIzquierda);
+                    if (a != b) {
+                        parent[a] = b;
+                    }
+                }
+            }
+        }
+
+        // Segunda pasada: asignar etiquetas finales
+        int[] newLabels = new int[nextLabel];
+        int colorCount = 1;
+        for (int i = 1; i < nextLabel; i++) {
+            int root = find(parent, i);
+            if (newLabels[root] == 0) {
+                newLabels[root] = colorCount++;
+            }
+            newLabels[i] = newLabels[root];
+        }
+
+        // Generar colores para cada etiqueta
+        int[] colors = new int[colorCount + 1];
+        colors[0] = 0x000000; // Fondo negro
+        for (int i = 1; i < colors.length; i++) {
+            float hue = (float) i / (float) colors.length;
+            int rgb = Color.HSBtoRGB(hue, 1.0f, 1.0f);
+            colors[i] = rgb;
+        }
+
+        // Crear imagen de salida
+        BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int label = labels[x][y];
+                int color = (label > 0) ? colors[newLabels[label]] : 0x000000;
+                result.setRGB(x, y, color);
+            }
+        }
+
+        imagenActual = result;
+    }
+
+    // Etiquetado de componentes conectados (conectividad 8) con colores
+    public void etiquetadoComponentes8() {
+        if (imagenActual == null) {
+            return;
+        }
+
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        int[][] labels = new int[width][height];
+        int nextLabel = 1;
+
+        // Unión-Find para etiquetas equivalentes
+        int[] parent = new int[width * height / 2 + 1];
+        for (int i = 0; i < parent.length; i++) {
+            parent[i] = i;
+        }
+
+        // Primera pasada: asignar etiquetas y registrar equivalencias (vecinos arriba, izquierda, arriba-izquierda, arriba-derecha)
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int pixel = (imagenActual.getRGB(x, y) >> 16) & 0xFF;
+                if (pixel != 0) {
+                    continue; // Solo fondo negro es objeto
+                }
+                int labelArriba = (y > 0) ? labels[x][y - 1] : 0;
+                int labelIzquierda = (x > 0) ? labels[x - 1][y] : 0;
+                int labelArribaIzq = (x > 0 && y > 0) ? labels[x - 1][y - 1] : 0;
+                int labelArribaDer = (x < width - 1 && y > 0) ? labels[x + 1][y - 1] : 0;
+
+                int[] vecinos = {labelArriba, labelIzquierda, labelArribaIzq, labelArribaDer};
+                int minLabel = 0;
+                for (int l : vecinos) {
+                    if (l != 0 && (minLabel == 0 || l < minLabel)) {
+                        minLabel = l;
+                    }
+                }
+
+                if (minLabel == 0) {
+                    labels[x][y] = nextLabel;
+                    nextLabel++;
+                } else {
+                    labels[x][y] = minLabel;
+                    // Registrar equivalencias
+                    for (int l : vecinos) {
+                        if (l != 0 && l != minLabel) {
+                            int a = find(parent, l);
+                            int b = find(parent, minLabel);
+                            if (a != b) {
+                                parent[a] = b;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Segunda pasada: asignar etiquetas finales
+        int[] newLabels = new int[nextLabel];
+        int colorCount = 1;
+        for (int i = 1; i < nextLabel; i++) {
+            int root = find(parent, i);
+            if (newLabels[root] == 0) {
+                newLabels[root] = colorCount++;
+            }
+            newLabels[i] = newLabels[root];
+        }
+
+        // Generar colores para cada etiqueta
+        int[] colors = new int[colorCount + 1];
+        colors[0] = 0x000000; // Fondo negro
+        for (int i = 1; i < colors.length; i++) {
+            float hue = (float) i / (float) colors.length;
+            int rgb = Color.HSBtoRGB(hue, 1.0f, 1.0f);
+            colors[i] = rgb;
+        }
+
+        // Crear imagen de salida
+        BufferedImage result = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int label = labels[x][y];
+                int color = (label > 0) ? colors[newLabels[label]] : 0x000000;
+                result.setRGB(x, y, color);
+            }
+        }
+
+        imagenActual = result;
+    }
+
+    // Unión-Find auxiliar
+    private int find(int[] parent, int x) {
+        while (parent[x] != x) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
+
+    // Conteo de objetos en la imagen actual y visualización de cada objeto con un color diferente
+    // El parámetro conectividad puede ser 4 u 8
+    public int contarYMostrarObjetos(int conectividad) {
+        if (imagenActual == null) {
+            return 0;
+        }
+        if (conectividad != 4 && conectividad != 8) {
+            throw new IllegalArgumentException("La conectividad debe ser 4 u 8.");
+        }
+
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        boolean[][] visitado = new boolean[width][height];
+        int[][] etiquetas = new int[width][height];
+        int contadorObjetos = 0;
+
+        // Etiquetar cada objeto con un número único
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                if (!visitado[x][y] && (imagenActual.getRGB(x, y) & 0xFFFFFF) != 0) { // No visitado y no fondo
+                    contadorObjetos++;
+                    etiquetarObjetoConectividad(x, y, visitado, etiquetas, contadorObjetos, conectividad);
+                }
+            }
+        }
+
+        // Generar colores para cada objeto
+        int[] colores = new int[contadorObjetos + 1];
+        colores[0] = 0x000000; // Fondo negro
+        for (int i = 1; i <= contadorObjetos; i++) {
+            float hue = (float) i / (float) (contadorObjetos + 1);
+            colores[i] = Color.HSBtoRGB(hue, 1.0f, 1.0f);
+        }
+
+        // Crear imagen coloreada
+        BufferedImage resultado = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                int etiqueta = etiquetas[x][y];
+                resultado.setRGB(x, y, colores[etiqueta]);
+            }
+        }
+
+        imagenActual = resultado;
+        return contadorObjetos;
+    }
+
+    // Etiquetar iterativamente el objeto conectado con conectividad 4 u 8 (BFS para evitar desbordamiento de pila)
+    private void etiquetarObjetoConectividad(int x, int y, boolean[][] visitado, int[][] etiquetas, int etiqueta, int conectividad) {
+        int width = imagenActual.getWidth();
+        int height = imagenActual.getHeight();
+        int[][] directions4 = {{1,0},{-1,0},{0,1},{0,-1}};
+        int[][] directions8 = {{1,0},{-1,0},{0,1},{0,-1},{1,1},{-1,1},{1,-1},{-1,-1}};
+        int[][] directions = (conectividad == 8) ? directions8 : directions4;
+
+        java.util.Queue<int[]> queue = new java.util.LinkedList<>();
+        queue.add(new int[]{x, y});
+
+        while (!queue.isEmpty()) {
+            int[] pos = queue.poll();
+            int cx = pos[0], cy = pos[1];
+            if (cx < 0 || cx >= width || cy < 0 || cy >= height) continue;
+            if (visitado[cx][cy]) continue;
+            if ((imagenActual.getRGB(cx, cy) & 0xFFFFFF) == 0) continue;
+
+            visitado[cx][cy] = true;
+            etiquetas[cx][cy] = etiqueta;
+
+            for (int[] dir : directions) {
+                int nx = cx + dir[0];
+                int ny = cy + dir[1];
+                if (nx >= 0 && nx < width && ny >= 0 && ny < height && !visitado[nx][ny]) {
+                    queue.add(new int[]{nx, ny});
+                }
+            }
+        }
+    }
+
     public String generarResumenComparacion() {
         if (imagenOriginal == null || imagenConRuido == null || imagenActual == null) {
             return "Faltan imágenes para realizar la comparación.";
@@ -4092,8 +4632,12 @@ public class ImagenModelo {
                 int ruidoGray = (imagenConRuido.getRGB(x, y) >> 16) & 0xFF;
                 int filtradoGray = (imagenActual.getRGB(x, y) >> 16) & 0xFF;
 
-                if (origGray != ruidoGray) diferentesConRuido++;
-                if (origGray != filtradoGray) diferentesFiltrada++;
+                if (origGray != ruidoGray) {
+                    diferentesConRuido++;
+                }
+                if (origGray != filtradoGray) {
+                    diferentesFiltrada++;
+                }
             }
         }
 
@@ -4102,7 +4646,7 @@ public class ImagenModelo {
         double reduccion = porcentajeRuido - porcentajeFiltrado;
 
         return String.format(
-            """
+                """
             +-------------------------------+-------------+
             | MÉTRICA                      | VALOR       |
             +-------------------------------+-------------+
@@ -4114,16 +4658,15 @@ public class ImagenModelo {
             | Reducción del error          | %10.2f %% |
             +-------------------------------+-------------+
             """,
-            totalPixeles,
-            diferentesConRuido,
-            porcentajeRuido,
-            diferentesFiltrada,
-            porcentajeFiltrado,
-            reduccion
+                totalPixeles,
+                diferentesConRuido,
+                porcentajeRuido,
+                diferentesFiltrada,
+                porcentajeFiltrado,
+                reduccion
         );
     }
 
-    
     public void mostrarResumenComparacion() {
         String resumen = generarResumenComparacion();
 
@@ -4137,5 +4680,4 @@ public class ImagenModelo {
         JOptionPane.showMessageDialog(null, scrollPane, "Comparación de Resultados", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    
 }

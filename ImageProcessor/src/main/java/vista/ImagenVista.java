@@ -20,146 +20,65 @@ public class ImagenVista extends javax.swing.JFrame {
         initComponents();
         this.setTitle("Procesamiento de Imágenes en Java");
     }
-    
-    // Métodos para acceder a los componentes
-    public JSlider getBrightnessSlider() {
-        return brightnessSlider;
+
+    public JButton getBinaryClosingButton() {
+        return BinaryClosingButton;
     }
 
-    public JSlider getContrastSlider() {
-        return contrastSlider;
+    public JButton getBinaryDilationButton() {
+        return BinaryDilationButton;
     }
 
-    public JLabel getImageLabel() {
-        return imageLabel;
+    public JButton getBinaryErotionButton() {
+        return BinaryErotionButton;
     }
 
-    public JButton getLoadButton() {
-        return loadButton;
+    public JButton getBinaryOpeningButton() {
+        return BinaryOpeningButton;
     }
 
-    public JButton getSaveButton() {
-        return saveButton;
+    public JButton getGrayScaleClosingButton() {
+        return GrayScaleClosingButton;
     }
 
-    public JButton getResetButton() {
-        return resetButton;
+    public JButton getGrayScaleDilationButton() {
+        return GrayScaleDilationButton;
     }
 
-    public JButton getGrayButton() {
-        return grayButton;
+    public JButton getGrayScaleErotionButton() {
+        return GrayScaleErotionButton;
     }
 
-    public JButton getRedButton() {
-        return redButton;
+    public JButton getGrayScaleOpeningButton() {
+        return GrayScaleOpeningButton;
     }
 
-    public JButton getGreenButton() {
-        return greenButton;
+    public JButton getHitOrAndMissButton() {
+        return HitOrAndMissButton;
     }
 
-    public JButton getBlueButton() {
-        return blueButton;
+    public JButton getSharpenFilterButton() {
+        return SharpenFilterButton;
     }
 
-    public JButton getYiqButton1() {
-        return yiqButton1;
+    public JButton getWaterSheedsButton() {
+        return WaterSheedsButton;
     }
 
-    public JButton getYiqToRGBButton() {
-        return yiqToRGBButton;
+    public JButton getAlphaTrimmedFilterButton() {
+        return alphaTrimmedFilterButton;
     }
 
-    public JButton getHsiButton1() {
-        return hsiButton1;
+    public JButton getAndButton() {
+        return andButton;
     }
 
-    public JButton getHsiToRGBButton() {
-        return hsiToRGBButton;
+    public JButton getArithmeticMeanFilterButton() {
+        return arithmeticMeanFilterButton;
     }
 
-    public JButton getHsvButton1() {
-        return hsvButton1;
-    }
-
-    public JButton getHsvToRGBButton() {
-        return hsvToRGBButton;
-    }
-
-    public JButton getRgbToCMYButton() {
-        return rgbToCMYButton;
-    }
-
-    public JButton getCmyToRGBButton() {
-        return cmyToRGBButton;
-    }
-
-    public JButton getCmyToCMYKButton() {
-        return cmyToCMYKButton;
-    }
-
-    public JButton getRgbToHSIButton() {
-        return rgbToHSIButton;
-    }
-
-    public JButton getRgbToHSVButton() {
-        return rgbToHSVButton;
-    }
-
-    public JButton getRgbToLabButton() {
-        return rgbToLabButton;
-    }
-
-    public JButton getLabToRGBButton() {
-        return labToRGBButton;
-    }
-    
-    public JButton getCannyEdgeButton() {
-        return cannyEdgeButton;
-    }
-
-    public JButton getRgbToYIQButton() {
-        return rgbToYIQButton;
-    }
-
-    public JButton getShowHistogramButton() {
-        return showHistogramButton;
-    }
-
-    public JButton getScaleHistogramButton() {
-        return scaleHistogramButton;
-    }
-
-    public JButton getShiftHistogramButton() {
-        return shiftHistogramButton;
-    }
-
-    public JButton getMatchHistogramButton() {
-        return matchHistogramButton;
-    }
-
-    public JButton getEqualizeHistogramButton() {
-        return equalizeHistogramButton;
-    }
-
-    public JButton getEqualizeUniformButton() {
-        return equalizeUniformButton;
-    }
-
-    public JButton getEqualizeExponentialButton() {
-        return equalizeExponentialButton;
-    }
-
-    public JButton getEqualizeRayleighButton() {
-        return equalizeRayleighButton;
-    }
-
-    public JButton getEqualizeHyperbolicLogarithmicButton() {
-        return equalizeHyperbolicLogarithmicButton;
-    }
-
-    public JButton getEqualizeHyperbolicRootsButton() {
-        return equalizeHyperbolicRootsButton;
+    public JButton getAverageFilterButton() {
+        return averageFilterButton;
     }
 
     public JButton getBinarization1Button() {
@@ -178,20 +97,52 @@ public class ImagenVista extends javax.swing.JFrame {
         return binarizationToRGBButton;
     }
 
-    public JButton getInvertBinButton() {
-        return invertBinButton;
+    public JButton getBlueButton() {
+        return blueButton;
     }
 
-    public JButton getSumButton() {
-        return sumButton;
+    public JSlider getBrightnessSlider() {
+        return brightnessSlider;
     }
 
-    public JButton getSubtractionButton() {
-        return subtractionButton;
+    public JButton getCannyEdgeButton() {
+        return cannyEdgeButton;
     }
 
-    public JButton getMultiplicationButton() {
-        return multiplicationButton;
+    public JButton getCmyToCMYKButton() {
+        return cmyToCMYKButton;
+    }
+
+    public JButton getCmyToRGBButton() {
+        return cmyToRGBButton;
+    }
+
+    public JButton getCoherentNoiseButton() {
+        return coherentNoiseButton;
+    }
+
+    public JButton getCompararFiltrosButton() {
+        return compararFiltrosButton;
+    }
+
+    public JButton getCompassGradientButton() {
+        return compassGradientButton;
+    }
+
+    public JButton getContraGeometricMeanFilterButton() {
+        return contraGeometricMeanFilterButton;
+    }
+
+    public JButton getContraHarmonicFilterButton() {
+        return contraHarmonicFilterButton;
+    }
+
+    public JSlider getContrastSlider() {
+        return contrastSlider;
+    }
+
+    public JButton getDifferenceOperatorButton() {
+        return differenceOperatorButton;
     }
 
     public JButton getDivisionButton() {
@@ -202,8 +153,60 @@ public class ImagenVista extends javax.swing.JFrame {
         return equalButton;
     }
 
-    public JButton getNotEqualButton() {
-        return notEqualButton;
+    public JButton getEqualizeExponentialButton() {
+        return equalizeExponentialButton;
+    }
+
+    public JButton getEqualizeHistogramButton() {
+        return equalizeHistogramButton;
+    }
+
+    public JButton getEqualizeHyperbolicLogarithmicButton() {
+        return equalizeHyperbolicLogarithmicButton;
+    }
+
+    public JButton getEqualizeHyperbolicRootsButton() {
+        return equalizeHyperbolicRootsButton;
+    }
+
+    public JButton getEqualizeRayleighButton() {
+        return equalizeRayleighButton;
+    }
+
+    public JButton getEqualizeUniformButton() {
+        return equalizeUniformButton;
+    }
+
+    public JButton getExponentialNoiseButton() {
+        return exponentialNoiseButton;
+    }
+
+    public JButton getFreiChenButton() {
+        return freiChenButton;
+    }
+
+    public JButton getGammaNoiseButton() {
+        return gammaNoiseButton;
+    }
+
+    public JButton getGaussianFilterButton() {
+        return gaussianFilterButton;
+    }
+
+    public JButton getGaussianNoiseButton() {
+        return gaussianNoiseButton;
+    }
+
+    public JButton getGeometricMeanFilterButton() {
+        return geometricMeanFilterButton;
+    }
+
+    public JButton getGradientFirstOrderButton() {
+        return gradientFirstOrderButton;
+    }
+
+    public JButton getGrayButton() {
+        return grayButton;
     }
 
     public JButton getGreaterThanButton() {
@@ -214,6 +217,66 @@ public class ImagenVista extends javax.swing.JFrame {
         return greaterThanOrEqualButton;
     }
 
+    public JButton getGreenButton() {
+        return greenButton;
+    }
+
+    public JButton getHarmonicMeanFilterButton() {
+        return harmonicMeanFilterButton;
+    }
+
+    public JButton getHomogeneityOperatorButton() {
+        return homogeneityOperatorButton;
+    }
+
+    public JButton getHsiButton1() {
+        return hsiButton1;
+    }
+
+    public JButton getHsiToRGBButton() {
+        return hsiToRGBButton;
+    }
+
+    public JButton getHsvButton1() {
+        return hsvButton1;
+    }
+
+    public JButton getHsvToRGBButton() {
+        return hsvToRGBButton;
+    }
+
+    public JLabel getImageLabel() {
+        return imageLabel;
+    }
+
+    public JButton getInterpolationButton() {
+        return interpolationButton;
+    }
+
+    public JButton getInvertBinButton() {
+        return invertBinButton;
+    }
+
+    public JButton getKirschButton() {
+        return kirschButton;
+    }
+
+    public JButton getLabToRGBButton() {
+        return labToRGBButton;
+    }
+
+    public JButton getLabeled4Button() {
+        return labeled4Button;
+    }
+
+    public JButton getLabeled8Button() {
+        return labeled8Button;
+    }
+
+    public JButton getLaplacianButton() {
+        return laplacianButton;
+    }
+
     public JButton getLessThanButton() {
         return lessThanButton;
     }
@@ -222,211 +285,165 @@ public class ImagenVista extends javax.swing.JFrame {
         return lessThanOrEqualButton;
     }
 
-    public JButton getAndButton() {
-        return andButton;
+    public JButton getLoadButton() {
+        return loadButton;
     }
 
-    public JButton getOrButton() {
-        return orButton;
+    public JButton getMatchHistogramButton() {
+        return matchHistogramButton;
     }
 
-    public JButton getXorButton() {
-        return xorButton;
+    public JButton getMaxFilterButton() {
+        return maxFilterButton;
+    }
+
+    public JButton getMaxMinFilterButton() {
+        return maxMinFilterButton;
+    }
+
+    public JButton getMedianFilterButton() {
+        return medianFilterButton;
+    }
+
+    public JButton getMidpointFilterButton() {
+        return midpointFilterButton;
+    }
+
+    public JButton getMinFilterButton() {
+        return minFilterButton;
+    }
+
+    public JButton getModeFilterButton() {
+        return modeFilterButton;
+    }
+
+    public JButton getMultiplicationButton() {
+        return multiplicationButton;
     }
 
     public JButton getNotButton() {
         return notButton;
     }
 
-    public JButton getTranslationButton() {
-        return translationButton;
+    public JButton getNotEqualButton() {
+        return notEqualButton;
     }
 
-    public JButton getRotationButton() {
-        return rotationButton;
-    }
-
-    public JButton getInterpolationButton() {
-        return interpolationButton;
-    }
-
-    public JButton getGaussianNoiseButton() {
-        return gaussianNoiseButton;
-    }
-
-    public JButton getUniformNoiseButton() {
-        return uniformNoiseButton;
-    }
-
-    public JButton getExponentialNoiseButton() {
-        return exponentialNoiseButton;
-    }
-
-    public JButton getGammaNoiseButton() {
-        return gammaNoiseButton;
-    }
-
-    public JButton getRayleighNoiseButton() {
-        return rayleighNoiseButton;
-    }
-
-    public JButton getSaltPepperNoiseButton() {
-        return saltPepperNoiseButton;
-    }
-
-    public JButton getSaltNoiseButton() {
-        return saltNoiseButton;
+    public JButton getOrButton() {
+        return orButton;
     }
 
     public JButton getPepperNoiseButton() {
         return pepperNoiseButton;
     }
 
-    public JButton getCoherentNoiseButton() {
-        return coherentNoiseButton;
-    }
-    
-    public JButton getHomogeneityOperatorButton() {
-        return homogeneityOperatorButton;
-    }
-    
-    public JButton getDifferenceOperatorButton() {
-        return differenceOperatorButton;
-    }
-    
-    public JButton getGradientFirstOrderButton() {
-        return gradientFirstOrderButton;
-    }
-    
     public JButton getPrewittButton() {
         return prewittButton;
     }
-    
-    public JButton getSobelButton() {
-        return sobelButton;
-    }
-    
-    public JButton getFreiChenButton() {
-        return freiChenButton;
-    }
-    
-    public JButton getCompassGradientButton() {
-        return compassGradientButton;
-    }
-    
-    public JButton getLaplacianButton() {
-        return laplacianButton;
-    }
-    
+
     public JButton getPrewittSecondOrderButton() {
         return prewittSecondOrderButton;
     }
-    
-    public JButton getKirschButton() {
-        return kirschButton;
+
+    public JButton getRayleighNoiseButton() {
+        return rayleighNoiseButton;
     }
-    
+
+    public JButton getRedButton() {
+        return redButton;
+    }
+
+    public JButton getResetButton() {
+        return resetButton;
+    }
+
+    public JButton getRgbToCMYButton() {
+        return rgbToCMYButton;
+    }
+
+    public JButton getRgbToHSIButton() {
+        return rgbToHSIButton;
+    }
+
+    public JButton getRgbToHSVButton() {
+        return rgbToHSVButton;
+    }
+
+    public JButton getRgbToLabButton() {
+        return rgbToLabButton;
+    }
+
+    public JButton getRgbToYIQButton() {
+        return rgbToYIQButton;
+    }
+
     public JButton getRobinsonButton() {
-        return notButton1;
-    }
-    
-    public JButton getAverageFilterButton() {
-        return lessThanButton1;
-    }
-    
-    public JButton getGaussianFilterButton() {
-        return lessThanOrEqualButton1;
-    }
-    
-    public JButton getSharpenFilterButton() {
-        return greaterThanButton1;
+        return robinsonButton;
     }
 
-    public JButton getMedianFilterButton() {
-        return minFilterButton;
+    public JButton getRotationButton() {
+        return rotationButton;
     }
 
-    public JButton getMinFilterButton() {
-        return minFilterButton;
-    }
-    
-    public JButton getMaxFilterButton() {
-        return maxFilterButton;
-    }
-    
-    public JButton getMidpointFilterButton() {
-        return midpointFilterButton;
-    }
-    
-    public JButton getAlphaTrimmedFilterButton() {
-        return alphaTrimmedFilterButton;
+    public JButton getSaltNoiseButton() {
+        return saltNoiseButton;
     }
 
-    public JButton getHarmonicMeanFilterButton() {
-        return harmonicMeanFilterButton;
-    }
-    
-    public JButton getContraHarmonicFilterButton() {
-        return contraHarmonicFilterButton;
-    }
-    
-    public JButton getGeometricMeanFilterButton() {
-        return geometricMeanFilterButton;
-    }
-    
-    public JButton getMaxMinFilterButton() {
-        return maxMinFilterButton;
-    }
-    
-    public JButton getArithmeticMeanFilterButton() {
-        return arithmeticMeanFilterButton;
-    }
-    
-    public JButton getContraGeometricMeanFilterButton() {
-        return contraGeometricMeanFilterButton;
-    }
-    
-    public JButton getModeFilterButton() {
-        return modeFilterButton;
-    }
-    
-    public JButton getCompararFiltrosButton() {
-        return compararFiltrosButton;
+    public JButton getSaltPepperNoiseButton() {
+        return saltPepperNoiseButton;
     }
 
-    public JButton getBinaryErotionButton() {
-        return BinaryErotionButton;
+    public JButton getSaveButton() {
+        return saveButton;
     }
 
-    public JButton getBinaryDilationButton() {
-        return BinaryDilationButton;
+    public JButton getScaleHistogramButton() {
+        return scaleHistogramButton;
     }
 
-    public JButton getGrayScaleErotionButton() {
-        return GrayScaleErotionButton;
+    public JButton getShiftHistogramButton() {
+        return shiftHistogramButton;
     }
 
-    public JButton getGrayScaleDilationButton() {
-        return GrayScaleDilationButton;
+    public JButton getShowHistogramButton() {
+        return showHistogramButton;
     }
 
-    public JButton getBinaryClosingButton() {
-        return BinaryClosingButton;
+    public JButton getSobelButton() {
+        return sobelButton;
     }
 
-    public JButton getBinaryOpeningButton() {
-        return BinaryOpeningButton;
+    public JButton getSubtractionButton() {
+        return subtractionButton;
     }
 
-    public JButton getGrayScaleClosingButton() {
-        return GrayScaleClosingButton;
+    public JButton getSumButton() {
+        return sumButton;
     }
 
-    public JButton getGrayScaleOpeningButton() {
-        return GrayScaleOpeningButton;
+    public JButton getTranslationButton() {
+        return translationButton;
     }
-    
-    
+
+    public JButton getUniformNoiseButton() {
+        return uniformNoiseButton;
+    }
+
+    public JButton getXorButton() {
+        return xorButton;
+    }
+
+    public JButton getYiqButton1() {
+        return yiqButton1;
+    }
+
+    public JButton getYiqToRGBButton() {
+        return yiqToRGBButton;
+    }
+
+    public JButton getCountObjectsButton() {
+        return countObjectsButton;
+    }
 
     // Método para actualizar la imagen en el JLabel
     public void mostrarImagen(BufferedImage imagen) {
@@ -444,10 +461,14 @@ public class ImagenVista extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
     
+    public void mostrarMensajeInformativo(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje);
+    }
+    
     // Método para mostrar los histogramas
     public void showHistogram(int[][] histogramRGB, int[] histogramGray, String title) {
         JFrame histogramFrame = new JFrame(title);
-        histogramFrame.setSize(600, 400);
+        histogramFrame.setSize(700, 450);
         histogramFrame.setLayout(new GridLayout(1, 2));
 
         JPanel rgbPanel = new JPanel() {
@@ -470,46 +491,109 @@ public class ImagenVista extends javax.swing.JFrame {
         histogramFrame.add(grayPanel);
         histogramFrame.setVisible(true);
     }
-    
-    // Dibuja el histograma de escala de grises
+
+    // Dibuja el histograma de escala de grises con ejes y valores
     private void drawGrayHistogram(Graphics g, int[] histogram, int width, int height) {
+        int marginLeft = 40;
+        int marginBottom = 30;
+        int plotWidth = width - marginLeft - 10;
+        int plotHeight = height - marginBottom - 10;
+
+        // Fondo
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, width, height);
-        g.setColor(Color.BLACK);
 
+        // Ejes
+        g.setColor(Color.BLACK);
+        g.drawLine(marginLeft, 10, marginLeft, height - marginBottom); // Y
+        g.drawLine(marginLeft, height - marginBottom, width - 10, height - marginBottom); // X
+
+        // Valores máximos
         int max = 1;
         for (int value : histogram) {
             max = Math.max(max, value);
         }
 
+        // Etiquetas de eje Y (frecuencia)
+        for (int i = 0; i <= 4; i++) {
+            int y = height - marginBottom - (i * plotHeight / 4);
+            int value = (int) (max * i / 4.0);
+            g.drawString(String.valueOf(value), 5, y + 5);
+            g.drawLine(marginLeft - 3, y, marginLeft, y);
+        }
+
+        // Etiquetas de eje X (niveles de gris)
+        for (int i = 0; i <= 4; i++) {
+            int x = marginLeft + (i * plotWidth / 4);
+            int value = (int) (255 * i / 4.0);
+            g.drawString(String.valueOf(value), x - 10, height - marginBottom + 20);
+            g.drawLine(x, height - marginBottom, x, height - marginBottom + 3);
+        }
+
+        // Barras del histograma
         for (int i = 0; i < 256; i++) {
-            int barHeight = (int) ((histogram[i] / (double) max) * (height - 20));
+            int barHeight = (int) ((histogram[i] / (double) max) * plotHeight);
             g.setColor(Color.GRAY);
-            g.fillRect(i * (width / 256), height - barHeight, width / 256, barHeight);
+            int x = marginLeft + (i * plotWidth / 256);
+            int y = height - marginBottom - barHeight;
+            g.fillRect(x, y, Math.max(1, plotWidth / 256), barHeight);
         }
     }
 
-    // Dibuja los histogramas de los canales RGB
+    // Dibuja los histogramas de los canales RGB con ejes y valores
     private void drawRGBHistogram(Graphics g, int[][] histogram, int width, int height) {
+        int marginLeft = 40;
+        int marginBottom = 30;
+        int plotWidth = width - marginLeft - 10;
+        int plotHeight = height - marginBottom - 10;
+
+        // Fondo
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, width, height);
 
+        // Ejes
+        g.setColor(Color.BLACK);
+        g.drawLine(marginLeft, 10, marginLeft, height - marginBottom); // Y
+        g.drawLine(marginLeft, height - marginBottom, width - 10, height - marginBottom); // X
+
+        // Valores máximos
         int max = 1;
         for (int i = 0; i < 256; i++) {
             max = Math.max(max, Math.max(histogram[0][i], Math.max(histogram[1][i], histogram[2][i])));
         }
 
-        for (int i = 0; i < 256; i++) {
-            int barHeightR = (int) ((histogram[0][i] / (double) max) * (height - 20));
-            int barHeightG = (int) ((histogram[1][i] / (double) max) * (height - 20));
-            int barHeightB = (int) ((histogram[2][i] / (double) max) * (height - 20));
+        // Etiquetas de eje Y (frecuencia)
+        for (int i = 0; i <= 4; i++) {
+            int y = height - marginBottom - (i * plotHeight / 4);
+            int value = (int) (max * i / 4.0);
+            g.drawString(String.valueOf(value), 5, y + 5);
+            g.drawLine(marginLeft - 3, y, marginLeft, y);
+        }
 
-            g.setColor(Color.RED);
-            g.fillRect(i * (width / 256), height - barHeightR, width / 256, barHeightR);
-            g.setColor(Color.GREEN);
-            g.fillRect(i * (width / 256), height - barHeightG, width / 256, barHeightG);
-            g.setColor(Color.BLUE);
-            g.fillRect(i * (width / 256), height - barHeightB, width / 256, barHeightB);
+        // Etiquetas de eje X (niveles de color)
+        for (int i = 0; i <= 4; i++) {
+            int x = marginLeft + (i * plotWidth / 4);
+            int value = (int) (255 * i / 4.0);
+            g.drawString(String.valueOf(value), x - 10, height - marginBottom + 20);
+            g.drawLine(x, height - marginBottom, x, height - marginBottom + 3);
+        }
+
+        // Barras del histograma
+        for (int i = 0; i < 256; i++) {
+            int barHeightR = (int) ((histogram[0][i] / (double) max) * plotHeight);
+            int barHeightG = (int) ((histogram[1][i] / (double) max) * plotHeight);
+            int barHeightB = (int) ((histogram[2][i] / (double) max) * plotHeight);
+
+            int x = marginLeft + (i * plotWidth / 256);
+            int w = Math.max(1, plotWidth / 256);
+
+            // Dibujar barras semi-transparentes para cada canal
+            g.setColor(new Color(255, 0, 0, 120));
+            g.fillRect(x, height - marginBottom - barHeightR, w, barHeightR);
+            g.setColor(new Color(0, 255, 0, 120));
+            g.fillRect(x, height - marginBottom - barHeightG, w, barHeightG);
+            g.setColor(new Color(0, 0, 255, 120));
+            g.fillRect(x, height - marginBottom - barHeightB, w, barHeightB);
         }
     }
 
@@ -603,6 +687,10 @@ public class ImagenVista extends javax.swing.JFrame {
         loadButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
+        showHistogramButton = new javax.swing.JButton();
+        labeled4Button = new javax.swing.JButton();
+        labeled8Button = new javax.swing.JButton();
+        countObjectsButton = new javax.swing.JButton();
         leftPanel = new javax.swing.JPanel();
         sliderPanel1 = new javax.swing.JPanel();
         brightnessSlider = new javax.swing.JSlider();
@@ -679,7 +767,7 @@ public class ImagenVista extends javax.swing.JFrame {
         equalizeHyperbolicLogarithmicButton = new javax.swing.JButton();
         nonlinearFilterPanel = new javax.swing.JPanel();
         minFilterButton = new javax.swing.JButton();
-        medianFilterButton1 = new javax.swing.JButton();
+        medianFilterButton = new javax.swing.JButton();
         maxFilterButton = new javax.swing.JButton();
         midpointFilterButton = new javax.swing.JButton();
         alphaTrimmedFilterButton = new javax.swing.JButton();
@@ -700,6 +788,8 @@ public class ImagenVista extends javax.swing.JFrame {
         BinaryClosingButton = new javax.swing.JButton();
         GrayScaleClosingButton = new javax.swing.JButton();
         GrayScaleOpeningButton = new javax.swing.JButton();
+        HitOrAndMissButton = new javax.swing.JButton();
+        WaterSheedsButton = new javax.swing.JButton();
         linearFilterPanel = new javax.swing.JPanel();
         homogeneityOperatorButton = new javax.swing.JButton();
         gradientFirstOrderButton = new javax.swing.JButton();
@@ -711,12 +801,10 @@ public class ImagenVista extends javax.swing.JFrame {
         laplacianButton = new javax.swing.JButton();
         prewittSecondOrderButton = new javax.swing.JButton();
         kirschButton = new javax.swing.JButton();
-        notButton1 = new javax.swing.JButton();
-        lessThanButton1 = new javax.swing.JButton();
-        lessThanOrEqualButton1 = new javax.swing.JButton();
-        greaterThanButton1 = new javax.swing.JButton();
-        histogramPanel = new javax.swing.JPanel();
-        showHistogramButton = new javax.swing.JButton();
+        robinsonButton = new javax.swing.JButton();
+        gaussianFilterButton = new javax.swing.JButton();
+        averageFilterButton = new javax.swing.JButton();
+        SharpenFilterButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(240, 240, 245));
@@ -735,6 +823,22 @@ public class ImagenVista extends javax.swing.JFrame {
         resetButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         resetButton.setText("Reset");
 
+        showHistogramButton.setBackground(new java.awt.Color(204, 204, 204));
+        showHistogramButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        showHistogramButton.setText("Mostrar Histograma");
+
+        labeled4Button.setBackground(new java.awt.Color(204, 204, 204));
+        labeled4Button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labeled4Button.setText("Etiquetado C4");
+
+        labeled8Button.setBackground(new java.awt.Color(204, 204, 204));
+        labeled8Button.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labeled8Button.setText("Etiquetado C8");
+
+        countObjectsButton.setBackground(new java.awt.Color(204, 204, 204));
+        countObjectsButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        countObjectsButton.setText("Contar Objetos");
+
         javax.swing.GroupLayout topPanelLayout = new javax.swing.GroupLayout(topPanel);
         topPanel.setLayout(topPanelLayout);
         topPanelLayout.setHorizontalGroup(
@@ -746,15 +850,28 @@ public class ImagenVista extends javax.swing.JFrame {
                 .addComponent(saveButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(showHistogramButton)
+                .addGap(18, 18, 18)
+                .addComponent(labeled4Button)
+                .addGap(18, 18, 18)
+                .addComponent(labeled8Button)
+                .addGap(18, 18, 18)
+                .addComponent(countObjectsButton)
+                .addGap(107, 107, 107))
         );
         topPanelLayout.setVerticalGroup(
             topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(loadButton, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                    .addComponent(loadButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(saveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(topPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(showHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labeled8Button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labeled4Button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(countObjectsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(resetButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -786,9 +903,9 @@ public class ImagenVista extends javax.swing.JFrame {
         sliderPanel1Layout.setVerticalGroup(
             sliderPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sliderPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addComponent(brightnessSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         sliderPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraste", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
@@ -814,9 +931,9 @@ public class ImagenVista extends javax.swing.JFrame {
         sliderPanel2Layout.setVerticalGroup(
             sliderPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sliderPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addComponent(contrastSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout leftPanelLayout = new javax.swing.GroupLayout(leftPanel);
@@ -834,16 +951,18 @@ public class ImagenVista extends javax.swing.JFrame {
             leftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(sliderPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
-                .addComponent(sliderPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(sliderPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(sliderPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         imageScrollPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Imagen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
 
         imageLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         imageScrollPane.setViewportView(imageLabel);
+
+        rightPanel.setPreferredSize(new java.awt.Dimension(330, 582));
 
         grayButton.setBackground(new java.awt.Color(204, 204, 204));
         grayButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -882,46 +1001,46 @@ public class ImagenVista extends javax.swing.JFrame {
         filterPanelLayout.setHorizontalGroup(
             filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(filterPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(filterPanelLayout.createSequentialGroup()
                         .addComponent(grayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(redButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(filterPanelLayout.createSequentialGroup()
                         .addComponent(greenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(blueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(filterPanelLayout.createSequentialGroup()
                         .addComponent(yiqButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(hsvButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(filterPanelLayout.createSequentialGroup()
                         .addComponent(hsiButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cannyEdgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         filterPanelLayout.setVerticalGroup(
             filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(filterPanelLayout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
                 .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(grayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(redButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(grayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(redButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(greenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(blueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(greenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(blueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(yiqButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hsvButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(yiqButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hsvButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(filterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hsiButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cannyEdgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                    .addComponent(hsiButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cannyEdgeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(239, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Filtros", filterPanel);
@@ -967,51 +1086,50 @@ public class ImagenVista extends javax.swing.JFrame {
         noisePanelLayout.setHorizontalGroup(
             noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(noisePanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(noisePanelLayout.createSequentialGroup()
-                        .addComponent(uniformNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(rayleighNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(noisePanelLayout.createSequentialGroup()
-                        .addComponent(exponentialNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(gammaNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(noisePanelLayout.createSequentialGroup()
                         .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(gaussianNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(coherentNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(saltPepperNoiseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(saltNoiseButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(saltPepperNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(saltNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(noisePanelLayout.createSequentialGroup()
-                        .addComponent(pepperNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(uniformNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pepperNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(rayleighNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(noisePanelLayout.createSequentialGroup()
+                        .addComponent(exponentialNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(gammaNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         noisePanelLayout.setVerticalGroup(
             noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(noisePanelLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(gaussianNoiseButton, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
-                    .addComponent(saltPepperNoiseButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(gaussianNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saltPepperNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(uniformNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rayleighNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(uniformNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rayleighNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(exponentialNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(gammaNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(exponentialNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gammaNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(noisePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(coherentNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saltNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(coherentNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saltNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(pepperNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pepperNoiseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Ruidos", noisePanel);
@@ -1065,61 +1183,61 @@ public class ImagenVista extends javax.swing.JFrame {
         conversionPanelLayout.setHorizontalGroup(
             conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(conversionPanelLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(conversionPanelLayout.createSequentialGroup()
-                            .addComponent(hsvToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hsvToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(rgbToLabButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(rgbToLabButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(conversionPanelLayout.createSequentialGroup()
-                                    .addComponent(cmyToCMYKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmyToCMYKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(rgbToHSVButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(rgbToHSVButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(conversionPanelLayout.createSequentialGroup()
-                                    .addComponent(rgbToHSIButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rgbToHSIButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(hsiToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(hsiToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(conversionPanelLayout.createSequentialGroup()
-                                    .addComponent(rgbToYIQButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rgbToYIQButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(yiqToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(yiqToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(conversionPanelLayout.createSequentialGroup()
-                                    .addComponent(rgbToCMYButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(rgbToCMYButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cmyToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                                    .addComponent(cmyToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         conversionPanelLayout.setVerticalGroup(
             conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(conversionPanelLayout.createSequentialGroup()
-                .addContainerGap(78, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rgbToCMYButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmyToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(rgbToCMYButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmyToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rgbToYIQButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(yiqToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rgbToHSIButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hsiToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmyToCMYKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rgbToHSVButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rgbToYIQButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(yiqToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rgbToHSIButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(hsiToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmyToCMYKButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rgbToHSVButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(conversionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(hsvToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rgbToLabButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                    .addComponent(hsvToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rgbToLabButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addComponent(labToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Conversiones", conversionPanel);
@@ -1149,35 +1267,33 @@ public class ImagenVista extends javax.swing.JFrame {
         binarizationPanelLayout.setHorizontalGroup(
             binarizationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(binarizationPanelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(14, Short.MAX_VALUE)
                 .addGroup(binarizationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, binarizationPanelLayout.createSequentialGroup()
-                        .addComponent(binarization1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(binarization2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, binarizationPanelLayout.createSequentialGroup()
-                        .addComponent(binarization3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(invertBinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(binarizationToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(binarizationPanelLayout.createSequentialGroup()
-                        .addComponent(binarizationToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(binarization1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(binarization2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(binarizationPanelLayout.createSequentialGroup()
+                        .addComponent(binarization3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(invertBinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         binarizationPanelLayout.setVerticalGroup(
             binarizationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(binarizationPanelLayout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(binarizationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(binarization1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(binarization2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(binarization1Button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(binarization2Button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(binarizationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(binarization3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(invertBinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(binarization3Button, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(invertBinButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(binarizationToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addComponent(binarizationToRGBButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Binarización", binarizationPanel);
@@ -1255,81 +1371,81 @@ public class ImagenVista extends javax.swing.JFrame {
         operationPanelLayout.setHorizontalGroup(
             operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(operationPanelLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(translationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(translationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rotationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(rotationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(interpolationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(interpolationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sumButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(sumButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(multiplicationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(multiplicationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(divisionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(divisionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(andButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(andButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(orButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(orButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(xorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(xorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(notButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(notButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lessThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lessThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(lessThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lessThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(greaterThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(greaterThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(operationPanelLayout.createSequentialGroup()
-                        .addComponent(greaterThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(greaterThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(equalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(notEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                        .addComponent(equalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(notEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         operationPanelLayout.setVerticalGroup(
             operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(operationPanelLayout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(translationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rotationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(translationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rotationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(interpolationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sumButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(interpolationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sumButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(multiplicationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(subtractionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(multiplicationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(divisionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(andButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(divisionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(andButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(xorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(orButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(xorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(notButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lessThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(notButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lessThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lessThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(greaterThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lessThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(greaterThanButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(operationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(greaterThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(equalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(greaterThanOrEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(equalButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(notEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addComponent(notEqualButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Operaciones", operationPanel);
@@ -1355,26 +1471,28 @@ public class ImagenVista extends javax.swing.JFrame {
         modHistogramPanelLayout.setHorizontalGroup(
             modHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modHistogramPanelLayout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(modHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(shiftHistogramButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scaleHistogramButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(equalizeHistogramButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(matchHistogramButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(81, Short.MAX_VALUE))
+                    .addComponent(equalizeHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shiftHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(modHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scaleHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(matchHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         modHistogramPanelLayout.setVerticalGroup(
             modHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(modHistogramPanelLayout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addComponent(shiftHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(scaleHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(equalizeHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
-                .addComponent(matchHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(modHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(shiftHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scaleHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(modHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(equalizeHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(matchHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(366, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Mod. Histogramas", modHistogramPanel);
@@ -1405,34 +1523,30 @@ public class ImagenVista extends javax.swing.JFrame {
             EqHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EqHistogramPanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(EqHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(equalizeHyperbolicLogarithmicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(equalizeRayleighButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(equalizeUniformButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(EqHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EqHistogramPanelLayout.createSequentialGroup()
-                        .addComponent(equalizeUniformButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                        .addComponent(equalizeExponentialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EqHistogramPanelLayout.createSequentialGroup()
-                        .addComponent(equalizeRayleighButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(equalizeHyperbolicRootsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(EqHistogramPanelLayout.createSequentialGroup()
-                        .addComponent(equalizeHyperbolicLogarithmicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(equalizeExponentialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(equalizeHyperbolicRootsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         EqHistogramPanelLayout.setVerticalGroup(
             EqHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EqHistogramPanelLayout.createSequentialGroup()
-                .addContainerGap(97, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(EqHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(equalizeUniformButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(equalizeExponentialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(equalizeUniformButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(equalizeExponentialButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(EqHistogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(equalizeRayleighButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(equalizeHyperbolicRootsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(equalizeRayleighButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(equalizeHyperbolicRootsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(equalizeHyperbolicLogarithmicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(97, Short.MAX_VALUE))
+                .addComponent(equalizeHyperbolicLogarithmicButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("EQ Histogramas", EqHistogramPanel);
@@ -1441,9 +1555,9 @@ public class ImagenVista extends javax.swing.JFrame {
         minFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         minFilterButton.setText("Filtro del Mínimo");
 
-        medianFilterButton1.setBackground(new java.awt.Color(204, 204, 204));
-        medianFilterButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        medianFilterButton1.setText("Filtro de Mediana");
+        medianFilterButton.setBackground(new java.awt.Color(204, 204, 204));
+        medianFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        medianFilterButton.setText("Filtro de Mediana");
 
         maxFilterButton.setBackground(new java.awt.Color(204, 204, 204));
         maxFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -1494,56 +1608,56 @@ public class ImagenVista extends javax.swing.JFrame {
         nonlinearFilterPanelLayout.setHorizontalGroup(
             nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nonlinearFilterPanelLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(compararFiltrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contraGeometricMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(maxMinFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contraHarmonicFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(alphaTrimmedFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(maxFilterButton)
-                    .addComponent(medianFilterButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                    .addComponent(compararFiltrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contraGeometricMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxMinFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contraHarmonicFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(alphaTrimmedFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(maxFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(medianFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(minFilterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(midpointFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                        .addComponent(midpointFilterButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(harmonicMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                         .addComponent(geometricMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                    .addComponent(arithmeticMeanFilterButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modeFilterButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                    .addComponent(arithmeticMeanFilterButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modeFilterButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         nonlinearFilterPanelLayout.setVerticalGroup(
             nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(nonlinearFilterPanelLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(minFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(medianFilterButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(minFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(medianFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maxFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(midpointFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(midpointFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(alphaTrimmedFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(harmonicMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(alphaTrimmedFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(harmonicMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contraHarmonicFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(geometricMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contraHarmonicFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(geometricMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maxMinFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(arithmeticMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(maxMinFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(arithmeticMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(nonlinearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contraGeometricMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(modeFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contraGeometricMeanFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modeFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(compararFiltrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+                .addComponent(compararFiltrosButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Filtros no lineales", nonlinearFilterPanel);
@@ -1581,51 +1695,67 @@ public class ImagenVista extends javax.swing.JFrame {
         GrayScaleOpeningButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         GrayScaleOpeningButton.setText("Apertura Escala Grises");
 
+        HitOrAndMissButton.setBackground(new java.awt.Color(204, 204, 204));
+        HitOrAndMissButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        HitOrAndMissButton.setText("Transformada HM");
+
+        WaterSheedsButton.setBackground(new java.awt.Color(204, 204, 204));
+        WaterSheedsButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        WaterSheedsButton.setText("Transformada WS");
+
         javax.swing.GroupLayout MorfologiaPanelLayout = new javax.swing.GroupLayout(MorfologiaPanel);
         MorfologiaPanel.setLayout(MorfologiaPanelLayout);
         MorfologiaPanelLayout.setHorizontalGroup(
             MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MorfologiaPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
                 .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(MorfologiaPanelLayout.createSequentialGroup()
-                        .addComponent(GrayScaleOpeningButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(GrayScaleOpeningButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(GrayScaleClosingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(GrayScaleClosingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(MorfologiaPanelLayout.createSequentialGroup()
-                        .addComponent(BinaryErotionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(BinaryErotionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(BinaryDilationButton))
+                        .addComponent(BinaryDilationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(MorfologiaPanelLayout.createSequentialGroup()
                         .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(GrayScaleErotionButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(BinaryOpeningButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
+                            .addComponent(BinaryOpeningButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BinaryClosingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(GrayScaleDilationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                            .addComponent(BinaryClosingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GrayScaleDilationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(MorfologiaPanelLayout.createSequentialGroup()
+                        .addComponent(HitOrAndMissButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(WaterSheedsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         MorfologiaPanelLayout.setVerticalGroup(
             MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(MorfologiaPanelLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BinaryErotionButton)
-                    .addComponent(BinaryDilationButton))
+                    .addComponent(BinaryErotionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BinaryDilationButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BinaryOpeningButton)
-                    .addComponent(BinaryClosingButton))
+                    .addComponent(BinaryOpeningButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BinaryClosingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(GrayScaleErotionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(GrayScaleDilationButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(GrayScaleErotionButton, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(GrayScaleDilationButton, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GrayScaleOpeningButton)
-                    .addComponent(GrayScaleClosingButton))
-                .addContainerGap(472, Short.MAX_VALUE))
+                    .addComponent(GrayScaleOpeningButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(GrayScaleClosingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(MorfologiaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(HitOrAndMissButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(WaterSheedsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Morfologias", MorfologiaPanel);
@@ -1671,123 +1801,88 @@ public class ImagenVista extends javax.swing.JFrame {
         kirschButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         kirschButton.setText("Filtro Kirsch");
 
-        notButton1.setBackground(new java.awt.Color(204, 204, 204));
-        notButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        notButton1.setText("Filtro Robinson");
+        robinsonButton.setBackground(new java.awt.Color(204, 204, 204));
+        robinsonButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        robinsonButton.setText("Filtro Robinson");
 
-        lessThanButton1.setBackground(new java.awt.Color(204, 204, 204));
-        lessThanButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lessThanButton1.setText("<");
+        gaussianFilterButton.setBackground(new java.awt.Color(204, 204, 204));
+        gaussianFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        gaussianFilterButton.setText("Filtro Gaussiano");
 
-        lessThanOrEqualButton1.setBackground(new java.awt.Color(204, 204, 204));
-        lessThanOrEqualButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lessThanOrEqualButton1.setText("<=");
+        averageFilterButton.setBackground(new java.awt.Color(204, 204, 204));
+        averageFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        averageFilterButton.setText("Filtro Promediador");
 
-        greaterThanButton1.setBackground(new java.awt.Color(204, 204, 204));
-        greaterThanButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        greaterThanButton1.setText(">");
+        SharpenFilterButton.setBackground(new java.awt.Color(204, 204, 204));
+        SharpenFilterButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        SharpenFilterButton.setText("Filtro Afilado");
 
         javax.swing.GroupLayout linearFilterPanelLayout = new javax.swing.GroupLayout(linearFilterPanel);
         linearFilterPanel.setLayout(linearFilterPanelLayout);
         linearFilterPanelLayout.setHorizontalGroup(
             linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 337, Short.MAX_VALUE)
-            .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                    .addGap(15, 15, 15)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                            .addComponent(homogeneityOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(gradientFirstOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                            .addComponent(differenceOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(prewittButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                            .addComponent(sobelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(freiChenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                            .addComponent(compassGradientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(laplacianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                            .addComponent(prewittSecondOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(kirschButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                            .addComponent(notButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(lessThanButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                            .addComponent(lessThanOrEqualButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(greaterThanButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(16, Short.MAX_VALUE)))
+            .addGroup(linearFilterPanelLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(linearFilterPanelLayout.createSequentialGroup()
+                        .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(differenceOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(homogeneityOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(prewittButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gradientFirstOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(linearFilterPanelLayout.createSequentialGroup()
+                        .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(compassGradientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sobelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(prewittSecondOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(robinsonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(averageFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(freiChenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(laplacianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kirschButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(gaussianFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SharpenFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         linearFilterPanelLayout.setVerticalGroup(
             linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
-            .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(linearFilterPanelLayout.createSequentialGroup()
-                    .addGap(115, 115, 115)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(homogeneityOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(gradientFirstOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(differenceOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(prewittButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(sobelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(freiChenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(compassGradientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(laplacianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(prewittSecondOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(kirschButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(notButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lessThanButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lessThanOrEqualButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(greaterThanButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(94, Short.MAX_VALUE)))
+            .addGroup(linearFilterPanelLayout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(homogeneityOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(gradientFirstOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(differenceOperatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(prewittButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(freiChenButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sobelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(compassGradientButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(laplacianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(prewittSecondOrderButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(kirschButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(gaussianFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(robinsonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(linearFilterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(averageFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SharpenFilterButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         rightPanel.addTab("Filtros Lineales", linearFilterPanel);
-
-        histogramPanel.setBackground(new java.awt.Color(245, 245, 250));
-        histogramPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Histograma General", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
-        histogramPanel.setName(""); // NOI18N
-
-        showHistogramButton.setBackground(new java.awt.Color(204, 204, 204));
-        showHistogramButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        showHistogramButton.setText("Mostrar Histograma");
-
-        javax.swing.GroupLayout histogramPanelLayout = new javax.swing.GroupLayout(histogramPanel);
-        histogramPanel.setLayout(histogramPanelLayout);
-        histogramPanelLayout.setHorizontalGroup(
-            histogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, histogramPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(showHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        histogramPanelLayout.setVerticalGroup(
-            histogramPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, histogramPanelLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(showHistogramButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1795,29 +1890,24 @@ public class ImagenVista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(topPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(imageScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 877, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(histogramPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(imageScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(topPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(leftPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rightPanel)
-                    .addComponent(imageScrollPane))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(histogramPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(leftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(imageScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1867,10 +1957,14 @@ public class ImagenVista extends javax.swing.JFrame {
     private javax.swing.JButton GrayScaleDilationButton;
     private javax.swing.JButton GrayScaleErotionButton;
     private javax.swing.JButton GrayScaleOpeningButton;
+    private javax.swing.JButton HitOrAndMissButton;
     private javax.swing.JPanel MorfologiaPanel;
+    private javax.swing.JButton SharpenFilterButton;
+    private javax.swing.JButton WaterSheedsButton;
     private javax.swing.JButton alphaTrimmedFilterButton;
     private javax.swing.JButton andButton;
     private javax.swing.JButton arithmeticMeanFilterButton;
+    private javax.swing.JButton averageFilterButton;
     private javax.swing.JButton binarization1Button;
     private javax.swing.JButton binarization2Button;
     private javax.swing.JButton binarization3Button;
@@ -1888,6 +1982,7 @@ public class ImagenVista extends javax.swing.JFrame {
     private javax.swing.JButton contraHarmonicFilterButton;
     private javax.swing.JSlider contrastSlider;
     private javax.swing.JPanel conversionPanel;
+    private javax.swing.JButton countObjectsButton;
     private javax.swing.JButton differenceOperatorButton;
     private javax.swing.JButton divisionButton;
     private javax.swing.JButton equalButton;
@@ -1901,16 +1996,15 @@ public class ImagenVista extends javax.swing.JFrame {
     private javax.swing.JPanel filterPanel;
     private javax.swing.JButton freiChenButton;
     private javax.swing.JButton gammaNoiseButton;
+    private javax.swing.JButton gaussianFilterButton;
     private javax.swing.JButton gaussianNoiseButton;
     private javax.swing.JButton geometricMeanFilterButton;
     private javax.swing.JButton gradientFirstOrderButton;
     private javax.swing.JButton grayButton;
     private javax.swing.JButton greaterThanButton;
-    private javax.swing.JButton greaterThanButton1;
     private javax.swing.JButton greaterThanOrEqualButton;
     private javax.swing.JButton greenButton;
     private javax.swing.JButton harmonicMeanFilterButton;
-    private javax.swing.JPanel histogramPanel;
     private javax.swing.JButton homogeneityOperatorButton;
     private javax.swing.JButton hsiButton1;
     private javax.swing.JButton hsiToRGBButton;
@@ -1922,18 +2016,18 @@ public class ImagenVista extends javax.swing.JFrame {
     private javax.swing.JButton invertBinButton;
     private javax.swing.JButton kirschButton;
     private javax.swing.JButton labToRGBButton;
+    private javax.swing.JButton labeled4Button;
+    private javax.swing.JButton labeled8Button;
     private javax.swing.JButton laplacianButton;
     private javax.swing.JPanel leftPanel;
     private javax.swing.JButton lessThanButton;
-    private javax.swing.JButton lessThanButton1;
     private javax.swing.JButton lessThanOrEqualButton;
-    private javax.swing.JButton lessThanOrEqualButton1;
     private javax.swing.JPanel linearFilterPanel;
     private javax.swing.JButton loadButton;
     private javax.swing.JButton matchHistogramButton;
     private javax.swing.JButton maxFilterButton;
     private javax.swing.JButton maxMinFilterButton;
-    private javax.swing.JButton medianFilterButton1;
+    private javax.swing.JButton medianFilterButton;
     private javax.swing.JButton midpointFilterButton;
     private javax.swing.JButton minFilterButton;
     private javax.swing.JPanel modHistogramPanel;
@@ -1942,7 +2036,6 @@ public class ImagenVista extends javax.swing.JFrame {
     private javax.swing.JPanel noisePanel;
     private javax.swing.JPanel nonlinearFilterPanel;
     private javax.swing.JButton notButton;
-    private javax.swing.JButton notButton1;
     private javax.swing.JButton notEqualButton;
     private javax.swing.JPanel operationPanel;
     private javax.swing.JButton orButton;
@@ -1958,6 +2051,7 @@ public class ImagenVista extends javax.swing.JFrame {
     private javax.swing.JButton rgbToLabButton;
     private javax.swing.JButton rgbToYIQButton;
     private javax.swing.JTabbedPane rightPanel;
+    private javax.swing.JButton robinsonButton;
     private javax.swing.JButton rotationButton;
     private javax.swing.JButton saltNoiseButton;
     private javax.swing.JButton saltPepperNoiseButton;
